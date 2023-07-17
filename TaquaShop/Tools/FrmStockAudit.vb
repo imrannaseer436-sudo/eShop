@@ -14,7 +14,7 @@ Public Class FrmStockAudit
     Private Async Sub BtnDisplay_Click(sender As Object, e As EventArgs) Handles BtnDisplay.Click
 
         PBLoading.Minimum = 0
-        PBLoading.Maximum = 200
+        PBLoading.Maximum = 300
 
         SQL = $"SELECT P.PluId,P.Plucode,A.Department + '->' + A.Category,P.Pluname, P.Id,
             P.CostPrice, S.Stock
