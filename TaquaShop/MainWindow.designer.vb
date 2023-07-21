@@ -23,8 +23,8 @@ Partial Class MainWindow
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(MainWindow))
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.lblAppName = New System.Windows.Forms.Label()
         Me.CustomizableMenuStrip1 = New CustomizableStrips.CustomizableMenuStrip()
@@ -118,7 +118,7 @@ Partial Class MainWindow
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel1.Location = New System.Drawing.Point(3, 3)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(196, 29)
+        Me.Panel1.Size = New System.Drawing.Size(316, 29)
         Me.Panel1.TabIndex = 0
         '
         'lblAppName
@@ -130,7 +130,7 @@ Partial Class MainWindow
         Me.lblAppName.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.lblAppName.Location = New System.Drawing.Point(0, 0)
         Me.lblAppName.Name = "lblAppName"
-        Me.lblAppName.Size = New System.Drawing.Size(196, 29)
+        Me.lblAppName.Size = New System.Drawing.Size(316, 29)
         Me.lblAppName.TabIndex = 1
         Me.lblAppName.Text = "      eShop"
         Me.lblAppName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -141,9 +141,9 @@ Partial Class MainWindow
         Me.CustomizableMenuStrip1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.CustomizableMenuStrip1.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.CustomizableMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MASTERToolStripMenuItem, Me.TRANSACTIONSToolStripMenuItem, Me.TOOLSToolStripMenuItem, Me.ToolsToolStripMenuItem1, Me.SETTINGSToolStripMenuItem, Me.LOGOUTToolStripMenuItem, Me.SayGoodbyeToolStripMenuItem})
-        Me.CustomizableMenuStrip1.Location = New System.Drawing.Point(202, 0)
+        Me.CustomizableMenuStrip1.Location = New System.Drawing.Point(322, 0)
         Me.CustomizableMenuStrip1.Name = "CustomizableMenuStrip1"
-        Me.CustomizableMenuStrip1.Size = New System.Drawing.Size(614, 35)
+        Me.CustomizableMenuStrip1.Size = New System.Drawing.Size(494, 35)
         Me.CustomizableMenuStrip1.TabIndex = 1
         Me.CustomizableMenuStrip1.Text = "CustomizableMenuStrip1"
         '
@@ -244,7 +244,7 @@ Partial Class MainWindow
         '
         Me.PRODUCTSToolStripMenuItem.BackColor = System.Drawing.Color.White
         Me.PRODUCTSToolStripMenuItem.Name = "PRODUCTSToolStripMenuItem"
-        Me.PRODUCTSToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.PRODUCTSToolStripMenuItem.Size = New System.Drawing.Size(155, 22)
         Me.PRODUCTSToolStripMenuItem.Text = "PRODUCTS"
         '
         'CATEGORYToolStripMenuItem
@@ -252,14 +252,14 @@ Partial Class MainWindow
         Me.CATEGORYToolStripMenuItem.BackColor = System.Drawing.Color.White
         Me.CATEGORYToolStripMenuItem.Enabled = False
         Me.CATEGORYToolStripMenuItem.Name = "CATEGORYToolStripMenuItem"
-        Me.CATEGORYToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.CATEGORYToolStripMenuItem.Size = New System.Drawing.Size(155, 22)
         Me.CATEGORYToolStripMenuItem.Text = "CATEGORY"
         '
         'CUSTOMERSToolStripMenuItem
         '
         Me.CUSTOMERSToolStripMenuItem.BackColor = System.Drawing.Color.White
         Me.CUSTOMERSToolStripMenuItem.Name = "CUSTOMERSToolStripMenuItem"
-        Me.CUSTOMERSToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.CUSTOMERSToolStripMenuItem.Size = New System.Drawing.Size(155, 22)
         Me.CUSTOMERSToolStripMenuItem.Text = "CUSTOMERS"
         '
         'SHOPSToolStripMenuItem
@@ -267,21 +267,21 @@ Partial Class MainWindow
         Me.SHOPSToolStripMenuItem.BackColor = System.Drawing.Color.White
         Me.SHOPSToolStripMenuItem.Enabled = False
         Me.SHOPSToolStripMenuItem.Name = "SHOPSToolStripMenuItem"
-        Me.SHOPSToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.SHOPSToolStripMenuItem.Size = New System.Drawing.Size(155, 22)
         Me.SHOPSToolStripMenuItem.Text = "SHOPS"
         '
         'TERMINALSToolStripMenuItem
         '
         Me.TERMINALSToolStripMenuItem.BackColor = System.Drawing.Color.White
         Me.TERMINALSToolStripMenuItem.Name = "TERMINALSToolStripMenuItem"
-        Me.TERMINALSToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.TERMINALSToolStripMenuItem.Size = New System.Drawing.Size(155, 22)
         Me.TERMINALSToolStripMenuItem.Text = "TERMINALS"
         '
         'PAYMENTTYPEToolStripMenuItem
         '
         Me.PAYMENTTYPEToolStripMenuItem.BackColor = System.Drawing.Color.White
         Me.PAYMENTTYPEToolStripMenuItem.Name = "PAYMENTTYPEToolStripMenuItem"
-        Me.PAYMENTTYPEToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.PAYMENTTYPEToolStripMenuItem.Size = New System.Drawing.Size(155, 22)
         Me.PAYMENTTYPEToolStripMenuItem.Text = "PAYMENT TYPE"
         '
         'USERSToolStripMenuItem
@@ -289,14 +289,14 @@ Partial Class MainWindow
         Me.USERSToolStripMenuItem.BackColor = System.Drawing.Color.White
         Me.USERSToolStripMenuItem.Enabled = False
         Me.USERSToolStripMenuItem.Name = "USERSToolStripMenuItem"
-        Me.USERSToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.USERSToolStripMenuItem.Size = New System.Drawing.Size(155, 22)
         Me.USERSToolStripMenuItem.Text = "USERS"
         '
         'SALESCOMMISSIONToolStripMenuItem
         '
         Me.SALESCOMMISSIONToolStripMenuItem.BackColor = System.Drawing.Color.White
         Me.SALESCOMMISSIONToolStripMenuItem.Name = "SALESCOMMISSIONToolStripMenuItem"
-        Me.SALESCOMMISSIONToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.SALESCOMMISSIONToolStripMenuItem.Size = New System.Drawing.Size(155, 22)
         Me.SALESCOMMISSIONToolStripMenuItem.Text = "SALES PERSON"
         '
         'TRANSACTIONSToolStripMenuItem
@@ -736,14 +736,14 @@ Partial Class MainWindow
         Me.MenuList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.MenuList.ColumnHeadersVisible = False
         Me.MenuList.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Column1, Me.Column5, Me.Column4, Me.Column2, Me.Column3})
-        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(CType(CType(97, Byte), Integer), CType(CType(107, Byte), Integer), CType(CType(116, Byte), Integer))
-        DataGridViewCellStyle4.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle4.ForeColor = System.Drawing.Color.WhiteSmoke
-        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(39, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(59, Byte), Integer))
-        DataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.MenuList.DefaultCellStyle = DataGridViewCellStyle4
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(CType(CType(97, Byte), Integer), CType(CType(107, Byte), Integer), CType(CType(116, Byte), Integer))
+        DataGridViewCellStyle2.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle2.ForeColor = System.Drawing.Color.WhiteSmoke
+        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(39, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(59, Byte), Integer))
+        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.MenuList.DefaultCellStyle = DataGridViewCellStyle2
         Me.MenuList.Dock = System.Windows.Forms.DockStyle.Fill
         Me.MenuList.EnableHeadersVisualStyles = False
         Me.MenuList.GridColor = System.Drawing.Color.FromArgb(CType(CType(163, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(175, Byte), Integer))
@@ -774,11 +774,11 @@ Partial Class MainWindow
         '
         'Column4
         '
-        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(CType(CType(97, Byte), Integer), CType(CType(107, Byte), Integer), CType(CType(116, Byte), Integer))
-        DataGridViewCellStyle3.Font = New System.Drawing.Font("Segoe UI Symbol", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle3.ForeColor = System.Drawing.Color.White
-        Me.Column4.DefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(CType(CType(97, Byte), Integer), CType(CType(107, Byte), Integer), CType(CType(116, Byte), Integer))
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Segoe UI Symbol", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle1.ForeColor = System.Drawing.Color.White
+        Me.Column4.DefaultCellStyle = DataGridViewCellStyle1
         Me.Column4.HeaderText = "Icon"
         Me.Column4.Name = "Column4"
         Me.Column4.ReadOnly = True

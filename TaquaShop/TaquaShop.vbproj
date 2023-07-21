@@ -863,6 +863,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Transactions\ProductDelivery.resx">
       <DependentUpon>ProductDelivery.vb</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Transactions\ProductReceived.resx">
       <DependentUpon>ProductReceived.vb</DependentUpon>
