@@ -408,12 +408,6 @@
     <Compile Include="Tools\frmReportViewer.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Tools\frmStockAudit%28Ashiq%29.Designer.vb">
-      <DependentUpon>frmStockAudit%28Ashiq%29.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Tools\frmStockAudit%28Ashiq%29.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="Tools\FrmStockAudit.Designer.vb">
       <DependentUpon>FrmStockAudit.vb</DependentUpon>
     </Compile>
@@ -783,9 +777,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Tools\frmReportViewer.resx">
       <DependentUpon>frmReportViewer.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Tools\frmStockAudit%28Ashiq%29.resx">
-      <DependentUpon>frmStockAudit%28Ashiq%29.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Tools\FrmStockAudit.resx">
       <DependentUpon>FrmStockAudit.vb</DependentUpon>
