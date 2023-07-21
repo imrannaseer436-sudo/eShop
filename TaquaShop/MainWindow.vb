@@ -174,7 +174,7 @@ Public Class MainWindow
     Private Sub STOCKUPDATERToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles STOCKUPDATERToolStripMenuItem.Click
 
         'LaunchForm(StockUpdater)
-        LaunchForm(FrmStockAudit)
+        LaunchForm(FrmStockAuditNew)
 
     End Sub
 
@@ -533,5 +533,7 @@ Public Class MainWindow
         LaunchForm(SalesReportCatWise)
 
     End Sub
+
+
 
 End Class
