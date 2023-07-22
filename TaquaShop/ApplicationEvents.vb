@@ -9,18 +9,17 @@
     ' NetworkAvailabilityChanged: Raised when the network connection is connected or disconnected.
     Partial Friend Class MyApplication
 
-        Public AppVersion As Short = 1165
+        Public AppVersion As Short = 1166
         Private VersionPath As String = ""
 
         Private Sub MyApplication_Startup(ByVal sender As Object, ByVal e As Microsoft.VisualBasic.ApplicationServices.StartupEventArgs) Handles Me.Startup
 
             'My.Application.MainForm = frmStockReportNew
-
-            program_updater(e)
+            program_updater(sender, e)
 
         End Sub
 
-        Private Sub program_updater(ByVal e As Microsoft.VisualBasic.ApplicationServices.StartupEventArgs)
+        Private Sub program_updater(ByVal sender As Object, ByVal e As Microsoft.VisualBasic.ApplicationServices.StartupEventArgs) Handles Me.Startup
 
             LoadVersionPath()
             If VersionPath = "" Then
