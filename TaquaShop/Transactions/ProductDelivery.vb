@@ -450,6 +450,7 @@ Public Class ProductDelivery
 
                     TG.Item(4, TG.Rows.Count - 1).Value = Format(.Item(4), "0.00")
                     TG.Item(5, TG.Rows.Count - 1).Value = Format(.Item(5), "0.00")
+                    TG.Item(6, TG.Rows.Count - 1).Value = Format(.Item(6), "0")
 
                 End While
 

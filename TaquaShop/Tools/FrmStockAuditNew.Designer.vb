@@ -22,258 +22,359 @@ Partial Class FrmStockAuditNew
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle41 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle42 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle48 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle43 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle44 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle45 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle46 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle47 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.ConsolePanel = New System.Windows.Forms.Panel()
+        Me.PBLoading = New System.Windows.Forms.ProgressBar()
         Me.DetailsPanel = New System.Windows.Forms.Panel()
-        Me.labelStock = New System.Windows.Forms.Label()
+        Me.Panel2 = New System.Windows.Forms.Panel()
+        Me.LblVariationCP = New System.Windows.Forms.Label()
+        Me.Label14 = New System.Windows.Forms.Label()
+        Me.LblStockCP = New System.Windows.Forms.Label()
         Me.Label9 = New System.Windows.Forms.Label()
-        Me.labelUpload = New System.Windows.Forms.Label()
+        Me.LblUploadCP = New System.Windows.Forms.Label()
+        Me.Label12 = New System.Windows.Forms.Label()
+        Me.LblStock = New System.Windows.Forms.Label()
         Me.Label8 = New System.Windows.Forms.Label()
-        Me.labelVariation = New System.Windows.Forms.Label()
-        Me.labelStockQty = New System.Windows.Forms.Label()
-        Me.btnSave = New FontAwesome.Sharp.IconButton()
-        Me.btnClose = New FontAwesome.Sharp.IconButton()
-        Me.btnUpload = New System.Windows.Forms.Button()
-        Me.btnDisplay = New System.Windows.Forms.Button()
-        Me.ProgressBar1 = New System.Windows.Forms.ProgressBar()
-        Me.ComboBox2 = New System.Windows.Forms.ComboBox()
-        Me.ComboBox1 = New System.Windows.Forms.ComboBox()
+        Me.LblVariation = New System.Windows.Forms.Label()
+        Me.Label6 = New System.Windows.Forms.Label()
+        Me.LblUpload = New System.Windows.Forms.Label()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.BtnSave = New FontAwesome.Sharp.IconButton()
+        Me.BtnClose = New FontAwesome.Sharp.IconButton()
+        Me.BtnUpload = New System.Windows.Forms.Button()
+        Me.BtnDisplay = New System.Windows.Forms.Button()
+        Me.CmbCat = New System.Windows.Forms.ComboBox()
+        Me.CmbDept = New System.Windows.Forms.ComboBox()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.Label4 = New System.Windows.Forms.Label()
-        Me.TextBox1 = New System.Windows.Forms.TextBox()
+        Me.TxtRemarks = New System.Windows.Forms.TextBox()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.TitlePanel = New System.Windows.Forms.Panel()
-        Me.IconTitle = New FontAwesome.Sharp.IconPictureBox()
+        Me.TitlePanel2 = New System.Windows.Forms.Panel()
+        Me.TitleIconBox = New FontAwesome.Sharp.IconPictureBox()
         Me.labelTitle = New System.Windows.Forms.Label()
         Me.GrdPanel = New System.Windows.Forms.Panel()
-        Me.MainTG = New System.Windows.Forms.DataGridView()
-        Me.Pluid = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Barcode = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Product = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Design = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Size = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Cost_Price = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Uploaded = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Variation = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.TG = New System.Windows.Forms.DataGridView()
+        Me.Column8 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column4 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column5 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column6 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column7 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column9 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column10 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column11 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.OFD = New System.Windows.Forms.OpenFileDialog()
         Me.ConsolePanel.SuspendLayout()
         Me.DetailsPanel.SuspendLayout()
         Me.TitlePanel.SuspendLayout()
-        CType(Me.IconTitle, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.TitlePanel2.SuspendLayout()
+        CType(Me.TitleIconBox, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GrdPanel.SuspendLayout()
-        CType(Me.MainTG, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.TG, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'ConsolePanel
         '
         Me.ConsolePanel.BackColor = System.Drawing.Color.White
+        Me.ConsolePanel.Controls.Add(Me.PBLoading)
         Me.ConsolePanel.Controls.Add(Me.DetailsPanel)
-        Me.ConsolePanel.Controls.Add(Me.btnSave)
-        Me.ConsolePanel.Controls.Add(Me.btnClose)
-        Me.ConsolePanel.Controls.Add(Me.btnUpload)
-        Me.ConsolePanel.Controls.Add(Me.btnDisplay)
-        Me.ConsolePanel.Controls.Add(Me.ProgressBar1)
-        Me.ConsolePanel.Controls.Add(Me.ComboBox2)
-        Me.ConsolePanel.Controls.Add(Me.ComboBox1)
+        Me.ConsolePanel.Controls.Add(Me.BtnSave)
+        Me.ConsolePanel.Controls.Add(Me.BtnClose)
+        Me.ConsolePanel.Controls.Add(Me.BtnUpload)
+        Me.ConsolePanel.Controls.Add(Me.BtnDisplay)
+        Me.ConsolePanel.Controls.Add(Me.CmbCat)
+        Me.ConsolePanel.Controls.Add(Me.CmbDept)
         Me.ConsolePanel.Controls.Add(Me.Panel1)
         Me.ConsolePanel.Controls.Add(Me.Label4)
-        Me.ConsolePanel.Controls.Add(Me.TextBox1)
+        Me.ConsolePanel.Controls.Add(Me.TxtRemarks)
         Me.ConsolePanel.Controls.Add(Me.Label3)
         Me.ConsolePanel.Controls.Add(Me.Label1)
         Me.ConsolePanel.Controls.Add(Me.Label2)
         Me.ConsolePanel.Dock = System.Windows.Forms.DockStyle.Top
-        Me.ConsolePanel.Location = New System.Drawing.Point(0, 41)
+        Me.ConsolePanel.Location = New System.Drawing.Point(0, 35)
         Me.ConsolePanel.Margin = New System.Windows.Forms.Padding(2)
         Me.ConsolePanel.Name = "ConsolePanel"
-        Me.ConsolePanel.Size = New System.Drawing.Size(1144, 186)
+        Me.ConsolePanel.Size = New System.Drawing.Size(1144, 179)
         Me.ConsolePanel.TabIndex = 1
+        '
+        'PBLoading
+        '
+        Me.PBLoading.BackColor = System.Drawing.Color.White
+        Me.PBLoading.Location = New System.Drawing.Point(400, 127)
+        Me.PBLoading.Margin = New System.Windows.Forms.Padding(2)
+        Me.PBLoading.Name = "PBLoading"
+        Me.PBLoading.Size = New System.Drawing.Size(318, 25)
+        Me.PBLoading.TabIndex = 36
+        Me.PBLoading.Visible = False
         '
         'DetailsPanel
         '
-        Me.DetailsPanel.Controls.Add(Me.labelStock)
+        Me.DetailsPanel.Anchor = System.Windows.Forms.AnchorStyles.Right
+        Me.DetailsPanel.BackColor = System.Drawing.Color.FromArgb(CType(CType(229, Byte), Integer), CType(CType(239, Byte), Integer), CType(CType(253, Byte), Integer))
+        Me.DetailsPanel.Controls.Add(Me.Panel2)
+        Me.DetailsPanel.Controls.Add(Me.LblVariationCP)
+        Me.DetailsPanel.Controls.Add(Me.Label14)
+        Me.DetailsPanel.Controls.Add(Me.LblStockCP)
         Me.DetailsPanel.Controls.Add(Me.Label9)
-        Me.DetailsPanel.Controls.Add(Me.labelUpload)
+        Me.DetailsPanel.Controls.Add(Me.LblUploadCP)
+        Me.DetailsPanel.Controls.Add(Me.Label12)
+        Me.DetailsPanel.Controls.Add(Me.LblStock)
         Me.DetailsPanel.Controls.Add(Me.Label8)
-        Me.DetailsPanel.Controls.Add(Me.labelVariation)
-        Me.DetailsPanel.Controls.Add(Me.labelStockQty)
-        Me.DetailsPanel.Location = New System.Drawing.Point(895, 26)
+        Me.DetailsPanel.Controls.Add(Me.LblVariation)
+        Me.DetailsPanel.Controls.Add(Me.Label6)
+        Me.DetailsPanel.Controls.Add(Me.LblUpload)
+        Me.DetailsPanel.Controls.Add(Me.Label5)
+        Me.DetailsPanel.Location = New System.Drawing.Point(724, 12)
         Me.DetailsPanel.Name = "DetailsPanel"
-        Me.DetailsPanel.Size = New System.Drawing.Size(206, 133)
+        Me.DetailsPanel.Size = New System.Drawing.Size(408, 154)
         Me.DetailsPanel.TabIndex = 43
         '
-        'labelStock
+        'Panel2
         '
-        Me.labelStock.AutoSize = True
-        Me.labelStock.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.labelStock.ForeColor = System.Drawing.SystemColors.ControlDarkDark
-        Me.labelStock.Location = New System.Drawing.Point(30, 9)
-        Me.labelStock.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.labelStock.Name = "labelStock"
-        Me.labelStock.Size = New System.Drawing.Size(46, 17)
-        Me.labelStock.TabIndex = 37
-        Me.labelStock.Text = "STOCK"
+        Me.Panel2.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(120, Byte), Integer), CType(CType(215, Byte), Integer))
+        Me.Panel2.Location = New System.Drawing.Point(180, 22)
+        Me.Panel2.Name = "Panel2"
+        Me.Panel2.Size = New System.Drawing.Size(2, 110)
+        Me.Panel2.TabIndex = 48
+        '
+        'LblVariationCP
+        '
+        Me.LblVariationCP.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LblVariationCP.ForeColor = System.Drawing.Color.Green
+        Me.LblVariationCP.Location = New System.Drawing.Point(295, 90)
+        Me.LblVariationCP.Name = "LblVariationCP"
+        Me.LblVariationCP.Size = New System.Drawing.Size(102, 30)
+        Me.LblVariationCP.TabIndex = 47
+        Me.LblVariationCP.Text = "0.00"
+        Me.LblVariationCP.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'Label14
+        '
+        Me.Label14.AutoSize = True
+        Me.Label14.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label14.ForeColor = System.Drawing.Color.FromArgb(CType(CType(61, Byte), Integer), CType(CType(61, Byte), Integer), CType(CType(61, Byte), Integer))
+        Me.Label14.Location = New System.Drawing.Point(199, 98)
+        Me.Label14.Name = "Label14"
+        Me.Label14.Size = New System.Drawing.Size(70, 15)
+        Me.Label14.TabIndex = 46
+        Me.Label14.Text = "VARIATION"
+        '
+        'LblStockCP
+        '
+        Me.LblStockCP.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LblStockCP.ForeColor = System.Drawing.Color.DarkRed
+        Me.LblStockCP.Location = New System.Drawing.Point(295, 32)
+        Me.LblStockCP.Name = "LblStockCP"
+        Me.LblStockCP.Size = New System.Drawing.Size(102, 30)
+        Me.LblStockCP.TabIndex = 45
+        Me.LblStockCP.Text = "0.00"
+        Me.LblStockCP.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'Label9
         '
         Me.Label9.AutoSize = True
-        Me.Label9.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label9.ForeColor = System.Drawing.SystemColors.ControlDarkDark
-        Me.Label9.Location = New System.Drawing.Point(126, 106)
-        Me.Label9.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Label9.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label9.ForeColor = System.Drawing.Color.FromArgb(CType(CType(61, Byte), Integer), CType(CType(61, Byte), Integer), CType(CType(61, Byte), Integer))
+        Me.Label9.Location = New System.Drawing.Point(199, 40)
         Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(15, 17)
-        Me.Label9.TabIndex = 42
-        Me.Label9.Text = "0"
+        Me.Label9.Size = New System.Drawing.Size(84, 15)
+        Me.Label9.TabIndex = 44
+        Me.Label9.Text = "STOCK VALUE"
         '
-        'labelUpload
+        'LblUploadCP
         '
-        Me.labelUpload.AutoSize = True
-        Me.labelUpload.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.labelUpload.ForeColor = System.Drawing.SystemColors.ControlDarkDark
-        Me.labelUpload.Location = New System.Drawing.Point(30, 58)
-        Me.labelUpload.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.labelUpload.Name = "labelUpload"
-        Me.labelUpload.Size = New System.Drawing.Size(56, 17)
-        Me.labelUpload.TabIndex = 38
-        Me.labelUpload.Text = "UPLOAD"
+        Me.LblUploadCP.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LblUploadCP.ForeColor = System.Drawing.Color.Navy
+        Me.LblUploadCP.Location = New System.Drawing.Point(295, 61)
+        Me.LblUploadCP.Name = "LblUploadCP"
+        Me.LblUploadCP.Size = New System.Drawing.Size(102, 30)
+        Me.LblUploadCP.TabIndex = 43
+        Me.LblUploadCP.Text = "0.00"
+        Me.LblUploadCP.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'Label12
+        '
+        Me.Label12.AutoSize = True
+        Me.Label12.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label12.ForeColor = System.Drawing.Color.FromArgb(CType(CType(61, Byte), Integer), CType(CType(61, Byte), Integer), CType(CType(61, Byte), Integer))
+        Me.Label12.Location = New System.Drawing.Point(199, 69)
+        Me.Label12.Name = "Label12"
+        Me.Label12.Size = New System.Drawing.Size(94, 15)
+        Me.Label12.TabIndex = 42
+        Me.Label12.Text = "UPLOAD VALUE"
+        '
+        'LblStock
+        '
+        Me.LblStock.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LblStock.ForeColor = System.Drawing.Color.DarkRed
+        Me.LblStock.Location = New System.Drawing.Point(104, 32)
+        Me.LblStock.Name = "LblStock"
+        Me.LblStock.Size = New System.Drawing.Size(60, 30)
+        Me.LblStock.TabIndex = 41
+        Me.LblStock.Text = "0"
+        Me.LblStock.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'Label8
         '
         Me.Label8.AutoSize = True
-        Me.Label8.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label8.ForeColor = System.Drawing.SystemColors.ControlDarkDark
-        Me.Label8.Location = New System.Drawing.Point(126, 58)
-        Me.Label8.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Label8.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label8.ForeColor = System.Drawing.Color.FromArgb(CType(CType(61, Byte), Integer), CType(CType(61, Byte), Integer), CType(CType(61, Byte), Integer))
+        Me.Label8.Location = New System.Drawing.Point(24, 40)
         Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(15, 17)
-        Me.Label8.TabIndex = 41
-        Me.Label8.Text = "0"
+        Me.Label8.Size = New System.Drawing.Size(45, 15)
+        Me.Label8.TabIndex = 40
+        Me.Label8.Text = "STOCK"
         '
-        'labelVariation
+        'LblVariation
         '
-        Me.labelVariation.AutoSize = True
-        Me.labelVariation.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.labelVariation.ForeColor = System.Drawing.SystemColors.ControlDarkDark
-        Me.labelVariation.Location = New System.Drawing.Point(30, 106)
-        Me.labelVariation.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.labelVariation.Name = "labelVariation"
-        Me.labelVariation.Size = New System.Drawing.Size(71, 17)
-        Me.labelVariation.TabIndex = 39
-        Me.labelVariation.Text = "VARIATION"
+        Me.LblVariation.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LblVariation.ForeColor = System.Drawing.Color.Green
+        Me.LblVariation.Location = New System.Drawing.Point(105, 90)
+        Me.LblVariation.Name = "LblVariation"
+        Me.LblVariation.Size = New System.Drawing.Size(60, 30)
+        Me.LblVariation.TabIndex = 39
+        Me.LblVariation.Text = "0"
+        Me.LblVariation.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
-        'labelStockQty
+        'Label6
         '
-        Me.labelStockQty.AutoSize = True
-        Me.labelStockQty.Font = New System.Drawing.Font("Calibri", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.labelStockQty.ForeColor = System.Drawing.SystemColors.ControlDarkDark
-        Me.labelStockQty.Location = New System.Drawing.Point(126, 9)
-        Me.labelStockQty.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.labelStockQty.Name = "labelStockQty"
-        Me.labelStockQty.Size = New System.Drawing.Size(15, 17)
-        Me.labelStockQty.TabIndex = 40
-        Me.labelStockQty.Text = "0"
+        Me.Label6.AutoSize = True
+        Me.Label6.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label6.ForeColor = System.Drawing.Color.FromArgb(CType(CType(61, Byte), Integer), CType(CType(61, Byte), Integer), CType(CType(61, Byte), Integer))
+        Me.Label6.Location = New System.Drawing.Point(24, 98)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(70, 15)
+        Me.Label6.TabIndex = 38
+        Me.Label6.Text = "VARIATION"
         '
-        'btnSave
+        'LblUpload
         '
-        Me.btnSave.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(172, Byte), Integer), CType(CType(104, Byte), Integer))
-        Me.btnSave.FlatAppearance.BorderColor = System.Drawing.Color.Aquamarine
-        Me.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnSave.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnSave.ForeColor = System.Drawing.Color.Transparent
-        Me.btnSave.IconChar = FontAwesome.Sharp.IconChar.None
-        Me.btnSave.IconColor = System.Drawing.Color.Black
-        Me.btnSave.IconFont = FontAwesome.Sharp.IconFont.[Auto]
-        Me.btnSave.Location = New System.Drawing.Point(679, 131)
-        Me.btnSave.Margin = New System.Windows.Forms.Padding(2)
-        Me.btnSave.Name = "btnSave"
-        Me.btnSave.Size = New System.Drawing.Size(76, 28)
-        Me.btnSave.TabIndex = 35
-        Me.btnSave.Text = "SAVE"
-        Me.btnSave.UseVisualStyleBackColor = False
+        Me.LblUpload.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LblUpload.ForeColor = System.Drawing.Color.Navy
+        Me.LblUpload.Location = New System.Drawing.Point(105, 61)
+        Me.LblUpload.Name = "LblUpload"
+        Me.LblUpload.Size = New System.Drawing.Size(60, 30)
+        Me.LblUpload.TabIndex = 37
+        Me.LblUpload.Text = "0"
+        Me.LblUpload.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
-        'btnClose
+        'Label5
         '
-        Me.btnClose.BackColor = System.Drawing.Color.FromArgb(CType(CType(240, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(80, Byte), Integer))
-        Me.btnClose.FlatAppearance.BorderColor = System.Drawing.Color.LightPink
-        Me.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnClose.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnClose.ForeColor = System.Drawing.Color.Transparent
-        Me.btnClose.IconChar = FontAwesome.Sharp.IconChar.None
-        Me.btnClose.IconColor = System.Drawing.Color.Black
-        Me.btnClose.IconFont = FontAwesome.Sharp.IconFont.[Auto]
-        Me.btnClose.Location = New System.Drawing.Point(760, 131)
-        Me.btnClose.Margin = New System.Windows.Forms.Padding(2)
-        Me.btnClose.Name = "btnClose"
-        Me.btnClose.Size = New System.Drawing.Size(76, 28)
-        Me.btnClose.TabIndex = 34
-        Me.btnClose.Text = "CLOSE"
-        Me.btnClose.UseVisualStyleBackColor = False
+        Me.Label5.AutoSize = True
+        Me.Label5.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label5.ForeColor = System.Drawing.Color.FromArgb(CType(CType(61, Byte), Integer), CType(CType(61, Byte), Integer), CType(CType(61, Byte), Integer))
+        Me.Label5.Location = New System.Drawing.Point(24, 69)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(55, 15)
+        Me.Label5.TabIndex = 36
+        Me.Label5.Text = "UPLOAD"
         '
-        'btnUpload
+        'BtnSave
         '
-        Me.btnUpload.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(130, Byte), Integer), CType(CType(252, Byte), Integer))
-        Me.btnUpload.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(88, Byte), Integer), CType(CType(179, Byte), Integer), CType(CType(250, Byte), Integer))
-        Me.btnUpload.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnUpload.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnUpload.ForeColor = System.Drawing.Color.Transparent
-        Me.btnUpload.Location = New System.Drawing.Point(598, 131)
-        Me.btnUpload.Margin = New System.Windows.Forms.Padding(2)
-        Me.btnUpload.Name = "btnUpload"
-        Me.btnUpload.Size = New System.Drawing.Size(76, 28)
-        Me.btnUpload.TabIndex = 33
-        Me.btnUpload.Text = "UPLOAD"
-        Me.btnUpload.UseVisualStyleBackColor = False
+        Me.BtnSave.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(130, Byte), Integer), CType(CType(252, Byte), Integer))
+        Me.BtnSave.Enabled = False
+        Me.BtnSave.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(88, Byte), Integer), CType(CType(179, Byte), Integer), CType(CType(250, Byte), Integer))
+        Me.BtnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.BtnSave.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BtnSave.ForeColor = System.Drawing.Color.Transparent
+        Me.BtnSave.IconChar = FontAwesome.Sharp.IconChar.None
+        Me.BtnSave.IconColor = System.Drawing.Color.Black
+        Me.BtnSave.IconFont = FontAwesome.Sharp.IconFont.[Auto]
+        Me.BtnSave.Location = New System.Drawing.Point(562, 69)
+        Me.BtnSave.Margin = New System.Windows.Forms.Padding(2)
+        Me.BtnSave.Name = "BtnSave"
+        Me.BtnSave.Size = New System.Drawing.Size(76, 28)
+        Me.BtnSave.TabIndex = 5
+        Me.BtnSave.Text = "SAVE"
+        Me.BtnSave.UseVisualStyleBackColor = False
         '
-        'btnDisplay
+        'BtnClose
         '
-        Me.btnDisplay.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(130, Byte), Integer), CType(CType(252, Byte), Integer))
-        Me.btnDisplay.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(88, Byte), Integer), CType(CType(179, Byte), Integer), CType(CType(250, Byte), Integer))
-        Me.btnDisplay.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnDisplay.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnDisplay.ForeColor = System.Drawing.Color.Transparent
-        Me.btnDisplay.Location = New System.Drawing.Point(517, 131)
-        Me.btnDisplay.Margin = New System.Windows.Forms.Padding(2)
-        Me.btnDisplay.Name = "btnDisplay"
-        Me.btnDisplay.Size = New System.Drawing.Size(76, 28)
-        Me.btnDisplay.TabIndex = 32
-        Me.btnDisplay.Text = "DISPLAY"
-        Me.btnDisplay.UseVisualStyleBackColor = False
+        Me.BtnClose.BackColor = System.Drawing.Color.FromArgb(CType(CType(215, Byte), Integer), CType(CType(62, Byte), Integer), CType(CType(71, Byte), Integer))
+        Me.BtnClose.FlatAppearance.BorderColor = System.Drawing.Color.LightPink
+        Me.BtnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.BtnClose.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BtnClose.ForeColor = System.Drawing.Color.Transparent
+        Me.BtnClose.IconChar = FontAwesome.Sharp.IconChar.None
+        Me.BtnClose.IconColor = System.Drawing.Color.Black
+        Me.BtnClose.IconFont = FontAwesome.Sharp.IconFont.[Auto]
+        Me.BtnClose.Location = New System.Drawing.Point(643, 69)
+        Me.BtnClose.Margin = New System.Windows.Forms.Padding(2)
+        Me.BtnClose.Name = "BtnClose"
+        Me.BtnClose.Size = New System.Drawing.Size(76, 28)
+        Me.BtnClose.TabIndex = 6
+        Me.BtnClose.Text = "CLOSE"
+        Me.BtnClose.UseVisualStyleBackColor = False
         '
-        'ProgressBar1
+        'BtnUpload
         '
-        Me.ProgressBar1.Location = New System.Drawing.Point(517, 67)
-        Me.ProgressBar1.Margin = New System.Windows.Forms.Padding(2)
-        Me.ProgressBar1.Name = "ProgressBar1"
-        Me.ProgressBar1.Size = New System.Drawing.Size(319, 28)
-        Me.ProgressBar1.TabIndex = 36
+        Me.BtnUpload.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(130, Byte), Integer), CType(CType(252, Byte), Integer))
+        Me.BtnUpload.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(88, Byte), Integer), CType(CType(179, Byte), Integer), CType(CType(250, Byte), Integer))
+        Me.BtnUpload.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.BtnUpload.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BtnUpload.ForeColor = System.Drawing.Color.Transparent
+        Me.BtnUpload.Location = New System.Drawing.Point(481, 69)
+        Me.BtnUpload.Margin = New System.Windows.Forms.Padding(2)
+        Me.BtnUpload.Name = "BtnUpload"
+        Me.BtnUpload.Size = New System.Drawing.Size(76, 28)
+        Me.BtnUpload.TabIndex = 3
+        Me.BtnUpload.Text = "UPLOAD"
+        Me.BtnUpload.UseVisualStyleBackColor = False
         '
-        'ComboBox2
+        'BtnDisplay
         '
-        Me.ComboBox2.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ComboBox2.FormattingEnabled = True
-        Me.ComboBox2.Location = New System.Drawing.Point(243, 74)
-        Me.ComboBox2.Margin = New System.Windows.Forms.Padding(2)
-        Me.ComboBox2.Name = "ComboBox2"
-        Me.ComboBox2.Size = New System.Drawing.Size(213, 21)
-        Me.ComboBox2.TabIndex = 28
+        Me.BtnDisplay.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(130, Byte), Integer), CType(CType(252, Byte), Integer))
+        Me.BtnDisplay.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(88, Byte), Integer), CType(CType(179, Byte), Integer), CType(CType(250, Byte), Integer))
+        Me.BtnDisplay.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.BtnDisplay.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BtnDisplay.ForeColor = System.Drawing.Color.Transparent
+        Me.BtnDisplay.Location = New System.Drawing.Point(400, 69)
+        Me.BtnDisplay.Margin = New System.Windows.Forms.Padding(2)
+        Me.BtnDisplay.Name = "BtnDisplay"
+        Me.BtnDisplay.Size = New System.Drawing.Size(76, 28)
+        Me.BtnDisplay.TabIndex = 2
+        Me.BtnDisplay.Text = "DISPLAY"
+        Me.BtnDisplay.UseVisualStyleBackColor = False
         '
-        'ComboBox1
+        'CmbCat
         '
-        Me.ComboBox1.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ComboBox1.FormattingEnabled = True
-        Me.ComboBox1.Location = New System.Drawing.Point(11, 74)
-        Me.ComboBox1.Margin = New System.Windows.Forms.Padding(2)
-        Me.ComboBox1.Name = "ComboBox1"
-        Me.ComboBox1.Size = New System.Drawing.Size(213, 21)
-        Me.ComboBox1.TabIndex = 27
+        Me.CmbCat.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CmbCat.ForeColor = System.Drawing.Color.FromArgb(CType(CType(61, Byte), Integer), CType(CType(61, Byte), Integer), CType(CType(61, Byte), Integer))
+        Me.CmbCat.FormattingEnabled = True
+        Me.CmbCat.Location = New System.Drawing.Point(206, 69)
+        Me.CmbCat.Margin = New System.Windows.Forms.Padding(2)
+        Me.CmbCat.Name = "CmbCat"
+        Me.CmbCat.Size = New System.Drawing.Size(173, 25)
+        Me.CmbCat.TabIndex = 1
+        '
+        'CmbDept
+        '
+        Me.CmbDept.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CmbDept.ForeColor = System.Drawing.Color.FromArgb(CType(CType(61, Byte), Integer), CType(CType(61, Byte), Integer), CType(CType(61, Byte), Integer))
+        Me.CmbDept.FormattingEnabled = True
+        Me.CmbDept.Location = New System.Drawing.Point(15, 69)
+        Me.CmbDept.Margin = New System.Windows.Forms.Padding(2)
+        Me.CmbDept.Name = "CmbDept"
+        Me.CmbDept.Size = New System.Drawing.Size(173, 25)
+        Me.CmbDept.TabIndex = 0
         '
         'Panel1
         '
         Me.Panel1.BackColor = System.Drawing.SystemColors.HotTrack
         Me.Panel1.ForeColor = System.Drawing.SystemColors.HotTrack
-        Me.Panel1.Location = New System.Drawing.Point(15, 30)
+        Me.Panel1.Location = New System.Drawing.Point(15, 26)
         Me.Panel1.Margin = New System.Windows.Forms.Padding(2)
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(125, 1)
@@ -284,28 +385,29 @@ Partial Class FrmStockAuditNew
         Me.Label4.AutoSize = True
         Me.Label4.Font = New System.Drawing.Font("Segoe UI Variable Display", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label4.ForeColor = System.Drawing.Color.FromArgb(CType(CType(61, Byte), Integer), CType(CType(61, Byte), Integer), CType(CType(61, Byte), Integer))
-        Me.Label4.Location = New System.Drawing.Point(240, 53)
+        Me.Label4.Location = New System.Drawing.Point(202, 49)
         Me.Label4.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(87, 20)
         Me.Label4.TabIndex = 26
         Me.Label4.Text = "CATEGORY"
         '
-        'TextBox1
+        'TxtRemarks
         '
-        Me.TextBox1.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TextBox1.Location = New System.Drawing.Point(11, 139)
-        Me.TextBox1.Margin = New System.Windows.Forms.Padding(2)
-        Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.Size = New System.Drawing.Size(445, 22)
-        Me.TextBox1.TabIndex = 30
+        Me.TxtRemarks.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TxtRemarks.ForeColor = System.Drawing.Color.FromArgb(CType(CType(61, Byte), Integer), CType(CType(61, Byte), Integer), CType(CType(61, Byte), Integer))
+        Me.TxtRemarks.Location = New System.Drawing.Point(15, 129)
+        Me.TxtRemarks.Margin = New System.Windows.Forms.Padding(2)
+        Me.TxtRemarks.Name = "TxtRemarks"
+        Me.TxtRemarks.Size = New System.Drawing.Size(364, 25)
+        Me.TxtRemarks.TabIndex = 4
         '
         'Label3
         '
         Me.Label3.AutoSize = True
         Me.Label3.Font = New System.Drawing.Font("Segoe UI Variable Display", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label3.ForeColor = System.Drawing.Color.FromArgb(CType(CType(61, Byte), Integer), CType(CType(61, Byte), Integer), CType(CType(61, Byte), Integer))
-        Me.Label3.Location = New System.Drawing.Point(8, 53)
+        Me.Label3.Location = New System.Drawing.Point(11, 47)
         Me.Label3.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(108, 20)
@@ -317,7 +419,7 @@ Partial Class FrmStockAuditNew
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Segoe UI Variable Display", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(61, Byte), Integer), CType(CType(61, Byte), Integer), CType(CType(61, Byte), Integer))
-        Me.Label1.Location = New System.Drawing.Point(8, 118)
+        Me.Label1.Location = New System.Drawing.Point(11, 107)
         Me.Label1.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(80, 20)
@@ -329,7 +431,7 @@ Partial Class FrmStockAuditNew
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Segoe UI Variable Display", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label2.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(90, Byte), Integer), CType(CType(192, Byte), Integer))
-        Me.Label2.Location = New System.Drawing.Point(11, 8)
+        Me.Label2.Location = New System.Drawing.Point(11, 7)
         Me.Label2.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(133, 20)
@@ -339,35 +441,44 @@ Partial Class FrmStockAuditNew
         'TitlePanel
         '
         Me.TitlePanel.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(90, Byte), Integer), CType(CType(192, Byte), Integer))
-        Me.TitlePanel.Controls.Add(Me.IconTitle)
-        Me.TitlePanel.Controls.Add(Me.labelTitle)
+        Me.TitlePanel.Controls.Add(Me.TitlePanel2)
         Me.TitlePanel.Dock = System.Windows.Forms.DockStyle.Top
         Me.TitlePanel.Location = New System.Drawing.Point(0, 0)
         Me.TitlePanel.Margin = New System.Windows.Forms.Padding(2)
         Me.TitlePanel.Name = "TitlePanel"
-        Me.TitlePanel.Size = New System.Drawing.Size(1144, 41)
+        Me.TitlePanel.Size = New System.Drawing.Size(1144, 35)
         Me.TitlePanel.TabIndex = 0
         '
-        'IconTitle
+        'TitlePanel2
         '
-        Me.IconTitle.BackColor = System.Drawing.Color.Transparent
-        Me.IconTitle.IconChar = FontAwesome.Sharp.IconChar.BoxesPacking
-        Me.IconTitle.IconColor = System.Drawing.Color.White
-        Me.IconTitle.IconFont = FontAwesome.Sharp.IconFont.[Auto]
-        Me.IconTitle.IconSize = 30
-        Me.IconTitle.Location = New System.Drawing.Point(437, 7)
-        Me.IconTitle.Margin = New System.Windows.Forms.Padding(2)
-        Me.IconTitle.Name = "IconTitle"
-        Me.IconTitle.Size = New System.Drawing.Size(30, 30)
-        Me.IconTitle.TabIndex = 13
-        Me.IconTitle.TabStop = False
+        Me.TitlePanel2.Controls.Add(Me.TitleIconBox)
+        Me.TitlePanel2.Controls.Add(Me.labelTitle)
+        Me.TitlePanel2.Location = New System.Drawing.Point(445, 4)
+        Me.TitlePanel2.Name = "TitlePanel2"
+        Me.TitlePanel2.Size = New System.Drawing.Size(255, 31)
+        Me.TitlePanel2.TabIndex = 3
+        '
+        'TitleIconBox
+        '
+        Me.TitleIconBox.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(90, Byte), Integer), CType(CType(192, Byte), Integer))
+        Me.TitleIconBox.ForeColor = System.Drawing.SystemColors.HighlightText
+        Me.TitleIconBox.IconChar = FontAwesome.Sharp.IconChar.Sign
+        Me.TitleIconBox.IconColor = System.Drawing.SystemColors.HighlightText
+        Me.TitleIconBox.IconFont = FontAwesome.Sharp.IconFont.[Auto]
+        Me.TitleIconBox.IconSize = 28
+        Me.TitleIconBox.Location = New System.Drawing.Point(3, 3)
+        Me.TitleIconBox.Name = "TitleIconBox"
+        Me.TitleIconBox.Size = New System.Drawing.Size(29, 28)
+        Me.TitleIconBox.TabIndex = 2
+        Me.TitleIconBox.TabStop = False
         '
         'labelTitle
         '
+        Me.labelTitle.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.labelTitle.AutoSize = True
         Me.labelTitle.Font = New System.Drawing.Font("Segoe UI Semibold", 13.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.labelTitle.ForeColor = System.Drawing.SystemColors.ControlLightLight
-        Me.labelTitle.Location = New System.Drawing.Point(471, 6)
+        Me.labelTitle.Location = New System.Drawing.Point(32, 2)
         Me.labelTitle.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.labelTitle.Name = "labelTitle"
         Me.labelTitle.Size = New System.Drawing.Size(221, 25)
@@ -378,113 +489,143 @@ Partial Class FrmStockAuditNew
         'GrdPanel
         '
         Me.GrdPanel.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
-        Me.GrdPanel.Controls.Add(Me.MainTG)
+        Me.GrdPanel.Controls.Add(Me.TG)
         Me.GrdPanel.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.GrdPanel.Location = New System.Drawing.Point(0, 227)
+        Me.GrdPanel.Location = New System.Drawing.Point(0, 214)
         Me.GrdPanel.Margin = New System.Windows.Forms.Padding(2)
         Me.GrdPanel.Name = "GrdPanel"
-        Me.GrdPanel.Size = New System.Drawing.Size(1144, 394)
+        Me.GrdPanel.Size = New System.Drawing.Size(1144, 407)
         Me.GrdPanel.TabIndex = 2
         '
-        'MainTG
+        'TG
         '
-        Me.MainTG.AllowUserToAddRows = False
-        Me.MainTG.AllowUserToDeleteRows = False
-        Me.MainTG.BackgroundColor = System.Drawing.Color.White
-        Me.MainTG.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.MainTG.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.[Single]
-        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(90, Byte), Integer), CType(CType(192, Byte), Integer))
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle1.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.MainTG.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
-        Me.MainTG.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.MainTG.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Pluid, Me.Barcode, Me.Product, Me.Design, Me.Size, Me.Cost_Price, Me.Uploaded, Me.Variation})
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.ButtonShadow
-        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.MainTG.DefaultCellStyle = DataGridViewCellStyle2
-        Me.MainTG.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.MainTG.EnableHeadersVisualStyles = False
-        Me.MainTG.GridColor = System.Drawing.SystemColors.Highlight
-        Me.MainTG.Location = New System.Drawing.Point(0, 0)
-        Me.MainTG.Margin = New System.Windows.Forms.Padding(2)
-        Me.MainTG.Name = "MainTG"
-        Me.MainTG.RowHeadersVisible = False
-        Me.MainTG.RowHeadersWidth = 51
-        Me.MainTG.RowTemplate.Height = 24
-        Me.MainTG.Size = New System.Drawing.Size(1144, 394)
-        Me.MainTG.TabIndex = 10
+        Me.TG.AllowUserToAddRows = False
+        Me.TG.AllowUserToDeleteRows = False
+        Me.TG.AllowUserToResizeColumns = False
+        Me.TG.AllowUserToResizeRows = False
+        DataGridViewCellStyle41.BackColor = System.Drawing.Color.FromArgb(CType(CType(217, Byte), Integer), CType(CType(232, Byte), Integer), CType(CType(253, Byte), Integer))
+        Me.TG.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle41
+        Me.TG.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
+        Me.TG.BackgroundColor = System.Drawing.Color.White
+        Me.TG.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.TG.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None
+        Me.TG.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.[Single]
+        DataGridViewCellStyle42.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle42.BackColor = System.Drawing.Color.FromArgb(CType(CType(85, Byte), Integer), CType(CType(145, Byte), Integer), CType(CType(213, Byte), Integer))
+        DataGridViewCellStyle42.Font = New System.Drawing.Font("Segoe UI Variable Display", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle42.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle42.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle42.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle42.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.TG.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle42
+        Me.TG.ColumnHeadersHeight = 30
+        Me.TG.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
+        Me.TG.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Column8, Me.Column1, Me.Column2, Me.Column3, Me.Column4, Me.Column5, Me.Column6, Me.Column7, Me.Column9, Me.Column10, Me.Column11})
+        DataGridViewCellStyle48.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle48.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle48.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle48.ForeColor = System.Drawing.Color.FromArgb(CType(CType(61, Byte), Integer), CType(CType(61, Byte), Integer), CType(CType(61, Byte), Integer))
+        DataGridViewCellStyle48.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(60, Byte), Integer), CType(CType(128, Byte), Integer))
+        DataGridViewCellStyle48.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle48.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.TG.DefaultCellStyle = DataGridViewCellStyle48
+        Me.TG.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.TG.EnableHeadersVisualStyles = False
+        Me.TG.GridColor = System.Drawing.SystemColors.HighlightText
+        Me.TG.Location = New System.Drawing.Point(0, 0)
+        Me.TG.Name = "TG"
+        Me.TG.ReadOnly = True
+        Me.TG.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
+        Me.TG.RowHeadersVisible = False
+        Me.TG.RowTemplate.Height = 30
+        Me.TG.Size = New System.Drawing.Size(1144, 407)
+        Me.TG.TabIndex = 3
         '
-        'Pluid
+        'Column8
         '
-        Me.Pluid.HeaderText = "Pluid"
-        Me.Pluid.MinimumWidth = 6
-        Me.Pluid.Name = "Pluid"
-        Me.Pluid.Visible = False
+        Me.Column8.HeaderText = "Pluid"
+        Me.Column8.Name = "Column8"
+        Me.Column8.ReadOnly = True
+        Me.Column8.Visible = False
         '
-        'Barcode
+        'Column1
         '
-        Me.Barcode.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
-        Me.Barcode.HeaderText = "Barcode"
-        Me.Barcode.MinimumWidth = 6
-        Me.Barcode.Name = "Barcode"
-        Me.Barcode.Width = 150
+        Me.Column1.HeaderText = "Barcode"
+        Me.Column1.Name = "Column1"
+        Me.Column1.ReadOnly = True
         '
-        'Product
+        'Column2
         '
-        Me.Product.FillWeight = 84.52747!
-        Me.Product.HeaderText = "Product"
-        Me.Product.MinimumWidth = 6
-        Me.Product.Name = "Product"
-        Me.Product.Width = 144
+        Me.Column2.HeaderText = "Product"
+        Me.Column2.Name = "Column2"
+        Me.Column2.ReadOnly = True
         '
-        'Design
+        'Column3
         '
-        Me.Design.FillWeight = 84.52747!
-        Me.Design.HeaderText = "Design"
-        Me.Design.MinimumWidth = 6
-        Me.Design.Name = "Design"
-        Me.Design.Width = 144
+        Me.Column3.HeaderText = "Design"
+        Me.Column3.Name = "Column3"
+        Me.Column3.ReadOnly = True
         '
-        'Size
+        'Column4
         '
-        Me.Size.FillWeight = 110.9569!
-        Me.Size.HeaderText = "Size"
-        Me.Size.MinimumWidth = 6
-        Me.Size.Name = "Size"
-        Me.Size.Width = 188
+        DataGridViewCellStyle43.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        Me.Column4.DefaultCellStyle = DataGridViewCellStyle43
+        Me.Column4.HeaderText = "Size"
+        Me.Column4.Name = "Column4"
+        Me.Column4.ReadOnly = True
         '
-        'Cost_Price
+        'Column5
         '
-        Me.Cost_Price.FillWeight = 105.9567!
-        Me.Cost_Price.HeaderText = "Cost Price"
-        Me.Cost_Price.MinimumWidth = 6
-        Me.Cost_Price.Name = "Cost_Price"
-        Me.Cost_Price.Width = 180
+        DataGridViewCellStyle44.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle44.Format = "N2"
+        DataGridViewCellStyle44.NullValue = Nothing
+        Me.Column5.DefaultCellStyle = DataGridViewCellStyle44
+        Me.Column5.HeaderText = "Cost Price"
+        Me.Column5.Name = "Column5"
+        Me.Column5.ReadOnly = True
         '
-        'Uploaded
+        'Column6
         '
-        Me.Uploaded.FillWeight = 101.9025!
-        Me.Uploaded.HeaderText = "Uploaded"
-        Me.Uploaded.MinimumWidth = 6
-        Me.Uploaded.Name = "Uploaded"
-        Me.Uploaded.Width = 173
+        DataGridViewCellStyle45.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        Me.Column6.DefaultCellStyle = DataGridViewCellStyle45
+        Me.Column6.HeaderText = "Stock"
+        Me.Column6.Name = "Column6"
+        Me.Column6.ReadOnly = True
         '
-        'Variation
+        'Column7
         '
-        Me.Variation.FillWeight = 98.61537!
-        Me.Variation.HeaderText = "Variation"
-        Me.Variation.MinimumWidth = 6
-        Me.Variation.Name = "Variation"
-        Me.Variation.Width = 168
+        DataGridViewCellStyle46.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        Me.Column7.DefaultCellStyle = DataGridViewCellStyle46
+        Me.Column7.HeaderText = "Uploaded"
+        Me.Column7.Name = "Column7"
+        Me.Column7.ReadOnly = True
+        '
+        'Column9
+        '
+        DataGridViewCellStyle47.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        Me.Column9.DefaultCellStyle = DataGridViewCellStyle47
+        Me.Column9.HeaderText = "Variation"
+        Me.Column9.Name = "Column9"
+        Me.Column9.ReadOnly = True
+        '
+        'Column10
+        '
+        Me.Column10.HeaderText = "STOCK CP"
+        Me.Column10.Name = "Column10"
+        Me.Column10.ReadOnly = True
+        Me.Column10.Visible = False
+        '
+        'Column11
+        '
+        Me.Column11.HeaderText = "UPLOAD CP"
+        Me.Column11.Name = "Column11"
+        Me.Column11.ReadOnly = True
+        Me.Column11.Visible = False
+        '
+        'OFD
+        '
+        Me.OFD.Filter = "Excel Files|*.xlsx;*.xls"
+        Me.OFD.Title = "Select Excel Files"
         '
         'FrmStockAuditNew
         '
@@ -494,6 +635,7 @@ Partial Class FrmStockAuditNew
         Me.Controls.Add(Me.GrdPanel)
         Me.Controls.Add(Me.ConsolePanel)
         Me.Controls.Add(Me.TitlePanel)
+        Me.KeyPreview = True
         Me.Margin = New System.Windows.Forms.Padding(2)
         Me.Name = "FrmStockAuditNew"
         Me.Text = "FrmStockAuditNew"
@@ -502,45 +644,58 @@ Partial Class FrmStockAuditNew
         Me.DetailsPanel.ResumeLayout(False)
         Me.DetailsPanel.PerformLayout()
         Me.TitlePanel.ResumeLayout(False)
-        Me.TitlePanel.PerformLayout()
-        CType(Me.IconTitle, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.TitlePanel2.ResumeLayout(False)
+        Me.TitlePanel2.PerformLayout()
+        CType(Me.TitleIconBox, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GrdPanel.ResumeLayout(False)
-        CType(Me.MainTG, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.TG, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
     Friend WithEvents TitlePanel As Panel
     Friend WithEvents labelTitle As Label
-    Friend WithEvents IconTitle As FontAwesome.Sharp.IconPictureBox
     Friend WithEvents ConsolePanel As Panel
-    Friend WithEvents ComboBox2 As ComboBox
-    Friend WithEvents ComboBox1 As ComboBox
+    Friend WithEvents CmbCat As ComboBox
+    Friend WithEvents CmbDept As ComboBox
     Friend WithEvents Panel1 As Panel
     Friend WithEvents Label4 As Label
-    Friend WithEvents TextBox1 As TextBox
+    Friend WithEvents TxtRemarks As TextBox
     Friend WithEvents Label3 As Label
     Friend WithEvents Label1 As Label
     Friend WithEvents Label2 As Label
-    Friend WithEvents btnSave As FontAwesome.Sharp.IconButton
-    Friend WithEvents btnClose As FontAwesome.Sharp.IconButton
-    Friend WithEvents btnUpload As Button
-    Friend WithEvents btnDisplay As Button
-    Friend WithEvents ProgressBar1 As ProgressBar
-    Friend WithEvents labelStock As Label
-    Friend WithEvents labelUpload As Label
-    Friend WithEvents labelVariation As Label
-    Friend WithEvents labelStockQty As Label
-    Friend WithEvents Label8 As Label
-    Friend WithEvents Label9 As Label
+    Friend WithEvents BtnSave As FontAwesome.Sharp.IconButton
+    Friend WithEvents BtnClose As FontAwesome.Sharp.IconButton
+    Friend WithEvents BtnUpload As Button
+    Friend WithEvents BtnDisplay As Button
+    Friend WithEvents PBLoading As ProgressBar
     Friend WithEvents DetailsPanel As Panel
     Friend WithEvents GrdPanel As Panel
-    Friend WithEvents MainTG As DataGridView
-    Friend WithEvents Pluid As DataGridViewTextBoxColumn
-    Friend WithEvents Barcode As DataGridViewTextBoxColumn
-    Friend WithEvents Product As DataGridViewTextBoxColumn
-    Friend WithEvents Design As DataGridViewTextBoxColumn
-    Friend WithEvents Size As DataGridViewTextBoxColumn
-    Friend WithEvents Cost_Price As DataGridViewTextBoxColumn
-    Friend WithEvents Uploaded As DataGridViewTextBoxColumn
-    Friend WithEvents Variation As DataGridViewTextBoxColumn
+    Friend WithEvents LblVariationCP As Label
+    Friend WithEvents LblStockCP As Label
+    Friend WithEvents Label9 As Label
+    Friend WithEvents LblUploadCP As Label
+    Friend WithEvents Label12 As Label
+    Friend WithEvents LblStock As Label
+    Friend WithEvents Label8 As Label
+    Friend WithEvents LblVariation As Label
+    Friend WithEvents Label6 As Label
+    Friend WithEvents LblUpload As Label
+    Friend WithEvents Label5 As Label
+    Friend WithEvents OFD As OpenFileDialog
+    Friend WithEvents TG As DataGridView
+    Friend WithEvents TitleIconBox As FontAwesome.Sharp.IconPictureBox
+    Friend WithEvents Panel2 As Panel
+    Friend WithEvents Label14 As Label
+    Friend WithEvents TitlePanel2 As Panel
+    Friend WithEvents Column8 As DataGridViewTextBoxColumn
+    Friend WithEvents Column1 As DataGridViewTextBoxColumn
+    Friend WithEvents Column2 As DataGridViewTextBoxColumn
+    Friend WithEvents Column3 As DataGridViewTextBoxColumn
+    Friend WithEvents Column4 As DataGridViewTextBoxColumn
+    Friend WithEvents Column5 As DataGridViewTextBoxColumn
+    Friend WithEvents Column6 As DataGridViewTextBoxColumn
+    Friend WithEvents Column7 As DataGridViewTextBoxColumn
+    Friend WithEvents Column9 As DataGridViewTextBoxColumn
+    Friend WithEvents Column10 As DataGridViewTextBoxColumn
+    Friend WithEvents Column11 As DataGridViewTextBoxColumn
 End Class
