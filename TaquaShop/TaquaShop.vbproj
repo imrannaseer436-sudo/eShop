@@ -16,6 +16,7 @@
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -28,7 +29,6 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -93,6 +93,9 @@
       <HintPath>..\..\..\Controls\EPPlus.dll</HintPath>
     </Reference>
     <Reference Include="FlashControlV71, Version=1.0.3187.32366, Culture=neutral, PublicKeyToken=692fbea5521e1304" />
+    <Reference Include="FontAwesome.Sharp, Version=6.3.0.0, Culture=neutral, PublicKeyToken=d16d1e4e568ec10f, processorArchitecture=MSIL">
+      <HintPath>..\packages\FontAwesome.Sharp.6.3.0\lib\net48\FontAwesome.Sharp.dll</HintPath>
+    </Reference>
     <Reference Include="Line">
       <HintPath>..\..\..\eSales\eSales\bin\Release\Line.dll</HintPath>
     </Reference>
@@ -100,6 +103,8 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.VisualBasic.PowerPacks, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="Syncfusion.Core.WinForms, Version=20.4460.0.38, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL" />
     <Reference Include="Syncfusion.Grid.Base, Version=20.4460.0.38, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89" />
     <Reference Include="Syncfusion.Grid.Windows, Version=20.4460.0.38, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89" />
@@ -116,12 +121,14 @@
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xaml" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="TabControlEX">
       <HintPath>..\..\..\eWarehouse\eWarehouse\bin\Debug\TabControlEX.dll</HintPath>
     </Reference>
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Import Include="Microsoft.VisualBasic" />
@@ -401,10 +408,10 @@
     <Compile Include="Tools\frmReportViewer.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Tools\FrmStockAudit.Designer.vb">
-      <DependentUpon>FrmStockAudit.vb</DependentUpon>
+    <Compile Include="Tools\FrmStockAuditNew.Designer.vb">
+      <DependentUpon>FrmStockAuditNew.vb</DependentUpon>
     </Compile>
-    <Compile Include="Tools\FrmStockAudit.vb">
+    <Compile Include="Tools\FrmStockAuditNew.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Tools\ImporterNew.Designer.vb">
@@ -593,7 +600,9 @@
     <Compile Include="Tools\ProductChecker.designer.vb">
       <DependentUpon>ProductChecker.vb</DependentUpon>
     </Compile>
-    <Compile Include="Tools\ProductChecker.vb" />
+    <Compile Include="Tools\ProductChecker.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Tools\StoreSettings.Designer.vb">
       <DependentUpon>StoreSettings.vb</DependentUpon>
     </Compile>
@@ -763,8 +772,8 @@
     <EmbeddedResource Include="Tools\frmReportViewer.resx">
       <DependentUpon>frmReportViewer.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Tools\FrmStockAudit.resx">
-      <DependentUpon>FrmStockAudit.vb</DependentUpon>
+    <EmbeddedResource Include="Tools\FrmStockAuditNew.resx">
+      <DependentUpon>FrmStockAuditNew.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Tools\ImporterNew.resx">
       <DependentUpon>ImporterNew.vb</DependentUpon>

@@ -1,13 +1,13 @@
 ﻿Imports System.Data.SqlClient
-Imports System.Threading.Tasks
 Imports Microsoft.Office.Interop.Excel
+Imports System.Threading.Tasks
 
-Public Class FrmStockAudit
+Public Class FrmStockAuditNew
 
-    Dim excelFilePath As String = ""
     Dim barcodesList As New List(Of String)
+    Dim excelFilePath As String = ""
     Dim unknownList As New List(Of String)
-    Private Async Sub FrmStockAudit_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Async Sub FrmStockAuditNew_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         SQL = "SELECT DeptId,Department FROM TSDepartment ORDER BY Department"
         Await ESSA.LoadComboAsync(CmbDept, SQL, "Department", "DeptId", "All Departments")
@@ -27,12 +27,12 @@ Public Class FrmStockAudit
             End While
         End With
 
-
     End Sub
 
     Private Async Sub BtnDisplay_Click(sender As Object, e As EventArgs) Handles BtnDisplay.Click
 
         LblStock.Text = "0"
+        LblStockCP.Text = "0.00"
         PBLoading.Minimum = 0
         PBLoading.Maximum = 100
         Dim totalRows = 0
@@ -40,6 +40,7 @@ Public Class FrmStockAudit
         Dim stockQty = 0
         Dim stockCP As Double = 0
         PBLoading.Visible = True
+
 
         SQL = $"SELECT Count(P.Pluid)
                 FROM ProductMaster P
@@ -117,71 +118,37 @@ Public Class FrmStockAudit
 
     End Sub
 
-    Private Sub BtnClose_Click(sender As Object, e As EventArgs) Handles BtnClose.Click
+    Private Async Sub BtnUpload_Click(sender As Object, e As EventArgs) Handles BtnUpload.Click
 
-        Close()
+        If TG.Rows.Count = 0 Then Exit Sub
+        If OFD.ShowDialog() <> DialogResult.OK Then Exit Sub
+        excelFilePath = OFD.FileName.Trim
+        If excelFilePath = String.Empty Then Exit Sub
+        Try
+            Await UploadDataFromExcel()
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical)
+            Exit Sub
+        End Try
+        Dim missedBarcodes As String = ""
+
+        For Each barcode As String In unknownList
+            missedBarcodes &= barcode & vbCrLf
+        Next
+
+        If missedBarcodes.Trim = String.Empty Then
+            MsgBox("File uploaded..!", MsgBoxStyle.Information)
+        Else
+            'MsgBox("File uploaded with some changes, Fix these Barcodes :" & vbCrLf & missedBarcodes, MsgBoxStyle.Information)
+            MessageBox.Show("File uploaded with some changes, Fix these Barcodes :" & vbCrLf & missedBarcodes, "eShop", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Clipboard.Clear()
+            Clipboard.SetText(missedBarcodes)
+        End If
+
+        Await Verify()
+        BtnSave.Enabled = True
 
     End Sub
-
-    'Private Async Function UploadDataFromExcel() As Task
-
-    '    PBLoading.Minimum = 0
-    '    PBLoading.Maximum = 100
-    '    PBLoading.Value = 0
-    '    PBLoading.Visible = True
-
-    '    Dim excelApp As New Application()
-    '    Dim workbook As Workbook = excelApp.Workbooks.Open(excelFilePath)
-    '    Dim worksheet As Worksheet = workbook.Sheets(1)
-
-    '    Dim conn As New SqlConnection(ConStr)
-    '    Await conn.OpenAsync()
-
-    '    Dim cmd As New SqlCommand()
-    '    cmd.Connection = conn
-
-    '    Dim row As Integer = 1
-    '    unknownList.Clear()
-    '    cmd.CommandText = $"DELETE FROM Stock_Excel WHERE Location_id = {ShopID}"
-    '    Await cmd.ExecuteNonQueryAsync()
-
-    '    Do While Not String.IsNullOrEmpty(worksheet.Cells(row, 1).Value)
-
-    '        Dim progressPercentage As Integer = CInt((row / barcodesList.Count) * 100)
-    '        UpdateProgressBar(progressPercentage)
-
-    '        Dim col1Value As String = worksheet.Cells(row, 1).Value
-    '        Dim col2Value As String = IIf(String.IsNullOrEmpty(worksheet.Cells(row, 2).Value), 1, worksheet.Cells(row, 2).value)
-
-    '        If Not barcodesList.Contains(col1Value) Then
-    '            unknownList.Add(col1Value)
-    '        Else
-
-    '            ' Insert the data into SQL Server table
-    '            SQL = $"INSERT INTO 
-    '            Stock_Excel 
-    '            VALUES ('{col1Value}',{col2Value},{ShopID})"
-
-    '            cmd.CommandText = SQL
-    '            Await cmd.ExecuteNonQueryAsync
-
-    '        End If
-
-    '        row += 1
-    '    Loop
-
-    '    PBLoading.Value = PBLoading.Maximum
-    '    PBLoading.Visible = False
-    '    conn.Close()
-
-    '    ' Clean up Excel objects
-    '    workbook.Close()
-    '    excelApp.Quit()
-    '    System.Runtime.InteropServices.Marshal.ReleaseComObject(worksheet)
-    '    System.Runtime.InteropServices.Marshal.ReleaseComObject(workbook)
-    '    System.Runtime.InteropServices.Marshal.ReleaseComObject(excelApp)
-
-    'End Function
 
     Private Async Function UploadDataFromExcel() As Task
 
@@ -258,42 +225,9 @@ Public Class FrmStockAudit
 
     End Function
 
-
-    Private Async Sub BtnUpload_Click(sender As Object, e As EventArgs) Handles BtnUpload.Click
-
-        If TG.Rows.Count = 0 Then Exit Sub
-        OFD.ShowDialog()
-        excelFilePath = OFD.FileName.Trim
-        If excelFilePath = String.Empty Then Exit Sub
-        Try
-            Await UploadDataFromExcel()
-        Catch ex As Exception
-            MsgBox(ex.Message, MsgBoxStyle.Critical)
-            Exit Sub
-        End Try
-        Dim missedBarcodes As String = ""
-
-        For Each barcode As String In unknownList
-            missedBarcodes &= barcode & vbCrLf
-        Next
-
-        If missedBarcodes.Trim = String.Empty Then
-            MsgBox("File uploaded..!", MsgBoxStyle.Information)
-        Else
-            'MsgBox("File uploaded with some changes, Fix these Barcodes :" & vbCrLf & missedBarcodes, MsgBoxStyle.Information)
-            MessageBox.Show("File uploaded with some changes, Fix these Barcodes :" & vbCrLf & missedBarcodes, "eShop", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            Clipboard.Clear()
-            Clipboard.SetText(missedBarcodes)
-        End If
-
-        Await Verify()
-
-    End Sub
-
     Private Async Function Verify() As Task
 
         If TG.Rows.Count = 0 Then Exit Function
-        LblVerify.Visible = True
         PBLoading.Minimum = 0
         PBLoading.Maximum = 100
         PBLoading.Value = 0
@@ -321,50 +255,12 @@ Public Class FrmStockAudit
 
             UpdateGrid()
             PBLoading.Value = PBLoading.Maximum
-            LblVerify.Visible = False
             PBLoading.Visible = False
             .Close()
 
         End With
 
     End Function
-
-    'Private Async Sub BtnVerify_Click(sender As Object, e As EventArgs) Handles BtnVerify.Click
-
-    '    If TG.Rows.Count = 0 Then Exit Sub
-    '    PBLoading.Minimum = 0
-    '    PBLoading.Maximum = 100
-    '    PBLoading.Value = 0
-    '    PBLoading.Visible = True
-    '    Dim progressRows = 0
-
-
-    '    SQL = $"SELECT barcode, SUM(qty) Qty
-    '        FROM Stock_Excel 
-    '        WHERE location_id = {ShopID}
-    '        GROUP BY barcode"
-
-    '    With Await ESSA.OpenReaderAsync(SQL)
-
-    '        While Await .ReadAsync
-
-    '            Dim progressPercentage As Integer = CInt((progressRows / barcodesList.Count) * 100)
-    '            UpdateProgressBar(progressPercentage)
-
-    '            Dim NRI = ESSA.FindGridIndex(TG, 1, .Item(0))
-    '            TG.Item(7, NRI).Value = .Item(1)
-    '            progressRows += 1
-
-    '        End While
-
-    '        UpdateGrid()
-    '        PBLoading.Value = PBLoading.Maximum
-    '        PBLoading.Visible = False
-    '        .Close()
-
-    '    End With
-
-    'End Sub
 
     Private Sub UpdateGrid()
 
@@ -392,6 +288,24 @@ Public Class FrmStockAudit
         LblVariation.Text = Format(variation, "0")
         LblUploadCP.Text = Format(uploadCP, "0.00")
         LblVariationCP.Text = Format(uploadCP - Val(LblStockCP.Text), "0.00")
+
+    End Sub
+
+    Private Async Sub BtnSave_Click(sender As Object, e As EventArgs) Handles BtnSave.Click
+
+        If TG.Rows.Count = 0 Then Exit Sub
+        Await UpdateStock()
+        CmbDept.SelectedIndex = 0
+        CmbCat.SelectedIndex = 0
+        TxtRemarks.Clear()
+        TG.Rows.Clear()
+        LblStock.Text = "0"
+        LblUpload.Text = "0"
+        LblVariation.Text = "0"
+        LblStockCP.Text = "0.00"
+        LblUploadCP.Text = "0.00"
+        LblVariationCP.Text = "0.00"
+        BtnSave.Enabled = False
 
     End Sub
 
@@ -438,18 +352,23 @@ Public Class FrmStockAudit
                 Dim progressPercentage As Integer = CInt((progressRows / TG.Rows.Count) * 100)
                 UpdateProgressBar(progressPercentage)
 
-                SQL = $"INSERT INTO 
-                StockAuditDetails VALUES (
-                {EntryNo},
-                {Val(TG.Item(0, i).Value)},
-                {Val(TG.Item(5, i).Value)},
-                {Val(TG.Item(6, i).Value)},
-                {Val(TG.Item(7, i).Value)},
-                {Val(TG.Item(8, i).Value)},
-                {i + 1})"
+                If Val(TG.Item(8, i).Value) <> 0 Then
 
-                cmd.CommandText = SQL
-                Await cmd.ExecuteNonQueryAsync()
+                    SQL = $"INSERT INTO 
+                    StockAuditDetails VALUES (
+                    {EntryNo},
+                    {Val(TG.Item(0, i).Value)},
+                    {Val(TG.Item(5, i).Value)},
+                    {Val(TG.Item(6, i).Value)},
+                    {Val(TG.Item(7, i).Value)},
+                    {Val(TG.Item(8, i).Value)},
+                    {i + 1})"
+
+                    cmd.CommandText = SQL
+                    Await cmd.ExecuteNonQueryAsync()
+
+                End If
+
                 progressRows += 1
 
             Next
@@ -495,21 +414,29 @@ Public Class FrmStockAudit
 
     End Function
 
-    Private Async Sub BtnSave_Click(sender As Object, e As EventArgs) Handles BtnSave.Click
+    Private Sub BtnClose_Click(sender As Object, e As EventArgs) Handles BtnClose.Click
 
-        If TG.Rows.Count = 0 Then Exit Sub
-        Await UpdateStock()
-        CmbDept.SelectedIndex = 0
-        CmbCat.SelectedIndex = 0
-        TxtRemarks.Clear()
-        TG.Rows.Clear()
-        LblStock.Text = "0"
-        LblUpload.Text = "0"
-        LblVariation.Text = "0"
-        LblStockCP.Text = "0.00"
-        LblUploadCP.Text = "0.00"
-        LblVariationCP.Text = "0.00"
+        If MessageBox.Show("Do you want to close ?", "eShop", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then
+            Close()
+        End If
+
 
     End Sub
 
+    Private Sub FrmStockAuditNew_Resize(sender As Object, e As EventArgs) Handles Me.Resize
+
+
+        ESSA.AlignCenter(TitlePanel2, TitlePanel)
+
+
+    End Sub
+
+    Private Sub FrmStockAuditNew_KeyDown(sender As Object, e As KeyEventArgs) Handles Me.KeyDown
+
+        If e.KeyCode = Keys.Enter Then
+            e.SuppressKeyPress = True
+            Me.ProcessTabKey(True)
+        End If
+
+    End Sub
 End Class
