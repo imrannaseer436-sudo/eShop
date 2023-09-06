@@ -5,10 +5,16 @@ Public Class StoreSettings
 
     Private Sub btnUpdate_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnUpdate.Click
 
-        Dim ConnectionString As String = "Data Source=" & txtSqlserver.Text.Trim & ";" _
-                         & "Initial Catalog=" & txtDatabase.Text.Trim & ";" _
+        Dim ConnectionString As String = "Server=" & txtSqlserver.Text.Trim & ";" _
+                         & "Initial Catalog=" & txtDatabase.Text.Trim & ";Persist Security Info=False;" _
                          & "User ID=" & txtUsername.Text.Trim & ";" _
-                         & "Password=" & txtPassword.Text & ";"
+                         & "Password=" & txtPassword.Text & ";" _
+                         & "MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
+
+        'Dim ConnectionString As String = "Data Source=" & txtSqlserver.Text.Trim & ";" _
+        '                 & "Initial Catalog=" & txtDatabase.Text.Trim & ";" _
+        '                 & "User ID=" & txtUsername.Text.Trim & ";" _
+        '                 & "Password=" & txtPassword.Text & ";"
 
         Dim XTag As String = "<ShopSettings>" & vbCrLf _
                            & "<DBSettings>" & ClsEncodeDecode.Encode(ConnectionString) & "</DBSettings>" & vbCrLf _

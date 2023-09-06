@@ -22,12 +22,12 @@ Partial Class DeliveryReport
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle11 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle12 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.rdoDetails = New System.Windows.Forms.RadioButton()
         Me.rdoSummary = New System.Windows.Forms.RadioButton()
         Me.cmbDCode = New System.Windows.Forms.ComboBox()
@@ -41,7 +41,6 @@ Partial Class DeliveryReport
         Me.Label11 = New System.Windows.Forms.Label()
         Me.Label10 = New System.Windows.Forms.Label()
         Me.Panel1 = New System.Windows.Forms.Panel()
-        Me.btnCodeSearch = New System.Windows.Forms.Button()
         Me.lblRVal = New System.Windows.Forms.Label()
         Me.lblCVal = New System.Windows.Forms.Label()
         Me.Label9 = New System.Windows.Forms.Label()
@@ -51,6 +50,7 @@ Partial Class DeliveryReport
         Me.Label2 = New System.Windows.Forms.Label()
         Me.lblQty = New System.Windows.Forms.Label()
         Me.Label7 = New System.Windows.Forms.Label()
+        Me.btnCodeSearch = New System.Windows.Forms.Button()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.TG = New System.Windows.Forms.DataGridView()
@@ -79,7 +79,7 @@ Partial Class DeliveryReport
         Me.rdoDetails.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.rdoDetails.Location = New System.Drawing.Point(265, 105)
         Me.rdoDetails.Name = "rdoDetails"
-        Me.rdoDetails.Size = New System.Drawing.Size(72, 19)
+        Me.rdoDetails.Size = New System.Drawing.Size(71, 19)
         Me.rdoDetails.TabIndex = 5
         Me.rdoDetails.Text = "DETAILS"
         Me.rdoDetails.UseVisualStyleBackColor = True
@@ -131,7 +131,7 @@ Partial Class DeliveryReport
         Me.Label5.ForeColor = System.Drawing.Color.Black
         Me.Label5.Location = New System.Drawing.Point(9, 49)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(66, 15)
+        Me.Label5.Size = New System.Drawing.Size(65, 15)
         Me.Label5.TabIndex = 10
         Me.Label5.Text = "LOCATION"
         '
@@ -205,7 +205,7 @@ Partial Class DeliveryReport
         Me.Label10.ForeColor = System.Drawing.Color.Gray
         Me.Label10.Location = New System.Drawing.Point(9, 17)
         Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(110, 15)
+        Me.Label10.Size = New System.Drawing.Size(108, 15)
         Me.Label10.TabIndex = 9
         Me.Label10.Text = "DURATION FILTER"
         '
@@ -239,19 +239,6 @@ Partial Class DeliveryReport
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(926, 150)
         Me.Panel1.TabIndex = 1
-        '
-        'btnCodeSearch
-        '
-        Me.btnCodeSearch.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
-        Me.btnCodeSearch.FlatAppearance.BorderSize = 0
-        Me.btnCodeSearch.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnCodeSearch.ForeColor = System.Drawing.Color.White
-        Me.btnCodeSearch.Location = New System.Drawing.Point(375, 100)
-        Me.btnCodeSearch.Name = "btnCodeSearch"
-        Me.btnCodeSearch.Size = New System.Drawing.Size(158, 30)
-        Me.btnCodeSearch.TabIndex = 27
-        Me.btnCodeSearch.Text = "CODE &SEARCH"
-        Me.btnCodeSearch.UseVisualStyleBackColor = False
         '
         'lblRVal
         '
@@ -317,7 +304,7 @@ Partial Class DeliveryReport
         Me.Label3.ForeColor = System.Drawing.Color.Gray
         Me.Label3.Location = New System.Drawing.Point(595, 109)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(112, 20)
+        Me.Label3.Size = New System.Drawing.Size(110, 20)
         Me.Label3.TabIndex = 21
         Me.Label3.Text = "RETAIL VALUE"
         '
@@ -328,7 +315,7 @@ Partial Class DeliveryReport
         Me.Label2.ForeColor = System.Drawing.Color.Gray
         Me.Label2.Location = New System.Drawing.Point(595, 77)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(98, 20)
+        Me.Label2.Size = New System.Drawing.Size(97, 20)
         Me.Label2.TabIndex = 20
         Me.Label2.Text = "COST VALUE"
         '
@@ -355,6 +342,19 @@ Partial Class DeliveryReport
         Me.Label7.TabIndex = 18
         Me.Label7.Text = "QUANTITY"
         '
+        'btnCodeSearch
+        '
+        Me.btnCodeSearch.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.btnCodeSearch.FlatAppearance.BorderSize = 0
+        Me.btnCodeSearch.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnCodeSearch.ForeColor = System.Drawing.Color.White
+        Me.btnCodeSearch.Location = New System.Drawing.Point(375, 100)
+        Me.btnCodeSearch.Name = "btnCodeSearch"
+        Me.btnCodeSearch.Size = New System.Drawing.Size(158, 30)
+        Me.btnCodeSearch.TabIndex = 27
+        Me.btnCodeSearch.Text = "CODE &SEARCH"
+        Me.btnCodeSearch.UseVisualStyleBackColor = False
+        '
         'Label1
         '
         Me.Label1.AutoSize = True
@@ -362,7 +362,7 @@ Partial Class DeliveryReport
         Me.Label1.ForeColor = System.Drawing.Color.Navy
         Me.Label1.Location = New System.Drawing.Point(8, 0)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(269, 32)
+        Me.Label1.Size = New System.Drawing.Size(267, 32)
         Me.Label1.TabIndex = 0
         Me.Label1.Text = "Product Delivery Report"
         '
@@ -391,31 +391,31 @@ Partial Class DeliveryReport
         Me.TG.AllowUserToDeleteRows = False
         Me.TG.AllowUserToResizeColumns = False
         Me.TG.AllowUserToResizeRows = False
-        DataGridViewCellStyle7.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.TG.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle7
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.TG.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
         Me.TG.BackgroundColor = System.Drawing.Color.White
         Me.TG.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.TG.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None
         Me.TG.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
-        DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle8.BackColor = System.Drawing.Color.DarkGray
-        DataGridViewCellStyle8.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle8.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.TG.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle8
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle2.BackColor = System.Drawing.Color.DarkGray
+        DataGridViewCellStyle2.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle2.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.TG.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle2
         Me.TG.ColumnHeadersHeight = 30
         Me.TG.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
         Me.TableLayoutPanel1.SetColumnSpan(Me.TG, 2)
-        DataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle9.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle9.ForeColor = System.Drawing.Color.DimGray
-        DataGridViewCellStyle9.SelectionBackColor = System.Drawing.Color.Navy
-        DataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.TG.DefaultCellStyle = DataGridViewCellStyle9
+        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle3.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle3.ForeColor = System.Drawing.Color.DimGray
+        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.Navy
+        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.TG.DefaultCellStyle = DataGridViewCellStyle3
         Me.TG.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TG.EnableHeadersVisualStyles = False
         Me.TG.Location = New System.Drawing.Point(8, 191)
@@ -437,7 +437,7 @@ Partial Class DeliveryReport
         Me.pnlSearch.Controls.Add(Me.txtCode)
         Me.pnlSearch.Controls.Add(Me.Label13)
         Me.pnlSearch.Controls.Add(Me.Label12)
-        Me.pnlSearch.Location = New System.Drawing.Point(0, 52)
+        Me.pnlSearch.Location = New System.Drawing.Point(-1000, 52)
         Me.pnlSearch.Name = "pnlSearch"
         Me.pnlSearch.Size = New System.Drawing.Size(336, 448)
         Me.pnlSearch.TabIndex = 6
@@ -473,7 +473,7 @@ Partial Class DeliveryReport
         Me.Label14.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label14.Location = New System.Drawing.Point(69, 410)
         Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(110, 20)
+        Me.Label14.Size = New System.Drawing.Size(109, 20)
         Me.Label14.TabIndex = 9
         Me.Label14.Text = "Total Quantity"
         '
@@ -483,31 +483,31 @@ Partial Class DeliveryReport
         Me.DGV.AllowUserToDeleteRows = False
         Me.DGV.AllowUserToResizeColumns = False
         Me.DGV.AllowUserToResizeRows = False
-        DataGridViewCellStyle10.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.DGV.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle10
+        DataGridViewCellStyle4.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.DGV.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle4
         Me.DGV.BackgroundColor = System.Drawing.Color.WhiteSmoke
         Me.DGV.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.DGV.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None
         Me.DGV.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
-        DataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle11.BackColor = System.Drawing.Color.DarkGray
-        DataGridViewCellStyle11.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle11.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.DGV.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle11
+        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle5.BackColor = System.Drawing.Color.DarkGray
+        DataGridViewCellStyle5.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle5.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.DGV.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle5
         Me.DGV.ColumnHeadersHeight = 30
         Me.DGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
         Me.DGV.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Column1, Me.Column2, Me.Column3})
-        DataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle12.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle12.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle12.ForeColor = System.Drawing.Color.DimGray
-        DataGridViewCellStyle12.SelectionBackColor = System.Drawing.Color.Navy
-        DataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.DGV.DefaultCellStyle = DataGridViewCellStyle12
+        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle6.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle6.ForeColor = System.Drawing.Color.DimGray
+        DataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.Navy
+        DataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.DGV.DefaultCellStyle = DataGridViewCellStyle6
         Me.DGV.EnableHeadersVisualStyles = False
         Me.DGV.Location = New System.Drawing.Point(19, 125)
         Me.DGV.Name = "DGV"

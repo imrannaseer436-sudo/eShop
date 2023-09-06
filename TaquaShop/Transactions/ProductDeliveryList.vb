@@ -195,8 +195,8 @@ Public Class ProductDeliveryList
 
         Dim Tot As Double = 0
 
-        SQL = "select p.pluid,p.plucode,p.pluname,d.quantity,d.costprice,d.retailprice from productmaster p,deliverydetailstemp d " _
-            & "where p.pluid=d.pluid and d.deliverycode='" & cmbDCode.Text.Trim & "' order by sno"
+        SQL = "select p.pluid,p.plucode,p.pluname,d.quantity,pm.costprice,pm.retailprice from productmaster p,deliverydetails d,deliverymaster m,pricemaster pm " _
+            & "where p.pluid=d.pluid and m.id = d.id and d.pluid = pm.pluid and pm.shopid = " & ShopID & " and m.status = 0 and m.deliverycode='" & cmbDCode.Text.Trim & "' order by sno"
 
         TG.Rows.Clear()
 

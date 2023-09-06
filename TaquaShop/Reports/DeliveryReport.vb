@@ -38,8 +38,21 @@ Public Class DeliveryReport
 
         Else
 
-            SQL = "SELECT M.DELIVERYCODE 'DELIVERY CODE',M.DELIVERYDATE 'DATE',P.PLUCODE,P.PLUNAME,P.UNITS,D.QUANTITY,P.COSTPRICE [C.PRICE],P.RETAILPRICE [R.PRICE] FROM DELIVERYMASTER M,DELIVERYDETAILS D," _
-                & "PRODUCTMASTER P WHERE D.PLUID=P.PLUID AND M.ID=D.ID AND M.DELIVERYCODE='" & cmbDCode.Text.Trim & "' ORDER BY D.SNO"
+            SQL = "SELECT M.DELIVERYCODE 'DELIVERY CODE',M.DELIVERYDATE 'DATE',P.PLUCODE,P.PLUNAME,P.UNITS,D.QUANTITY,ROUND(D.QUANTITY * PM.COSTPRICE,2) [C.PRICE],ROUND(D.QUANTITY * PM.RETAILPRICE,2) [R.PRICE] FROM DELIVERYMASTER M,DELIVERYDETAILS D," _
+                & "PRODUCTMASTER P,PRICEMASTER PM WHERE D.PLUID=P.PLUID AND M.ID=D.ID AND PM.SHOPID = " & ShopID & " AND PM.PLUID = D.PLUID AND M.DeliveryFrom = " & ShopID & ""
+
+            If cmbSource.SelectedIndex > 0 Then
+                SQL &= " AND M.DELIVERYTO=" & cmbSource.SelectedValue
+            End If
+
+            If cmbDCode.Text.Trim <> "All" Then
+
+                SQL &= " AND M.DELIVERYCODE ='" & cmbDCode.Text.Trim & "'"
+
+            End If
+
+            SQL &= " ORDER BY D.SNO"
+
 
             ESSA.LoadDataGrid(TG, SQL)
             TG.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill

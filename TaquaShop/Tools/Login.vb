@@ -92,11 +92,11 @@ Public Class Login
             xDoc.Close()
 
 
-            If ConStr.Trim.Length > 0 Then
-                If ESSA.GenerateID("select max(userid) from users") = 1 Then
-                    btnNewUser.Visible = True
-                End If
-            End If
+            'If ConStr.Trim.Length > 0 Then
+            '    If ESSA.GenerateID("select max(userid) from users") = 1 Then
+            '        btnNewUser.Visible = True
+            '    End If
+            'End If
 
         Else
 

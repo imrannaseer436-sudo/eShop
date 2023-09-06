@@ -90,13 +90,14 @@ Public Class frmStockReportNew
 
         pnlLoading.Show() : pnlLoading.Refresh()
 
-        SQL = "SELECT " _
+        SQL = "SELECT DISTINCT " _
             & "P.PluId, P.Plucode, P.Pluname, P.Units, S.Stock," _
-            & "P.Id, P.CostPrice, P.RetailPrice, P.Discount, V.VendorName," _
+            & "P.Id, M.CostPrice, M.RetailPrice, P.Discount, V.VendorName," _
             & "A.Department, A.Category, A.Style, A.Pattern, A.Material, A.Color," _
             & "A.Sleeve, A.Brand, A.Catalog " _
-            & "FROM V_StockPos S, ProductMaster P, ProductAttributes A, Vendors V " _
-            & "WHERE S.PluID = P.PluId AND P.PluId = A.PluId AND P.VendorId = V.VendorId AND S.location_id = " & ShopID & ""
+            & "FROM V_StockPos S, ProductMaster P, ProductAttributes A, Vendors V,PriceMaster M " _
+            & "WHERE S.PluID = P.PluId AND P.PluId = A.PluId AND P.VendorId = V.VendorId AND S.location_id = " & ShopID & " AND " _
+            & "M.Pluid = S.Pluid AND M.ShopID = " & ShopID & ""
 
         If chkEZS.Checked Then
             SQL &= " AND S.Stock>0"

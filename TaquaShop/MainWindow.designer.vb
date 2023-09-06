@@ -118,7 +118,7 @@ Partial Class MainWindow
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel1.Location = New System.Drawing.Point(3, 3)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(198, 29)
+        Me.Panel1.Size = New System.Drawing.Size(318, 29)
         Me.Panel1.TabIndex = 0
         '
         'lblAppName
@@ -130,7 +130,7 @@ Partial Class MainWindow
         Me.lblAppName.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.lblAppName.Location = New System.Drawing.Point(0, 0)
         Me.lblAppName.Name = "lblAppName"
-        Me.lblAppName.Size = New System.Drawing.Size(198, 29)
+        Me.lblAppName.Size = New System.Drawing.Size(318, 29)
         Me.lblAppName.TabIndex = 1
         Me.lblAppName.Text = "      eShop"
         Me.lblAppName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -142,10 +142,10 @@ Partial Class MainWindow
         Me.CustomizableMenuStrip1.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.CustomizableMenuStrip1.ImageScalingSize = New System.Drawing.Size(20, 20)
         Me.CustomizableMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MASTERToolStripMenuItem, Me.TRANSACTIONSToolStripMenuItem, Me.TOOLSToolStripMenuItem, Me.ToolsToolStripMenuItem1, Me.SETTINGSToolStripMenuItem, Me.LOGOUTToolStripMenuItem, Me.SayGoodbyeToolStripMenuItem})
-        Me.CustomizableMenuStrip1.Location = New System.Drawing.Point(204, 0)
+        Me.CustomizableMenuStrip1.Location = New System.Drawing.Point(324, 0)
         Me.CustomizableMenuStrip1.Name = "CustomizableMenuStrip1"
         Me.CustomizableMenuStrip1.Padding = New System.Windows.Forms.Padding(4, 2, 0, 2)
-        Me.CustomizableMenuStrip1.Size = New System.Drawing.Size(612, 35)
+        Me.CustomizableMenuStrip1.Size = New System.Drawing.Size(492, 35)
         Me.CustomizableMenuStrip1.TabIndex = 1
         Me.CustomizableMenuStrip1.Text = "CustomizableMenuStrip1"
         '

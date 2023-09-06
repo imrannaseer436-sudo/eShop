@@ -66,6 +66,8 @@ Partial Class ProductReceivedNew
         Me.CmbScanner = New System.Windows.Forms.ComboBox()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
+        Me.PnlLoading = New System.Windows.Forms.Panel()
+        Me.Label5 = New System.Windows.Forms.Label()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
@@ -74,6 +76,7 @@ Partial Class ProductReceivedNew
         Me.GroupBox3.SuspendLayout()
         Me.GroupBox5.SuspendLayout()
         Me.GroupBox6.SuspendLayout()
+        Me.PnlLoading.SuspendLayout()
         Me.SuspendLayout()
         '
         'Label1
@@ -432,11 +435,31 @@ Partial Class ProductReceivedNew
         Me.Label3.TabIndex = 2
         Me.Label3.Text = "Scanned By"
         '
+        'PnlLoading
+        '
+        Me.PnlLoading.Controls.Add(Me.Label5)
+        Me.PnlLoading.Location = New System.Drawing.Point(225, 257)
+        Me.PnlLoading.Name = "PnlLoading"
+        Me.PnlLoading.Size = New System.Drawing.Size(200, 100)
+        Me.PnlLoading.TabIndex = 10
+        Me.PnlLoading.Visible = False
+        '
+        'Label5
+        '
+        Me.Label5.AutoSize = True
+        Me.Label5.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label5.Location = New System.Drawing.Point(62, 44)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(70, 17)
+        Me.Label5.TabIndex = 1
+        Me.Label5.Text = "Loading..."
+        '
         'ProductReceivedNew
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(650, 615)
+        Me.Controls.Add(Me.PnlLoading)
         Me.Controls.Add(Me.GroupBox6)
         Me.Controls.Add(Me.GroupBox5)
         Me.Controls.Add(Me.GroupBox3)
@@ -464,6 +487,8 @@ Partial Class ProductReceivedNew
         Me.GroupBox5.ResumeLayout(False)
         Me.GroupBox6.ResumeLayout(False)
         Me.GroupBox6.PerformLayout()
+        Me.PnlLoading.ResumeLayout(False)
+        Me.PnlLoading.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -508,4 +533,6 @@ Partial Class ProductReceivedNew
     Friend WithEvents CmbScanner As ComboBox
     Friend WithEvents Label4 As Label
     Friend WithEvents Label3 As Label
+    Friend WithEvents PnlLoading As Panel
+    Friend WithEvents Label5 As Label
 End Class

@@ -33,7 +33,7 @@ Public Class frmGSTPrinter
 
         '// Get terminal list
 
-        SQL = "select convert(varchar,termid) termid from terminal order by termid"
+        SQL = "select convert(varchar,termid) termid from terminal where shopid = " & ShopID & " order by termid"
         ESSA.LoadCombo(cmbTerm, SQL, "termid", "", "All")
 
         '// Font header bold
@@ -61,7 +61,7 @@ Public Class frmGSTPrinter
 
         SQL = "select b.billid,b.billno,b.termid,c.customername,b.totqty,b.totamt,b.customerid,b.billdt,b.remarks " _
             & "from billmaster b,customers c where " _
-            & "b.customerid=c.customerid and b.billdt between '" & Format(dtpFrom.Value, "yyyy-MM-dd") & "' and '" _
+            & "b.customerid=c.customerid and b.shopid = " & ShopID & " and b.billdt between '" & Format(dtpFrom.Value, "yyyy-MM-dd") & "' and '" _
             & Format(dtpTo.Value, "yyyy-MM-dd") & "'"
 
         If cmbTerm.SelectedIndex > 0 Then

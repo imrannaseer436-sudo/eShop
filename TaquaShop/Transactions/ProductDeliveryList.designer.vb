@@ -373,6 +373,7 @@ Partial Class ProductDeliveryList
         'btnSend
         '
         Me.btnSend.BackColor = System.Drawing.Color.FromArgb(CType(CType(140, Byte), Integer), CType(CType(203, Byte), Integer), CType(CType(73, Byte), Integer))
+        Me.btnSend.Enabled = False
         Me.btnSend.FlatAppearance.BorderSize = 0
         Me.btnSend.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnSend.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Bold)
@@ -383,6 +384,7 @@ Partial Class ProductDeliveryList
         Me.btnSend.TabIndex = 5
         Me.btnSend.Text = "&SEND"
         Me.btnSend.UseVisualStyleBackColor = False
+        Me.btnSend.Visible = False
         '
         'Label6
         '
@@ -603,7 +605,6 @@ Partial Class ProductDeliveryList
         Me.DGV.EnableHeadersVisualStyles = False
         Me.DGV.GridColor = System.Drawing.Color.Black
         Me.DGV.Location = New System.Drawing.Point(4, 109)
-        Me.DGV.MultiSelect = False
         Me.DGV.Name = "DGV"
         Me.DGV.ReadOnly = True
         Me.DGV.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
@@ -683,7 +684,7 @@ Partial Class ProductDeliveryList
         Me.Label4.Font = New System.Drawing.Font("Tahoma", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label4.Location = New System.Drawing.Point(7, 7)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(115, 16)
+        Me.Label4.Size = New System.Drawing.Size(114, 16)
         Me.Label4.TabIndex = 1
         Me.Label4.Text = "List of Deliveries"
         '

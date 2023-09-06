@@ -78,7 +78,7 @@ Public Class ProductDelivery
         If e.KeyCode = Keys.Enter Then
             e.SuppressKeyPress = True
 
-            SQL = "select m.pluid,plucode,pluname,v.stock,costprice,retailprice from productmaster m,v_stockpos v where m.pluid=v.pluid and plucode='" & txtCode.Text.Trim & "' and v.location_id = " & ShopID & ""
+            SQL = "select m.pluid,plucode,pluname,v.stock,p.costprice,p.retailprice from productmaster m,v_stockpos v,pricemaster p where m.pluid=v.pluid and p.pluid = v.pluid and p.shopid = " & ShopID & " and plucode='" & txtCode.Text.Trim & "' and v.location_id = " & ShopID & ""
             With ESSA.OpenReader(SQL)
                 If .Read Then
                     PluID = .Item(0)
@@ -424,9 +424,9 @@ Public Class ProductDelivery
 
         If ImportExcelData() = True Then
 
-            SQL = "SELECT P.PLUID,P.PLUCODE,P.PLUNAME,SUM(X.QTY) QUANTITY,P.COSTPRICE,P.RETAILPRICE,V.STOCK " _
-                & "FROM PRODUCTMASTER P,XLIMPORT001 X,V_STOCKPOS V WHERE P.PLUCODE=X.NAME AND P.PLUID=V.PLUID AND V.LOCATION_ID = " & ShopID & " GROUP BY P.PLUID,P.PLUCODE,P.PLUNAME" _
-                & ",P.COSTPRICE,P.RETAILPRICE,V.STOCK ORDER BY P.PLUCODE"
+            SQL = "SELECT P.PLUID,P.PLUCODE,P.PLUNAME,SUM(X.QTY) QUANTITY,PM.COSTPRICE,PM.RETAILPRICE,V.STOCK " _
+                & "FROM PRODUCTMASTER P,XLIMPORT001 X,V_STOCKPOS V,PRICEMASTER PM WHERE P.PLUCODE=X.NAME AND P.PLUID=V.PLUID AND V.LOCATION_ID = " & ShopID & " AND PM.PLUID = V.PLUID AND PM.SHOPID = " & ShopID & " GROUP BY P.PLUID,P.PLUCODE,P.PLUNAME" _
+                & ",PM.COSTPRICE,PM.RETAILPRICE,V.STOCK ORDER BY P.PLUCODE"
 
             With ESSA.OpenReader(SQL)
 

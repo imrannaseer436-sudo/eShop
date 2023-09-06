@@ -25,12 +25,13 @@ Public Class frmDueReport
             & "M.PluName [DESCRIPTION]," _
             & "A.Department [DEPARTMENT]," _
             & "A.Category [CATEGORY]," _
-            & "M.CostPrice [COST PRICE]," _
-            & "M.RetailPrice [RETAIL PRICE]," _
+            & "PM.CostPrice [COST PRICE]," _
+            & "PM.RetailPrice [RETAIL PRICE]," _
             & "DATEDIFF(DAY,G.GRNDt,CURRENT_TIMESTAMP) [DAYS], " _
             & "SUM(S.stock) [STOCK] " _
-            & "FROM V_StockPOS S, ProductMaster M,GRNDetails G,GRNMaster GM, ProductAttributes A " _
-            & "WHERE S.pluid = M.PluID And M.Size = G.PluID And S.pluid = A.PluId And G.GrnNo = GM.GrnNo And S.stock > 0 "
+            & "FROM V_StockPOS S, ProductMaster M,GRNDetails G,GRNMaster GM, ProductAttributes A,PriceMaster PM " _
+            & "WHERE S.pluid = M.PluID And M.Size = G.PluID And S.pluid = A.PluId And G.GrnNo = GM.GrnNo AND " _
+            & "PM.PLUID = S.PLUID AND PM.SHOPID = " & ShopID & " AND S.LOCATION_ID = " & ShopID & ""
 
         '= "SELECT S.PluId," _
         '    & "M.PluCode [CODE]," _
@@ -54,7 +55,7 @@ Public Class frmDueReport
 
         SQL &= " And GM.GrnDt BETWEEN '" & Format(dtpBegin.Value, "yyyy-MM-dd") & "' AND '" & Format(dtpEnd.Value, "yyyy-MM-dd") & "'"
 
-        SQL &= " GROUP BY S.pluid, M.Plucode, M.Pluname, A.Department,A.Category, M.CostPrice,M.RetailPrice, DATEDIFF(DAY,G.GRNDt,CURRENT_TIMESTAMP) " _
+        SQL &= " GROUP BY S.pluid, M.Plucode, M.Pluname, A.Department,A.Category, PM.CostPrice,PM.RetailPrice, DATEDIFF(DAY,G.GRNDt,CURRENT_TIMESTAMP) " _
              & "ORDER BY DAYS DESC"
 
         Try

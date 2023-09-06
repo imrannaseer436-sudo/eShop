@@ -1,6 +1,7 @@
 ﻿Imports System.Data.SqlClient
 Imports Microsoft.Office.Interop.Excel
 Imports System.Threading.Tasks
+Imports Syncfusion.Windows.Forms.Tools
 
 Public Class FrmStockAuditNew
 
@@ -8,7 +9,6 @@ Public Class FrmStockAuditNew
     Dim excelFilePath As String = ""
     Dim unknownList As New List(Of String)
     Private Async Sub FrmStockAuditNew_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-
         SQL = "SELECT DeptId,Department FROM TSDepartment ORDER BY Department"
         Await ESSA.LoadComboAsync(CmbDept, SQL, "Department", "DeptId", "All Departments")
 
@@ -65,10 +65,11 @@ Public Class FrmStockAuditNew
 
         End With
 
-        SQL = $"SELECT P.PluId,P.Plucode,A.Department + '->' + A.Category,P.Pluname, P.Id,
-            P.CostPrice, S.Stock
+        SQL = $"SELECT Distinct P.PluId,P.Plucode,A.Department + '->' + A.Category,P.Pluname, P.Id,
+            M.CostPrice, S.Stock
             FROM ProductMaster P
-            INNER JOIN V_StockPos S ON P.Pluid = S.Pluid AND S.Location_Id = {ShopID}
+            INNER JOIN V_StockPos S ON P.Pluid = S.Pluid AND S.Location_Id = {ShopID}            
+            INNER JOIN PriceMaster M ON M.PluId = S.PluId AND M.ShopId = {ShopID} 
             INNER JOIN ProductAttributes A ON A.PluId = P.PluId"
 
         If CmbDept.SelectedIndex > 0 Then
@@ -414,12 +415,7 @@ Public Class FrmStockAuditNew
 
     End Function
 
-    Private Sub BtnClose_Click(sender As Object, e As EventArgs) Handles BtnClose.Click
-
-        If MessageBox.Show("Do you want to close ?", "eShop", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then
-            Close()
-        End If
-
+    Private Sub BtnClose_Click(sender As Object, e As EventArgs)
 
     End Sub
 
@@ -439,4 +435,12 @@ Public Class FrmStockAuditNew
         End If
 
     End Sub
+
+    Private Sub IconPictureBox1_Click(sender As Object, e As EventArgs) Handles PictureBoxClose.Click
+        If MessageBox.Show("Do you want to close ?", "eShop", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then
+            Close()
+        End If
+    End Sub
+
+
 End Class

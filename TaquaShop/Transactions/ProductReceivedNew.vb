@@ -225,6 +225,7 @@ Public Class ProductReceivedNew
         End If
 
         If MsgBox("Are you sure, do you want to save..!", MsgBoxStyle.Question + MsgBoxStyle.YesNo) = MsgBoxResult.No Then Exit Sub
+        PnlLoading.Visible = True : PnlLoading.Refresh()
         Dim id As Integer = ESSA.GenerateID("select max(id) from receivedmaster")
 
         Call CheckVariation()
@@ -299,6 +300,23 @@ Public Class ProductReceivedNew
 
             Next
 
+            SQL = "DELETE FROM PriceMaster WHERE ShopID = " & ShopID & " AND PluId IN 
+            (SELECT PluId FROM DeliveryDetails D,DeliveryMaster M
+            WHERE D.ID = M.ID AND M.DeliveryCode = '" & cmbDCode.Text.Trim & "')"
+
+            Cmd.CommandText = SQL
+            Cmd.ExecuteNonQuery()
+
+            SQL = $"INSERT INTO PriceMaster
+            SELECT {ShopID},D.PluID,D.CostPrice,D.RetailPrice,D.RetailPrice,D.RetailPrice,1,
+            '{Format(DateTime.Now, "yyyy-MM-dd HH:mm:ss")}','{Format(DateTime.Now, "yyyy-MM-dd HH:mm:ss")}',{UserID},{UserID},P.Discount
+            from ProductMaster P
+            INNER JOIN DeliveryDetails D ON P.PluId = D.Pluid
+            INNER JOIN DeliveryMaster M ON M.ID = D.ID AND 
+            M.DeliveryCode = '{cmbDCode.Text.Trim}'"
+
+            Cmd.CommandText = SQL
+            Cmd.ExecuteNonQuery()
 
             'SQL = "DELETE FROM RECEIVEDMASTERTEMP WHERE DELIVERYCODE='" & cmbDCode.Text.Trim & "';" _
             '    & "DELETE FROM RECEIVEDDETAILSTEMP WHERE DELIVERYCODE='" & cmbDCode.Text.Trim & "'"
@@ -342,6 +360,8 @@ Public Class ProductReceivedNew
         'If TGTmp.Rows.Count > 0 Then
         '    CreateDelivery()
         'End If
+
+        PnlLoading.Visible = False
         MsgBox("Entry saved successfully..!", MsgBoxStyle.Information)
         RefreshForms()
 
