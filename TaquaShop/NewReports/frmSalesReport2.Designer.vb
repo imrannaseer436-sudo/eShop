@@ -24,12 +24,22 @@ Partial Class frmSalesReport2
     Private Sub InitializeComponent()
         Me.TG = New Zuby.ADGV.AdvancedDataGridView()
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.lblDiscount = New System.Windows.Forms.Label()
+        Me.Label20 = New System.Windows.Forms.Label()
+        Me.lblAmount = New System.Windows.Forms.Label()
+        Me.Label16 = New System.Windows.Forms.Label()
         Me.btnExport = New System.Windows.Forms.Button()
         Me.lblStock = New System.Windows.Forms.Label()
         Me.Label19 = New System.Windows.Forms.Label()
         Me.btnFilter = New System.Windows.Forms.Button()
         Me.Panel2 = New System.Windows.Forms.Panel()
         Me.pnlFilter = New System.Windows.Forms.Panel()
+        Me.rdoReturn = New System.Windows.Forms.RadioButton()
+        Me.rdoSales = New System.Windows.Forms.RadioButton()
+        Me.Label9 = New System.Windows.Forms.Label()
+        Me.dtpTo = New System.Windows.Forms.DateTimePicker()
+        Me.Label8 = New System.Windows.Forms.Label()
+        Me.dtpFrom = New System.Windows.Forms.DateTimePicker()
         Me.chkEZS = New System.Windows.Forms.CheckBox()
         Me.btnResetAttribute = New System.Windows.Forms.Label()
         Me.btnHide = New System.Windows.Forms.Button()
@@ -60,16 +70,6 @@ Partial Class frmSalesReport2
         Me.Label11 = New System.Windows.Forms.Label()
         Me.pnlLoading = New System.Windows.Forms.Panel()
         Me.Label18 = New System.Windows.Forms.Label()
-        Me.dtpFrom = New System.Windows.Forms.DateTimePicker()
-        Me.Label8 = New System.Windows.Forms.Label()
-        Me.dtpTo = New System.Windows.Forms.DateTimePicker()
-        Me.Label9 = New System.Windows.Forms.Label()
-        Me.rdoSales = New System.Windows.Forms.RadioButton()
-        Me.rdoReturn = New System.Windows.Forms.RadioButton()
-        Me.lblAmount = New System.Windows.Forms.Label()
-        Me.Label16 = New System.Windows.Forms.Label()
-        Me.lblDiscount = New System.Windows.Forms.Label()
-        Me.Label20 = New System.Windows.Forms.Label()
         CType(Me.TG, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel1.SuspendLayout()
         Me.Panel2.SuspendLayout()
@@ -106,6 +106,48 @@ Partial Class frmSalesReport2
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(952, 52)
         Me.Panel1.TabIndex = 1
+        '
+        'lblDiscount
+        '
+        Me.lblDiscount.AutoSize = True
+        Me.lblDiscount.Font = New System.Drawing.Font("Garamond", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblDiscount.ForeColor = System.Drawing.Color.Maroon
+        Me.lblDiscount.Location = New System.Drawing.Point(501, 19)
+        Me.lblDiscount.Name = "lblDiscount"
+        Me.lblDiscount.Size = New System.Drawing.Size(16, 18)
+        Me.lblDiscount.TabIndex = 9
+        Me.lblDiscount.Text = "0"
+        '
+        'Label20
+        '
+        Me.Label20.AutoSize = True
+        Me.Label20.Font = New System.Drawing.Font("Garamond", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label20.Location = New System.Drawing.Point(420, 18)
+        Me.Label20.Name = "Label20"
+        Me.Label20.Size = New System.Drawing.Size(75, 18)
+        Me.Label20.TabIndex = 8
+        Me.Label20.Text = "Discount:"
+        '
+        'lblAmount
+        '
+        Me.lblAmount.AutoSize = True
+        Me.lblAmount.Font = New System.Drawing.Font("Garamond", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblAmount.ForeColor = System.Drawing.Color.Maroon
+        Me.lblAmount.Location = New System.Drawing.Point(300, 18)
+        Me.lblAmount.Name = "lblAmount"
+        Me.lblAmount.Size = New System.Drawing.Size(16, 18)
+        Me.lblAmount.TabIndex = 7
+        Me.lblAmount.Text = "0"
+        '
+        'Label16
+        '
+        Me.Label16.AutoSize = True
+        Me.Label16.Font = New System.Drawing.Font("Garamond", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label16.Location = New System.Drawing.Point(223, 17)
+        Me.Label16.Name = "Label16"
+        Me.Label16.Size = New System.Drawing.Size(72, 18)
+        Me.Label16.TabIndex = 6
+        Me.Label16.Text = "Amount :"
         '
         'btnExport
         '
@@ -209,6 +251,67 @@ Partial Class frmSalesReport2
         Me.pnlFilter.Size = New System.Drawing.Size(691, 403)
         Me.pnlFilter.TabIndex = 3
         '
+        'rdoReturn
+        '
+        Me.rdoReturn.AutoSize = True
+        Me.rdoReturn.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.rdoReturn.ForeColor = System.Drawing.Color.Red
+        Me.rdoReturn.Location = New System.Drawing.Point(383, 364)
+        Me.rdoReturn.Name = "rdoReturn"
+        Me.rdoReturn.Size = New System.Drawing.Size(68, 18)
+        Me.rdoReturn.TabIndex = 13
+        Me.rdoReturn.Text = "Return"
+        Me.rdoReturn.UseVisualStyleBackColor = True
+        '
+        'rdoSales
+        '
+        Me.rdoSales.AutoSize = True
+        Me.rdoSales.Checked = True
+        Me.rdoSales.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.rdoSales.Location = New System.Drawing.Point(291, 364)
+        Me.rdoSales.Name = "rdoSales"
+        Me.rdoSales.Size = New System.Drawing.Size(56, 18)
+        Me.rdoSales.TabIndex = 12
+        Me.rdoSales.TabStop = True
+        Me.rdoSales.Text = "Sales"
+        Me.rdoSales.UseVisualStyleBackColor = True
+        '
+        'Label9
+        '
+        Me.Label9.AutoSize = True
+        Me.Label9.Location = New System.Drawing.Point(131, 348)
+        Me.Label9.Name = "Label9"
+        Me.Label9.Size = New System.Drawing.Size(19, 13)
+        Me.Label9.TabIndex = 66
+        Me.Label9.Text = "To"
+        '
+        'dtpTo
+        '
+        Me.dtpTo.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.dtpTo.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
+        Me.dtpTo.Location = New System.Drawing.Point(134, 364)
+        Me.dtpTo.Name = "dtpTo"
+        Me.dtpTo.Size = New System.Drawing.Size(111, 21)
+        Me.dtpTo.TabIndex = 11
+        '
+        'Label8
+        '
+        Me.Label8.AutoSize = True
+        Me.Label8.Location = New System.Drawing.Point(14, 348)
+        Me.Label8.Name = "Label8"
+        Me.Label8.Size = New System.Drawing.Size(31, 13)
+        Me.Label8.TabIndex = 64
+        Me.Label8.Text = "From"
+        '
+        'dtpFrom
+        '
+        Me.dtpFrom.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.dtpFrom.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
+        Me.dtpFrom.Location = New System.Drawing.Point(17, 364)
+        Me.dtpFrom.Name = "dtpFrom"
+        Me.dtpFrom.Size = New System.Drawing.Size(111, 21)
+        Me.dtpFrom.TabIndex = 10
+        '
         'chkEZS
         '
         Me.chkEZS.AutoSize = True
@@ -218,7 +321,7 @@ Partial Class frmSalesReport2
         Me.chkEZS.ForeColor = System.Drawing.Color.Maroon
         Me.chkEZS.Location = New System.Drawing.Point(273, 34)
         Me.chkEZS.Name = "chkEZS"
-        Me.chkEZS.Size = New System.Drawing.Size(148, 20)
+        Me.chkEZS.Size = New System.Drawing.Size(147, 20)
         Me.chkEZS.TabIndex = 62
         Me.chkEZS.Text = "Exclude Zero Stock"
         Me.chkEZS.UseVisualStyleBackColor = True
@@ -528,109 +631,6 @@ Partial Class frmSalesReport2
         Me.Label18.TabIndex = 0
         Me.Label18.Text = "Loading Data, Please Wait"
         '
-        'dtpFrom
-        '
-        Me.dtpFrom.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.dtpFrom.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.dtpFrom.Location = New System.Drawing.Point(17, 364)
-        Me.dtpFrom.Name = "dtpFrom"
-        Me.dtpFrom.Size = New System.Drawing.Size(111, 21)
-        Me.dtpFrom.TabIndex = 10
-        '
-        'Label8
-        '
-        Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(14, 348)
-        Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(31, 13)
-        Me.Label8.TabIndex = 64
-        Me.Label8.Text = "From"
-        '
-        'dtpTo
-        '
-        Me.dtpTo.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.dtpTo.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.dtpTo.Location = New System.Drawing.Point(134, 364)
-        Me.dtpTo.Name = "dtpTo"
-        Me.dtpTo.Size = New System.Drawing.Size(111, 21)
-        Me.dtpTo.TabIndex = 11
-        '
-        'Label9
-        '
-        Me.Label9.AutoSize = True
-        Me.Label9.Location = New System.Drawing.Point(131, 348)
-        Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(19, 13)
-        Me.Label9.TabIndex = 66
-        Me.Label9.Text = "To"
-        '
-        'rdoSales
-        '
-        Me.rdoSales.AutoSize = True
-        Me.rdoSales.Checked = True
-        Me.rdoSales.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.rdoSales.Location = New System.Drawing.Point(291, 364)
-        Me.rdoSales.Name = "rdoSales"
-        Me.rdoSales.Size = New System.Drawing.Size(56, 18)
-        Me.rdoSales.TabIndex = 12
-        Me.rdoSales.TabStop = True
-        Me.rdoSales.Text = "Sales"
-        Me.rdoSales.UseVisualStyleBackColor = True
-        '
-        'rdoReturn
-        '
-        Me.rdoReturn.AutoSize = True
-        Me.rdoReturn.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.rdoReturn.ForeColor = System.Drawing.Color.Red
-        Me.rdoReturn.Location = New System.Drawing.Point(383, 364)
-        Me.rdoReturn.Name = "rdoReturn"
-        Me.rdoReturn.Size = New System.Drawing.Size(68, 18)
-        Me.rdoReturn.TabIndex = 13
-        Me.rdoReturn.Text = "Return"
-        Me.rdoReturn.UseVisualStyleBackColor = True
-        '
-        'lblAmount
-        '
-        Me.lblAmount.AutoSize = True
-        Me.lblAmount.Font = New System.Drawing.Font("Garamond", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblAmount.ForeColor = System.Drawing.Color.Maroon
-        Me.lblAmount.Location = New System.Drawing.Point(300, 18)
-        Me.lblAmount.Name = "lblAmount"
-        Me.lblAmount.Size = New System.Drawing.Size(16, 18)
-        Me.lblAmount.TabIndex = 7
-        Me.lblAmount.Text = "0"
-        '
-        'Label16
-        '
-        Me.Label16.AutoSize = True
-        Me.Label16.Font = New System.Drawing.Font("Garamond", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label16.Location = New System.Drawing.Point(223, 17)
-        Me.Label16.Name = "Label16"
-        Me.Label16.Size = New System.Drawing.Size(72, 18)
-        Me.Label16.TabIndex = 6
-        Me.Label16.Text = "Amount :"
-        '
-        'lblDiscount
-        '
-        Me.lblDiscount.AutoSize = True
-        Me.lblDiscount.Font = New System.Drawing.Font("Garamond", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblDiscount.ForeColor = System.Drawing.Color.Maroon
-        Me.lblDiscount.Location = New System.Drawing.Point(501, 19)
-        Me.lblDiscount.Name = "lblDiscount"
-        Me.lblDiscount.Size = New System.Drawing.Size(16, 18)
-        Me.lblDiscount.TabIndex = 9
-        Me.lblDiscount.Text = "0"
-        '
-        'Label20
-        '
-        Me.Label20.AutoSize = True
-        Me.Label20.Font = New System.Drawing.Font("Garamond", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label20.Location = New System.Drawing.Point(420, 18)
-        Me.Label20.Name = "Label20"
-        Me.Label20.Size = New System.Drawing.Size(75, 18)
-        Me.Label20.TabIndex = 8
-        Me.Label20.Text = "Discount:"
-        '
         'frmSalesReport2
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -643,7 +643,7 @@ Partial Class frmSalesReport2
         Me.DoubleBuffered = True
         Me.KeyPreview = True
         Me.Name = "frmSalesReport2"
-        Me.Text = "Stock Report"
+        Me.Text = "Sales Report"
         Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
         CType(Me.TG, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel1.ResumeLayout(False)

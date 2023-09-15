@@ -38,7 +38,7 @@ Public Class DeliveryReport
 
         Else
 
-            SQL = "SELECT M.DELIVERYCODE 'DELIVERY CODE',M.DELIVERYDATE 'DATE',P.PLUCODE,P.PLUNAME,P.UNITS,D.QUANTITY,ROUND(D.QUANTITY * PM.COSTPRICE,2) [C.PRICE],ROUND(D.QUANTITY * PM.RETAILPRICE,2) [R.PRICE] FROM DELIVERYMASTER M,DELIVERYDETAILS D," _
+            SQL = "SELECT M.DELIVERYCODE 'DELIVERY CODE',M.DELIVERYDATE 'DATE',P.PLUCODE,P.PLUNAME,P.UNITS,P.HSNCode [HSN],D.QUANTITY,PM.COSTPRICE [C. PRICE],ROUND(D.QUANTITY * PM.COSTPRICE,2) [TOT CP],PM.RETAILPRICE [R. PRICE],ROUND(D.QUANTITY * PM.RETAILPRICE,2) [TOT RP] FROM DELIVERYMASTER M,DELIVERYDETAILS D," _
                 & "PRODUCTMASTER P,PRICEMASTER PM WHERE D.PLUID=P.PLUID AND M.ID=D.ID AND PM.SHOPID = " & ShopID & " AND PM.PLUID = D.PLUID AND M.DeliveryFrom = " & ShopID & ""
 
             If cmbSource.SelectedIndex > 0 Then
@@ -61,9 +61,9 @@ Public Class DeliveryReport
             Dim RVal As Double = 0
 
             For i As Integer = 0 To TG.Rows.Count - 1
-                TQty += Val(TG.Item(5, i).Value)
-                CVal += Val(TG.Item(6, i).Value)
-                RVal += Val(TG.Item(7, i).Value)
+                TQty += Val(TG.Item(6, i).Value)
+                CVal += Val(TG.Item(8, i).Value)
+                RVal += Val(TG.Item(10, i).Value)
             Next
 
             lblQty.Text = TQty
@@ -71,8 +71,6 @@ Public Class DeliveryReport
             lblRVal.Text = Format(RVal, "0.00")
 
         End If
-
-
 
     End Sub
 

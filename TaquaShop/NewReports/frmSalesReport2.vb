@@ -98,11 +98,11 @@ Public Class frmSalesReport2
 
         SQL = "SELECT " _
             & "P.PluId, P.Plucode, P.Pluname, P.Units, S.Qty [Quantity]," _
-            & "P.Id [Size], P.CostPrice, S.Rate, S.DisAmt [Discount], S.Amount, V.VendorName," _
+            & "P.Id [Size], M.CostPrice, S.Rate, S.DisAmt [Discount], S.Amount, V.VendorName," _
             & "A.Department, A.Category, A.Style, A.Pattern, A.Material, A.Color," _
             & "A.Sleeve, A.Brand, A.Catalog " _
-            & "FROM BillDetails S, ProductMaster P, ProductAttributes A, Vendors V " _
-            & "WHERE S.PluID = P.PluId AND P.PluId = A.PluId AND P.VendorId = V.VendorId AND S.ShopId = " & ShopID & " "
+            & "FROM BillDetails S, ProductMaster P, ProductAttributes A, Vendors V,PriceMaster M " _
+            & "WHERE S.PluID = P.PluId AND P.PluId = A.PluId AND P.VendorId = V.VendorId AND M.Pluid = S.Pluid AND M.ShopId = " & ShopID & " AND S.ShopId = " & ShopID & " "
 
         SQL &= " AND CAST(CONVERT(CHAR(8), S.BillDt, 112) AS INT) BETWEEN " & Format(dtpFrom.Value, "yyyyMMdd") & " AND " _
              & Format(dtpTo.Value, "yyyyMMdd")
