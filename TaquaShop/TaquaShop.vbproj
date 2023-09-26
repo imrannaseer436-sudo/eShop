@@ -231,9 +231,7 @@
     <Compile Include="NewReports\frmSalesReport2.Designer.vb">
       <DependentUpon>frmSalesReport2.vb</DependentUpon>
     </Compile>
-    <Compile Include="NewReports\frmSalesReport2.vb">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="NewReports\frmSalesReport2.vb" />
     <Compile Include="NewReports\frmStockReportNew.Designer.vb">
       <DependentUpon>frmStockReportNew.vb</DependentUpon>
     </Compile>
