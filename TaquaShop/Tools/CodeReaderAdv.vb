@@ -1,5 +1,8 @@
 ﻿Imports System.Data.SqlClient
+Imports System.IO
 Imports System.Net.NetworkInformation
+Imports Excel = Microsoft.Office.Interop.Excel
+
 Public Class CodeReaderAdv
 
     Private Sub CodeReaderAdv_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -11,6 +14,7 @@ Public Class CodeReaderAdv
 
         ESSA.AlignHeader(TGLst, 1, DataGridViewContentAlignment.MiddleCenter)
         ESSA.AlignHeader(TGLst, 5, DataGridViewContentAlignment.MiddleRight)
+        ESSA.AlignCenter(pnlLoading, Me)
 
         LoadAttributes()
         ResetAttributes()
@@ -153,13 +157,14 @@ Public Class CodeReaderAdv
             TG.Item(2, TG.Rows.Count - 1).Value = iCode
             TG.Item(3, TG.Rows.Count - 1).Value = Format(Rate, "0.00")
             TG.FirstDisplayedScrollingRowIndex = TG.Rows.Count - 1
+            TG.CurrentCell = TG(2, TG.Rows.Count - 1)
 
             Dim IStr = "INSERT INTO CODEREADER VALUES (" _
                  & PluID & ",'" _
                  & iCode & "'," _
                  & TG.Rows.Count & ",'" _
                  & MacID & "'," _
-                 & Val(txtRate.Text) & ", GETDATE(), NEWID())"
+                 & Val(txtRate.Text) & ", GETDATE(), NEWID(), " & ShopID & ")"
 
             ESSA.Execute(IStr)
 
@@ -176,7 +181,7 @@ Public Class CodeReaderAdv
         Dim Rl = Val(InputBox("Answer the following Question to proceed delete..?" & vbCrLf + "17 X 8 + 5 = ?"))
 
         If Rl = 141 Then
-            ESSA.Execute("DELETE FROM CODEREADER WHERE MACID='" & MacID & "'")
+            ESSA.Execute("DELETE FROM CODEREADER WHERE SHOPID = " & ShopID & " AND MACID='" & MacID & "'")
             TG.Rows.Clear()
             MsgBox("Entry deleted successfully..!", MsgBoxStyle.Information)
         Else
@@ -189,7 +194,7 @@ Public Class CodeReaderAdv
 
         TG.Rows.Clear()
 
-        With ESSA.OpenReader("SELECT * FROM CODEREADER WHERE MACID='" & MacID & "' ORDER BY SNO")
+        With ESSA.OpenReader("SELECT * FROM CODEREADER WHERE MACID='" & MacID & "' AND ShopId = " & ShopID & " ORDER BY SNO")
 
             While .Read
 
@@ -219,7 +224,7 @@ Public Class CodeReaderAdv
 
             If MsgBox("Do you want to remove current row.!", MsgBoxStyle.Critical + MsgBoxStyle.YesNo) = MsgBoxResult.No Then Exit Sub
 
-            ESSA.Execute("DELETE FROM CODEREADER WHERE MACID='" & MacID & "' AND SNO=" & Val(TG.Item(1, e.RowIndex).Value) & " AND PluId=" & Val(TG.Item(0, e.RowIndex).Value))
+            ESSA.Execute("DELETE FROM CODEREADER WHERE ShopId = " & ShopID & " AND MACID='" & MacID & "' AND SNO=" & Val(TG.Item(1, e.RowIndex).Value) & " AND PluId=" & Val(TG.Item(0, e.RowIndex).Value))
 
             MsgBox("Entry deleted successfully..!", MsgBoxStyle.Information)
 
@@ -756,4 +761,105 @@ Public Class CodeReaderAdv
     Private Sub txtCode_TextChanged(sender As Object, e As EventArgs) Handles txtCode.TextChanged
 
     End Sub
+
+    Private Async Sub BtnDownload_Click(sender As Object, e As EventArgs) Handles BtnDownload.Click
+
+        If MsgBox("Did you completed scanning all products ?", MsgBoxStyle.Question + MsgBoxStyle.YesNo) = MsgBoxResult.No Then
+            Exit Sub
+        End If
+
+        pnlLoading.Visible = True
+
+        ' Specify your SQL query
+        'Dim sqlQuery As String = $"SELECT P.PLUCODE [BARCODE],P.PLUNAME [DESC],P.ID [SIZE],P.COSTPRICE,COUNT(C.PLUID) QTY,
+        'COUNT(C.PLUID) * P.COSTPRICE [VALUE]
+        'FROM PRODUCTMASTER P
+        'INNER JOIN CODEREADER C ON C.PLUID = P.PLUID AND C.SHOPID = { ShopID }
+        'GROUP BY P.PLUCODE, P.PLUNAME, P.ID, P.COSTPRICE"
+
+        Dim sqlQuery As String = $"SELECT P.PLUCODE [BARCODE], P.PLUNAME [DESC], P.ID [SIZE], COALESCE(PM.COSTPRICE, P.COSTPRICE) AS COSTPRICE,
+        COUNT(C.PLUID) QTY, COUNT(C.PLUID) * COALESCE(PM.COSTPRICE, P.COSTPRICE) AS [VALUE]
+        FROM PRODUCTMASTER P
+        LEFT JOIN PRICEMASTER PM ON PM.PLUID = P.PLUID AND PM.ShopId = {ShopID}
+        LEFT JOIN CODEREADER C ON C.PLUID = COALESCE(PM.PLUID, P.PLUID) AND C.SHOPID = {ShopID}
+        GROUP BY P.PLUCODE, P.PLUNAME, P.ID, P.COSTPRICE, PM.COSTPRICE
+        HAVING 
+        COUNT(C.PLUID) <> 0"
+
+        Try
+            ' Create a SqlConnection
+            Using connection As New SqlConnection(ConStr)
+                ' Open the connection
+                Await connection.OpenAsync()
+
+                ' Create a SqlCommand
+                Using command As New SqlCommand(sqlQuery, connection)
+                    ' Execute the query and get the data using SqlDataReader
+                    Using reader As SqlDataReader = Await command.ExecuteReaderAsync()
+                        ' Create a new Excel application
+                        Dim excelApp As New Excel.Application()
+
+                        ' Add a new workbook
+                        Dim workbook As Excel.Workbook = excelApp.Workbooks.Add()
+
+                        ' Add a new worksheet
+                        Dim worksheet As Excel.Worksheet = workbook.Sheets(1)
+
+                        ' Write the column headers
+                        For col = 1 To reader.FieldCount
+                            worksheet.Cells(1, col).Value = reader.GetName(col - 1)
+                        Next
+
+                        ' Write the data to the Excel worksheet
+                        Dim row As Integer = 2
+                        While Await reader.ReadAsync()
+                            For col = 1 To reader.FieldCount
+                                worksheet.Cells(row, col).Value = reader(col - 1)
+                            Next
+                            row += 1
+                        End While
+
+                        ' Autofit columns
+                        worksheet.UsedRange.Columns.AutoFit()
+
+                        ' Get the desktop path
+                        Dim desktopPath As String = Environment.GetFolderPath(Environment.SpecialFolder.Desktop)
+
+                        ' Save the workbook on the desktop
+                        Dim fileName As String = $"{ShopName} Stock {Now:dd-MM-yyyy hh.mm}.xlsx"
+                        Dim filePath As String = Path.Combine(desktopPath, fileName)
+                        workbook.SaveAs(filePath)
+
+                        ' Close the Excel application
+                        excelApp.Quit()
+
+                        ' Release resources
+                        System.Runtime.InteropServices.Marshal.ReleaseComObject(workbook)
+                        System.Runtime.InteropServices.Marshal.ReleaseComObject(excelApp)
+
+                        pnlLoading.Visible = False
+
+                        MessageBox.Show("Data exported to excel successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    End Using
+                End Using
+            End Using
+        Catch ex As Exception
+            pnlLoading.Visible = False
+            MessageBox.Show("Error exporting data to Excel: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+
+    End Sub
+
+    Private Sub TG_RowsAdded(sender As Object, e As DataGridViewRowsAddedEventArgs) Handles TG.RowsAdded
+
+        LblTotalPcs.Text = TG.Rows.Count
+
+    End Sub
+
+    Private Sub TG_RowsRemoved(sender As Object, e As DataGridViewRowsRemovedEventArgs) Handles TG.RowsRemoved
+
+        LblTotalPcs.Text = TG.Rows.Count
+
+    End Sub
+
 End Class

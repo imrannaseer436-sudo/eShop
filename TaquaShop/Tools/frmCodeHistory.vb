@@ -14,7 +14,7 @@
         End If
 
         SQL = "select deliverydate,TTYPE, QTY from v_currentstockpos v, productmaster p where v.pluid=p.pluid " _
-            & "and p.plucode='{0}' and qty>0 and v.location_id = " & ShopID & " order by deliverydate"
+            & "and p.plucode='{0}' and v.location_id = " & ShopID & " order by deliverydate"
 
         SQL = String.Format(SQL, txtCode.Text.Trim)
 

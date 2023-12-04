@@ -32,10 +32,11 @@ Public Class Verifier
 
         Dim list As String = Mid(CmbDeliveryCodes.Text, 1, CmbDeliveryCodes.Text.Length - 1)
 
-        SQL = $"select dd.pluid,pm.plucode,dd.quantity,0 received 
+        SQL = $"select dd.pluid,pm.plucode,sum(dd.quantity) quantity,0 received 
         from deliverymaster dm
         inner join deliverydetails dd on dm.id = dd.id and dm.deliverycode in ({list})
-        inner join productmaster pm on pm.pluid = dd.pluid"
+        inner join productmaster pm on pm.pluid = dd.pluid
+        group by dd.pluid,pm.plucode"
 
         DgVerifier.Rows.Clear()
         With ESSA.OpenReader(SQL)
@@ -84,6 +85,9 @@ Public Class Verifier
                 Exit Sub
             End If
             DgVerifier.Item(3, rowIndex).Value += 1
+            DgVerifier.CurrentCell = DgVerifier(1, rowIndex)
+            DgScan.Rows.Insert(0, TxtCode.Text.Trim.ToUpper)
+            DgScan.CurrentCell = DgScan(0, 0)
             CalculateVariation()
             TxtCode.Clear()
             TxtCode.Focus()
@@ -117,4 +121,99 @@ Public Class Verifier
         End If
 
     End Sub
+
+    Private Async Sub BtnSave_Click(sender As Object, e As EventArgs) Handles BtnSave.Click
+
+        If DgVerifier.Rows.Count = 0 Then Exit Sub
+
+        Dim id = Val(InputBox("Please enter id"))
+        If id <= 0 Then Exit Sub
+        Dim executed As Boolean
+
+        SQL = $"delete from verify_details where shop_id ={ShopID} and id = {id} ;delete from verify_master where id = {id} and shop_id = {ShopID};"
+        ESSA.Execute(SQL)
+
+        SQL = $"insert into verify_master values ({id},{ShopID},{UserID},'{Now:yyyy-MM-dd HH:mm:ss}')"
+        executed = Await ESSA.ExecuteAsync(SQL)
+
+        For i As Integer = 0 To DgVerifier.Rows.Count - 1
+
+            SQL = $"insert into verify_details values (
+            {id},
+            {DgVerifier.Item(0, i).Value},
+            {DgVerifier.Item(3, i).Value},
+            {ShopID})"
+
+            executed = Await ESSA.ExecuteAsync(SQL)
+
+        Next
+
+        If executed Then
+            MsgBox("Saved", MsgBoxStyle.Information)
+        End If
+
+    End Sub
+
+    Private Sub BtnFetch_Click(sender As Object, e As EventArgs) Handles BtnFetch.Click
+
+        If DgVerifier.Rows.Count = 0 Then Exit Sub
+        Dim Id = Val(InputBox("Enter Id"))
+
+        SQL = $"select d.* 
+        from verify_details d, verify_master m where m.id = d.id and m.shop_id = {ShopID} and d.shop_id = {ShopID} and m.id = {Id}"
+
+        With ESSA.OpenReader(SQL)
+
+            While .Read
+
+                Dim NRI As Integer = ESSA.FindGridIndex(DgVerifier, 0, .Item(1))
+                If NRI <> -1 Then
+                    DgVerifier.Item(3, NRI).Value = .Item(2)
+                End If
+
+            End While
+            .Close()
+        End With
+
+        SQL = $"select p.plucode,d.qty
+        from verify_master m
+        inner join verify_details d on m.id = d.id and m.shop_id = {ShopID} and d.shop_id = {ShopID} and m.id = {Id}
+        inner join productmaster p on p.pluid = d.pluid"
+
+        With ESSA.OpenReader(SQL)
+            DgScan.Rows.Clear()
+            While .Read
+
+                If Val(.Item(1)) > 0 Then
+                    For i As Short = 1 To Val(.Item(1))
+                        'Dim row = DgScan.Rows.Add()
+                        'DgScan.Item(0, row).Value = .Item(0)
+                        DgScan.Rows.Insert(0, .Item(0))
+                        DgScan.CurrentCell = DgScan(0, 0)
+                    Next
+                End If
+
+            End While
+            .Close()
+        End With
+
+        CalculateVariation()
+
+    End Sub
+
+    Private Sub DgScan_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles DgScan.CellClick
+
+        If e.RowIndex = -1 Then Exit Sub
+
+        If e.ColumnIndex = 1 Then
+
+            Dim rowIndex = ESSA.FindGridIndex(DgVerifier, 1, DgScan.Item(0, e.RowIndex).Value)
+            DgVerifier.Item(3, rowIndex).Value -= 1
+            CalculateVariation()
+            DgScan.Rows.RemoveAt(e.RowIndex)
+
+        End If
+
+    End Sub
+
 End Class

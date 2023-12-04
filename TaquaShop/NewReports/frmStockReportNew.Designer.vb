@@ -24,6 +24,7 @@ Partial Class frmStockReportNew
     Private Sub InitializeComponent()
         Me.TG = New Zuby.ADGV.AdvancedDataGridView()
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.btnExport = New System.Windows.Forms.Button()
         Me.lblStock = New System.Windows.Forms.Label()
         Me.Label19 = New System.Windows.Forms.Label()
         Me.btnFilter = New System.Windows.Forms.Button()
@@ -59,7 +60,8 @@ Partial Class frmStockReportNew
         Me.Label11 = New System.Windows.Forms.Label()
         Me.pnlLoading = New System.Windows.Forms.Panel()
         Me.Label18 = New System.Windows.Forms.Label()
-        Me.btnExport = New System.Windows.Forms.Button()
+        Me.LblValue = New System.Windows.Forms.Label()
+        Me.Label9 = New System.Windows.Forms.Label()
         CType(Me.TG, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel1.SuspendLayout()
         Me.Panel2.SuspendLayout()
@@ -83,6 +85,8 @@ Partial Class frmStockReportNew
         '
         'Panel1
         '
+        Me.Panel1.Controls.Add(Me.LblValue)
+        Me.Panel1.Controls.Add(Me.Label9)
         Me.Panel1.Controls.Add(Me.btnExport)
         Me.Panel1.Controls.Add(Me.lblStock)
         Me.Panel1.Controls.Add(Me.Label19)
@@ -93,12 +97,26 @@ Partial Class frmStockReportNew
         Me.Panel1.Size = New System.Drawing.Size(952, 52)
         Me.Panel1.TabIndex = 1
         '
+        'btnExport
+        '
+        Me.btnExport.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnExport.BackColor = System.Drawing.Color.LightYellow
+        Me.btnExport.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnExport.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnExport.ForeColor = System.Drawing.Color.SaddleBrown
+        Me.btnExport.Location = New System.Drawing.Point(813, 12)
+        Me.btnExport.Name = "btnExport"
+        Me.btnExport.Size = New System.Drawing.Size(117, 30)
+        Me.btnExport.TabIndex = 5
+        Me.btnExport.Text = "&Export"
+        Me.btnExport.UseVisualStyleBackColor = False
+        '
         'lblStock
         '
         Me.lblStock.AutoSize = True
         Me.lblStock.Font = New System.Drawing.Font("Garamond", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblStock.ForeColor = System.Drawing.Color.Maroon
-        Me.lblStock.Location = New System.Drawing.Point(81, 18)
+        Me.lblStock.Location = New System.Drawing.Point(115, 18)
         Me.lblStock.Name = "lblStock"
         Me.lblStock.Size = New System.Drawing.Size(16, 18)
         Me.lblStock.TabIndex = 4
@@ -110,9 +128,9 @@ Partial Class frmStockReportNew
         Me.Label19.Font = New System.Drawing.Font("Garamond", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label19.Location = New System.Drawing.Point(21, 17)
         Me.Label19.Name = "Label19"
-        Me.Label19.Size = New System.Drawing.Size(54, 18)
+        Me.Label19.Size = New System.Drawing.Size(88, 18)
         Me.Label19.TabIndex = 3
-        Me.Label19.Text = "Stock :"
+        Me.Label19.Text = "Stock  Qty :"
         '
         'btnFilter
         '
@@ -184,7 +202,7 @@ Partial Class frmStockReportNew
         Me.chkEZS.ForeColor = System.Drawing.Color.Maroon
         Me.chkEZS.Location = New System.Drawing.Point(17, 360)
         Me.chkEZS.Name = "chkEZS"
-        Me.chkEZS.Size = New System.Drawing.Size(148, 20)
+        Me.chkEZS.Size = New System.Drawing.Size(147, 20)
         Me.chkEZS.TabIndex = 62
         Me.chkEZS.Text = "Exclude Zero Stock"
         Me.chkEZS.UseVisualStyleBackColor = True
@@ -493,19 +511,26 @@ Partial Class frmStockReportNew
         Me.Label18.TabIndex = 0
         Me.Label18.Text = "Loading Data, Please Wait"
         '
-        'btnExport
+        'LblValue
         '
-        Me.btnExport.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnExport.BackColor = System.Drawing.Color.LightYellow
-        Me.btnExport.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnExport.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnExport.ForeColor = System.Drawing.Color.SaddleBrown
-        Me.btnExport.Location = New System.Drawing.Point(813, 12)
-        Me.btnExport.Name = "btnExport"
-        Me.btnExport.Size = New System.Drawing.Size(117, 30)
-        Me.btnExport.TabIndex = 5
-        Me.btnExport.Text = "&Export"
-        Me.btnExport.UseVisualStyleBackColor = False
+        Me.LblValue.AutoSize = True
+        Me.LblValue.Font = New System.Drawing.Font("Garamond", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LblValue.ForeColor = System.Drawing.Color.Maroon
+        Me.LblValue.Location = New System.Drawing.Point(289, 18)
+        Me.LblValue.Name = "LblValue"
+        Me.LblValue.Size = New System.Drawing.Size(16, 18)
+        Me.LblValue.TabIndex = 7
+        Me.LblValue.Text = "0"
+        '
+        'Label9
+        '
+        Me.Label9.AutoSize = True
+        Me.Label9.Font = New System.Drawing.Font("Garamond", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label9.Location = New System.Drawing.Point(181, 17)
+        Me.Label9.Name = "Label9"
+        Me.Label9.Size = New System.Drawing.Size(102, 18)
+        Me.Label9.TabIndex = 6
+        Me.Label9.Text = "Stock  Value :"
         '
         'frmStockReportNew
         '
@@ -571,4 +596,6 @@ Partial Class frmStockReportNew
     Friend WithEvents Label19 As Label
     Friend WithEvents chkEZS As CheckBox
     Friend WithEvents btnExport As Button
+    Friend WithEvents LblValue As Label
+    Friend WithEvents Label9 As Label
 End Class

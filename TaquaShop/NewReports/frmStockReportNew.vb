@@ -78,12 +78,15 @@ Public Class frmStockReportNew
     Private Sub getTotalStock()
 
         Dim totalQuantity As Double = 0
+        Dim totalValue As Double = 0
 
         For i As Integer = 0 To TG.Rows.Count - 1
             totalQuantity += Val(TG.Item(4, i).Value)
+            totalValue += Val(TG.Item(4, i).Value) * Val(TG.Item(6, i).Value)
         Next
 
         lblStock.Text = totalQuantity
+        LblValue.Text = Format(totalValue, "0.00")
 
     End Sub
     Private Sub btnApplyFilter_Click(sender As Object, e As EventArgs) Handles btnApplyFilter.Click

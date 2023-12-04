@@ -97,7 +97,9 @@ Public Class MainWindow
 
         For Each ctl As Control In pnlMain.Controls
             If TypeOf (ctl) Is Form Then
-                ctl.Dispose()
+                If CType(ctl, Form).Name <> MyForm.Name Then
+                    ctl.Dispose()
+                End If
             End If
         Next
 

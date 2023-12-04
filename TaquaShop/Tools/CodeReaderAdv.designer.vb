@@ -22,7 +22,7 @@ Partial Class CodeReaderAdv
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.txtCode = New System.Windows.Forms.TextBox()
         Me.TG = New System.Windows.Forms.DataGridView()
@@ -86,16 +86,22 @@ Partial Class CodeReaderAdv
         Me.txtRate = New System.Windows.Forms.TextBox()
         Me.Label16 = New System.Windows.Forms.Label()
         Me.Panel3 = New System.Windows.Forms.Panel()
+        Me.LblTotalPcs = New System.Windows.Forms.Label()
+        Me.Label18 = New System.Windows.Forms.Label()
         Me.Label22 = New System.Windows.Forms.Label()
         Me.lblLink = New System.Windows.Forms.Label()
         Me.Label24 = New System.Windows.Forms.Label()
         Me.btnUpdate = New System.Windows.Forms.Button()
         Me.ChkSkipRate = New System.Windows.Forms.CheckBox()
         Me.ChkCounter = New System.Windows.Forms.CheckBox()
+        Me.BtnDownload = New System.Windows.Forms.Button()
+        Me.pnlLoading = New System.Windows.Forms.Panel()
+        Me.Label17 = New System.Windows.Forms.Label()
         CType(Me.TG, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.pnlList.SuspendLayout()
         CType(Me.TGLst, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel3.SuspendLayout()
+        Me.pnlLoading.SuspendLayout()
         Me.SuspendLayout()
         '
         'Label1
@@ -160,9 +166,9 @@ Partial Class CodeReaderAdv
         '
         'Column4
         '
-        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Webdings", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(2, Byte))
-        Me.Column4.DefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle3.Font = New System.Drawing.Font("Webdings", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(2, Byte))
+        Me.Column4.DefaultCellStyle = DataGridViewCellStyle3
         Me.Column4.HeaderText = ""
         Me.Column4.Name = "Column4"
         Me.Column4.ReadOnly = True
@@ -213,7 +219,7 @@ Partial Class CodeReaderAdv
         Me.btnSave.Font = New System.Drawing.Font("Tahoma", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnSave.Location = New System.Drawing.Point(714, 247)
         Me.btnSave.Name = "btnSave"
-        Me.btnSave.Size = New System.Drawing.Size(152, 38)
+        Me.btnSave.Size = New System.Drawing.Size(114, 38)
         Me.btnSave.TabIndex = 13
         Me.btnSave.Text = "&Save"
         Me.btnSave.UseVisualStyleBackColor = True
@@ -319,9 +325,9 @@ Partial Class CodeReaderAdv
         Me.Label8.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label8.Location = New System.Drawing.Point(415, 16)
         Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(96, 14)
+        Me.Label8.Size = New System.Drawing.Size(103, 14)
         Me.Label8.TabIndex = 15
-        Me.Label8.Text = "CATGORY INFO"
+        Me.Label8.Text = "CATEGORY INFO"
         '
         'btnReload
         '
@@ -521,7 +527,7 @@ Partial Class CodeReaderAdv
         Me.Label9.Font = New System.Drawing.Font("Tahoma", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label9.Location = New System.Drawing.Point(252, 7)
         Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(97, 16)
+        Me.Label9.Size = New System.Drawing.Size(96, 16)
         Me.Label9.TabIndex = 0
         Me.Label9.Text = "List of Entries"
         '
@@ -530,7 +536,7 @@ Partial Class CodeReaderAdv
         Me.lblEdit.AutoSize = True
         Me.lblEdit.Font = New System.Drawing.Font("Tahoma", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblEdit.ForeColor = System.Drawing.Color.Red
-        Me.lblEdit.Location = New System.Drawing.Point(739, 369)
+        Me.lblEdit.Location = New System.Drawing.Point(727, 366)
         Me.lblEdit.Name = "lblEdit"
         Me.lblEdit.Size = New System.Drawing.Size(248, 25)
         Me.lblEdit.TabIndex = 19
@@ -649,11 +655,12 @@ Partial Class CodeReaderAdv
         '
         Me.btnSyncAttrib.AutoSize = True
         Me.btnSyncAttrib.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnSyncAttrib.Enabled = False
         Me.btnSyncAttrib.Font = New System.Drawing.Font("Tahoma", 9.75!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnSyncAttrib.ForeColor = System.Drawing.Color.Purple
         Me.btnSyncAttrib.Location = New System.Drawing.Point(876, 432)
         Me.btnSyncAttrib.Name = "btnSyncAttrib"
-        Me.btnSyncAttrib.Size = New System.Drawing.Size(111, 16)
+        Me.btnSyncAttrib.Size = New System.Drawing.Size(110, 16)
         Me.btnSyncAttrib.TabIndex = 32
         Me.btnSyncAttrib.Text = "Sync Attributes"
         '
@@ -678,13 +685,34 @@ Partial Class CodeReaderAdv
         '
         Me.Panel3.BackColor = System.Drawing.Color.Beige
         Me.Panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Panel3.Controls.Add(Me.LblTotalPcs)
+        Me.Panel3.Controls.Add(Me.Label18)
         Me.Panel3.Controls.Add(Me.Label22)
         Me.Panel3.Controls.Add(Me.lblLink)
         Me.Panel3.Controls.Add(Me.Label24)
         Me.Panel3.Location = New System.Drawing.Point(12, 485)
         Me.Panel3.Name = "Panel3"
-        Me.Panel3.Size = New System.Drawing.Size(368, 68)
+        Me.Panel3.Size = New System.Drawing.Size(368, 126)
         Me.Panel3.TabIndex = 41
+        '
+        'LblTotalPcs
+        '
+        Me.LblTotalPcs.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LblTotalPcs.ForeColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.LblTotalPcs.Location = New System.Drawing.Point(8, 96)
+        Me.LblTotalPcs.Name = "LblTotalPcs"
+        Me.LblTotalPcs.Size = New System.Drawing.Size(355, 14)
+        Me.LblTotalPcs.TabIndex = 11
+        Me.LblTotalPcs.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'Label18
+        '
+        Me.Label18.AutoSize = True
+        Me.Label18.Location = New System.Drawing.Point(8, 70)
+        Me.Label18.Name = "Label18"
+        Me.Label18.Size = New System.Drawing.Size(116, 14)
+        Me.Label18.TabIndex = 10
+        Me.Label18.Text = "Total Pcs Scanned :"
         '
         'Label22
         '
@@ -700,26 +728,28 @@ Partial Class CodeReaderAdv
         '
         Me.lblLink.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblLink.ForeColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(0, Byte), Integer))
-        Me.lblLink.Location = New System.Drawing.Point(12, 38)
+        Me.lblLink.Location = New System.Drawing.Point(8, 46)
         Me.lblLink.Name = "lblLink"
-        Me.lblLink.Size = New System.Drawing.Size(300, 14)
+        Me.lblLink.Size = New System.Drawing.Size(355, 14)
         Me.lblLink.TabIndex = 8
+        Me.lblLink.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'Label24
         '
         Me.Label24.AutoSize = True
-        Me.Label24.Location = New System.Drawing.Point(12, 12)
+        Me.Label24.Location = New System.Drawing.Point(8, 20)
         Me.Label24.Name = "Label24"
-        Me.Label24.Size = New System.Drawing.Size(56, 14)
+        Me.Label24.Size = New System.Drawing.Size(64, 14)
         Me.Label24.TabIndex = 0
-        Me.Label24.Text = "Category"
+        Me.Label24.Text = "Category :"
         '
         'btnUpdate
         '
+        Me.btnUpdate.Enabled = False
         Me.btnUpdate.Font = New System.Drawing.Font("Tahoma", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnUpdate.Location = New System.Drawing.Point(798, 308)
+        Me.btnUpdate.Location = New System.Drawing.Point(714, 308)
         Me.btnUpdate.Name = "btnUpdate"
-        Me.btnUpdate.Size = New System.Drawing.Size(152, 38)
+        Me.btnUpdate.Size = New System.Drawing.Size(114, 38)
         Me.btnUpdate.TabIndex = 42
         Me.btnUpdate.Text = "Update"
         Me.btnUpdate.UseVisualStyleBackColor = True
@@ -729,6 +759,7 @@ Partial Class CodeReaderAdv
         Me.ChkSkipRate.AutoSize = True
         Me.ChkSkipRate.Checked = True
         Me.ChkSkipRate.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.ChkSkipRate.Enabled = False
         Me.ChkSkipRate.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ChkSkipRate.Location = New System.Drawing.Point(309, 17)
         Me.ChkSkipRate.Name = "ChkSkipRate"
@@ -748,11 +779,45 @@ Partial Class CodeReaderAdv
         Me.ChkCounter.Text = "Counter"
         Me.ChkCounter.UseVisualStyleBackColor = True
         '
+        'BtnDownload
+        '
+        Me.BtnDownload.Font = New System.Drawing.Font("Tahoma", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BtnDownload.Location = New System.Drawing.Point(872, 308)
+        Me.BtnDownload.Name = "BtnDownload"
+        Me.BtnDownload.Size = New System.Drawing.Size(114, 38)
+        Me.BtnDownload.TabIndex = 45
+        Me.BtnDownload.Text = "Download"
+        Me.BtnDownload.UseVisualStyleBackColor = True
+        '
+        'pnlLoading
+        '
+        Me.pnlLoading.BackColor = System.Drawing.Color.Navy
+        Me.pnlLoading.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.pnlLoading.Controls.Add(Me.Label17)
+        Me.pnlLoading.Location = New System.Drawing.Point(368, 281)
+        Me.pnlLoading.Name = "pnlLoading"
+        Me.pnlLoading.Size = New System.Drawing.Size(276, 60)
+        Me.pnlLoading.TabIndex = 46
+        Me.pnlLoading.Visible = False
+        '
+        'Label17
+        '
+        Me.Label17.AutoSize = True
+        Me.Label17.Font = New System.Drawing.Font("Garamond", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label17.ForeColor = System.Drawing.Color.Yellow
+        Me.Label17.Location = New System.Drawing.Point(24, 20)
+        Me.Label17.Name = "Label17"
+        Me.Label17.Size = New System.Drawing.Size(226, 18)
+        Me.Label17.TabIndex = 0
+        Me.Label17.Text = "Downloading Data, Please Wait"
+        '
         'CodeReaderAdv
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 14.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1012, 561)
+        Me.ClientSize = New System.Drawing.Size(1012, 623)
+        Me.Controls.Add(Me.pnlLoading)
+        Me.Controls.Add(Me.BtnDownload)
         Me.Controls.Add(Me.ChkCounter)
         Me.Controls.Add(Me.ChkSkipRate)
         Me.Controls.Add(Me.btnUpdate)
@@ -803,6 +868,8 @@ Partial Class CodeReaderAdv
         CType(Me.TGLst, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel3.ResumeLayout(False)
         Me.Panel3.PerformLayout()
+        Me.pnlLoading.ResumeLayout(False)
+        Me.pnlLoading.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -876,4 +943,9 @@ Partial Class CodeReaderAdv
     Friend WithEvents btnUpdate As Button
     Friend WithEvents ChkSkipRate As CheckBox
     Friend WithEvents ChkCounter As CheckBox
+    Friend WithEvents BtnDownload As Button
+    Friend WithEvents LblTotalPcs As Label
+    Friend WithEvents Label18 As Label
+    Friend WithEvents pnlLoading As Panel
+    Friend WithEvents Label17 As Label
 End Class

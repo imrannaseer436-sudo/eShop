@@ -482,6 +482,22 @@ Public Class ESSA
         End Using
     End Function
 
+    Public Shared Async Function ExecuteAsync(ByVal Qry As String) As Task(Of Boolean)
 
+        Try
+            Using nCon As New SqlConnection(ConStr)
+                Await nCon.OpenAsync()
+                Using Cmd As New SqlCommand(Qry, nCon)
+                    Await Cmd.ExecuteNonQueryAsync()
+                    Return True
+                End Using
+            End Using
+        Catch ex As SqlException
+            MsgBox(ex.Message, MsgBoxStyle.Critical)
+        End Try
+
+        Return False
+
+    End Function
 
 End Class
