@@ -22,16 +22,18 @@ Partial Class SalesQuantityReport
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.Label10 = New System.Windows.Forms.Label()
         Me.Label11 = New System.Windows.Forms.Label()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.TG = New System.Windows.Forms.DataGridView()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.lblQty = New System.Windows.Forms.Label()
         Me.Button4 = New System.Windows.Forms.Button()
+        Me.Label12 = New System.Windows.Forms.Label()
         Me.Button3 = New System.Windows.Forms.Button()
         Me.btnClose = New System.Windows.Forms.Button()
         Me.btnExport = New System.Windows.Forms.Button()
@@ -50,14 +52,12 @@ Partial Class SalesQuantityReport
         Me.btnHide = New System.Windows.Forms.Button()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.Label7 = New System.Windows.Forms.Label()
-        Me.cmbSCat3 = New System.Windows.Forms.ComboBox()
+        Me.CmbCatalog = New System.Windows.Forms.ComboBox()
         Me.Label8 = New System.Windows.Forms.Label()
-        Me.cmbSCat2 = New System.Windows.Forms.ComboBox()
+        Me.cmbStyle = New System.Windows.Forms.ComboBox()
         Me.Label9 = New System.Windows.Forms.Label()
-        Me.CmbSCat1 = New System.Windows.Forms.ComboBox()
         Me.CmbCat = New System.Windows.Forms.ComboBox()
-        Me.lblQty = New System.Windows.Forms.Label()
-        Me.Label12 = New System.Windows.Forms.Label()
+        Me.CmbDept = New System.Windows.Forms.ComboBox()
         Me.TableLayoutPanel1.SuspendLayout()
         CType(Me.TG, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel1.SuspendLayout()
@@ -71,7 +71,7 @@ Partial Class SalesQuantityReport
         Me.Label10.ForeColor = System.Drawing.Color.Gray
         Me.Label10.Location = New System.Drawing.Point(9, 17)
         Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(110, 15)
+        Me.Label10.Size = New System.Drawing.Size(108, 15)
         Me.Label10.TabIndex = 9
         Me.Label10.Text = "DURATION FILTER"
         '
@@ -111,31 +111,31 @@ Partial Class SalesQuantityReport
         Me.TG.AllowUserToDeleteRows = False
         Me.TG.AllowUserToResizeColumns = False
         Me.TG.AllowUserToResizeRows = False
-        DataGridViewCellStyle7.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.TG.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle7
+        DataGridViewCellStyle4.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.TG.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle4
         Me.TG.BackgroundColor = System.Drawing.Color.White
         Me.TG.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.TG.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None
         Me.TG.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
-        DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle8.BackColor = System.Drawing.Color.DarkGray
-        DataGridViewCellStyle8.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle8.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.TG.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle8
+        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle5.BackColor = System.Drawing.Color.DarkGray
+        DataGridViewCellStyle5.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle5.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.TG.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle5
         Me.TG.ColumnHeadersHeight = 30
         Me.TG.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
         Me.TableLayoutPanel1.SetColumnSpan(Me.TG, 2)
-        DataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle9.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle9.ForeColor = System.Drawing.Color.DimGray
-        DataGridViewCellStyle9.SelectionBackColor = System.Drawing.Color.Navy
-        DataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.TG.DefaultCellStyle = DataGridViewCellStyle9
+        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle6.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle6.ForeColor = System.Drawing.Color.DimGray
+        DataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.Navy
+        DataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.TG.DefaultCellStyle = DataGridViewCellStyle6
         Me.TG.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TG.EnableHeadersVisualStyles = False
         Me.TG.Location = New System.Drawing.Point(8, 217)
@@ -153,7 +153,7 @@ Partial Class SalesQuantityReport
         Me.Label1.ForeColor = System.Drawing.Color.Navy
         Me.Label1.Location = New System.Drawing.Point(8, 0)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(246, 32)
+        Me.Label1.Size = New System.Drawing.Size(244, 32)
         Me.Label1.TabIndex = 0
         Me.Label1.Text = "Sales Quantity Report"
         '
@@ -184,6 +184,17 @@ Partial Class SalesQuantityReport
         Me.Panel1.Size = New System.Drawing.Size(937, 176)
         Me.Panel1.TabIndex = 1
         '
+        'lblQty
+        '
+        Me.lblQty.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblQty.ForeColor = System.Drawing.Color.Navy
+        Me.lblQty.Location = New System.Drawing.Point(516, 102)
+        Me.lblQty.Name = "lblQty"
+        Me.lblQty.Size = New System.Drawing.Size(109, 30)
+        Me.lblQty.TabIndex = 17
+        Me.lblQty.Text = "0"
+        Me.lblQty.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
         'Button4
         '
         Me.Button4.BackColor = System.Drawing.Color.FromArgb(CType(CType(140, Byte), Integer), CType(CType(203, Byte), Integer), CType(CType(73, Byte), Integer))
@@ -196,6 +207,17 @@ Partial Class SalesQuantityReport
         Me.Button4.TabIndex = 4
         Me.Button4.Text = "DISPLAY"
         Me.Button4.UseVisualStyleBackColor = False
+        '
+        'Label12
+        '
+        Me.Label12.AutoSize = True
+        Me.Label12.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label12.ForeColor = System.Drawing.Color.Gray
+        Me.Label12.Location = New System.Drawing.Point(518, 59)
+        Me.Label12.Name = "Label12"
+        Me.Label12.Size = New System.Drawing.Size(106, 15)
+        Me.Label12.TabIndex = 16
+        Me.Label12.Text = "TOTAL QUANTITY"
         '
         'Button3
         '
@@ -345,12 +367,12 @@ Partial Class SalesQuantityReport
         Me.pnlCatFilter.Controls.Add(Me.btnHide)
         Me.pnlCatFilter.Controls.Add(Me.Label6)
         Me.pnlCatFilter.Controls.Add(Me.Label7)
-        Me.pnlCatFilter.Controls.Add(Me.cmbSCat3)
+        Me.pnlCatFilter.Controls.Add(Me.CmbCatalog)
         Me.pnlCatFilter.Controls.Add(Me.Label8)
-        Me.pnlCatFilter.Controls.Add(Me.cmbSCat2)
+        Me.pnlCatFilter.Controls.Add(Me.cmbStyle)
         Me.pnlCatFilter.Controls.Add(Me.Label9)
-        Me.pnlCatFilter.Controls.Add(Me.CmbSCat1)
         Me.pnlCatFilter.Controls.Add(Me.CmbCat)
+        Me.pnlCatFilter.Controls.Add(Me.CmbDept)
         Me.pnlCatFilter.Location = New System.Drawing.Point(480, 87)
         Me.pnlCatFilter.Name = "pnlCatFilter"
         Me.pnlCatFilter.Size = New System.Drawing.Size(248, 283)
@@ -391,9 +413,9 @@ Partial Class SalesQuantityReport
         Me.Label6.ForeColor = System.Drawing.Color.Black
         Me.Label6.Location = New System.Drawing.Point(11, 11)
         Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(68, 15)
+        Me.Label6.Size = New System.Drawing.Size(84, 15)
         Me.Label6.TabIndex = 4
-        Me.Label6.Text = "CATEGORY"
+        Me.Label6.Text = "DEPARTMENT"
         '
         'Label7
         '
@@ -402,17 +424,17 @@ Partial Class SalesQuantityReport
         Me.Label7.ForeColor = System.Drawing.Color.Black
         Me.Label7.Location = New System.Drawing.Point(11, 68)
         Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(113, 15)
+        Me.Label7.Size = New System.Drawing.Size(67, 15)
         Me.Label7.TabIndex = 4
-        Me.Label7.Text = "SUB CATEGORY - 1"
+        Me.Label7.Text = "CATEGORY"
         '
-        'cmbSCat3
+        'CmbCatalog
         '
-        Me.cmbSCat3.FormattingEnabled = True
-        Me.cmbSCat3.Location = New System.Drawing.Point(14, 200)
-        Me.cmbSCat3.Name = "cmbSCat3"
-        Me.cmbSCat3.Size = New System.Drawing.Size(222, 23)
-        Me.cmbSCat3.TabIndex = 3
+        Me.CmbCatalog.FormattingEnabled = True
+        Me.CmbCatalog.Location = New System.Drawing.Point(14, 200)
+        Me.CmbCatalog.Name = "CmbCatalog"
+        Me.CmbCatalog.Size = New System.Drawing.Size(222, 23)
+        Me.CmbCatalog.TabIndex = 3
         '
         'Label8
         '
@@ -421,17 +443,17 @@ Partial Class SalesQuantityReport
         Me.Label8.ForeColor = System.Drawing.Color.Black
         Me.Label8.Location = New System.Drawing.Point(11, 125)
         Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(113, 15)
+        Me.Label8.Size = New System.Drawing.Size(40, 15)
         Me.Label8.TabIndex = 4
-        Me.Label8.Text = "SUB CATEGORY - 2"
+        Me.Label8.Text = "STYLE"
         '
-        'cmbSCat2
+        'cmbStyle
         '
-        Me.cmbSCat2.FormattingEnabled = True
-        Me.cmbSCat2.Location = New System.Drawing.Point(14, 143)
-        Me.cmbSCat2.Name = "cmbSCat2"
-        Me.cmbSCat2.Size = New System.Drawing.Size(222, 23)
-        Me.cmbSCat2.TabIndex = 2
+        Me.cmbStyle.FormattingEnabled = True
+        Me.cmbStyle.Location = New System.Drawing.Point(14, 143)
+        Me.cmbStyle.Name = "cmbStyle"
+        Me.cmbStyle.Size = New System.Drawing.Size(222, 23)
+        Me.cmbStyle.TabIndex = 2
         '
         'Label9
         '
@@ -440,47 +462,25 @@ Partial Class SalesQuantityReport
         Me.Label9.ForeColor = System.Drawing.Color.Black
         Me.Label9.Location = New System.Drawing.Point(11, 182)
         Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(113, 15)
+        Me.Label9.Size = New System.Drawing.Size(59, 15)
         Me.Label9.TabIndex = 4
-        Me.Label9.Text = "SUB CATEGORY - 3"
-        '
-        'CmbSCat1
-        '
-        Me.CmbSCat1.FormattingEnabled = True
-        Me.CmbSCat1.Location = New System.Drawing.Point(14, 86)
-        Me.CmbSCat1.Name = "CmbSCat1"
-        Me.CmbSCat1.Size = New System.Drawing.Size(222, 23)
-        Me.CmbSCat1.TabIndex = 1
+        Me.Label9.Text = "CATALOG"
         '
         'CmbCat
         '
         Me.CmbCat.FormattingEnabled = True
-        Me.CmbCat.Location = New System.Drawing.Point(14, 29)
+        Me.CmbCat.Location = New System.Drawing.Point(14, 86)
         Me.CmbCat.Name = "CmbCat"
         Me.CmbCat.Size = New System.Drawing.Size(222, 23)
-        Me.CmbCat.TabIndex = 0
+        Me.CmbCat.TabIndex = 1
         '
-        'lblQty
+        'CmbDept
         '
-        Me.lblQty.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblQty.ForeColor = System.Drawing.Color.Navy
-        Me.lblQty.Location = New System.Drawing.Point(516, 102)
-        Me.lblQty.Name = "lblQty"
-        Me.lblQty.Size = New System.Drawing.Size(109, 30)
-        Me.lblQty.TabIndex = 17
-        Me.lblQty.Text = "0"
-        Me.lblQty.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
-        'Label12
-        '
-        Me.Label12.AutoSize = True
-        Me.Label12.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label12.ForeColor = System.Drawing.Color.Gray
-        Me.Label12.Location = New System.Drawing.Point(518, 59)
-        Me.Label12.Name = "Label12"
-        Me.Label12.Size = New System.Drawing.Size(107, 15)
-        Me.Label12.TabIndex = 16
-        Me.Label12.Text = "TOTAL QUANTITY"
+        Me.CmbDept.FormattingEnabled = True
+        Me.CmbDept.Location = New System.Drawing.Point(14, 29)
+        Me.CmbDept.Name = "CmbDept"
+        Me.CmbDept.Size = New System.Drawing.Size(222, 23)
+        Me.CmbDept.TabIndex = 0
         '
         'SalesQuantityReport
         '
@@ -527,12 +527,12 @@ Partial Class SalesQuantityReport
     Friend WithEvents btnHide As System.Windows.Forms.Button
     Friend WithEvents Label6 As System.Windows.Forms.Label
     Friend WithEvents Label7 As System.Windows.Forms.Label
-    Friend WithEvents cmbSCat3 As System.Windows.Forms.ComboBox
+    Friend WithEvents CmbCatalog As System.Windows.Forms.ComboBox
     Friend WithEvents Label8 As System.Windows.Forms.Label
-    Friend WithEvents cmbSCat2 As System.Windows.Forms.ComboBox
+    Friend WithEvents cmbStyle As System.Windows.Forms.ComboBox
     Friend WithEvents Label9 As System.Windows.Forms.Label
-    Friend WithEvents CmbSCat1 As System.Windows.Forms.ComboBox
     Friend WithEvents CmbCat As System.Windows.Forms.ComboBox
+    Friend WithEvents CmbDept As System.Windows.Forms.ComboBox
     Friend WithEvents TG As System.Windows.Forms.DataGridView
     Friend WithEvents lblQty As System.Windows.Forms.Label
     Friend WithEvents Label12 As System.Windows.Forms.Label
