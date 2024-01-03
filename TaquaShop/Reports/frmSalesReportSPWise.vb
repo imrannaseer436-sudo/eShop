@@ -16,20 +16,20 @@
             & "GROUP BY BD.BillID,BD.PluId) A " _
             & "LEFT JOIN " _
             & "(SELECT BSP.BillId,BSP.PluId,SP.Name FROM SalesPersons SP " _
-            & "INNER JOIN BillSalePersons BSP ON BSP.SPID = SP.SPID AND SP.ShopId = " & ShopID & " AND BSP.ShopId = " & ShopID & " " _
+            & "INNER JOIN BillSalePersons BSP ON BSP.SPID = SP.SPCode AND SP.ShopId = " & ShopID & " AND BSP.ShopId = " & ShopID & " " _
             & ") B On A.BillId = B.BillId And A.PluID = B.PluId " _
             & " GROUP BY B.Name"
 
         ElseIf CmbRptStyle.SelectedIndex = 1 Then
 
-            SQL = "Select A.[Term ID],A.[Bill No],A.[Bill Date],A.Code,A.Qty,A.Amount,B.SPID,B.[Sales Person],B.Floor FROM " _
+            SQL = "Select A.[Term ID],A.[Bill No],A.[Bill Date],A.Code,A.Qty,A.Amount,B.SPCode,B.[Sales Person],B.Floor FROM " _
             & "(Select DISTINCT BD.BIllId,BD.PluID, BM.TermID [Term ID],BM.BillNo [Bill No],BM.BillDt [Bill Date],PM.Plucode [Code],CONVERT(Decimal(10,2),BD.Qty) [Qty],CONVERT(Decimal(10,2),BD.Amount) Amount " _
             & "FROM BillMaster BM " _
             & "INNER JOIN BillDetails BD On BD.BillID = BM.BillID And BM.BillDt BETWEEN '" & Format(mebFrom.Value, "yyyy-MM-dd") & "' AND '" & Format(mebTo.Value, "yyyy-MM-dd") & "' AND BM.ShopId = " & ShopID & " AND BD.ShopId = " & ShopID & " " _
             & "INNER JOIN ProductMaster PM ON PM.PluID = BD.PluID ) A " _
             & "LEFT JOIN " _
-            & "(SELECT BSP.BillId,BSP.PluId,SP.SPID ,ISNULL(SP.Name,'NOT GIVEN') [Sales Person], CASE SP.Floor When '0' THEN 'GROUND' WHEN '1' THEN 'FIRST' WHEN '2' THEN 'SECOND' WHEN '3' THEN 'THIRD' WHEN 'U' THEN 'UNSPECIFIED' END AS [Floor] FROM BillSalePersons BSP " _
-            & "INNER JOIN SalesPersons SP ON SP.SPID = BSP.SPID AND BSP.ShopId = " & ShopID & " AND SP.ShopId = " & ShopID & ") B ON A.BillId = B.BillId AND A.PluId = B.PluId"
+            & "(SELECT BSP.BillId,BSP.PluId,SP.SPCode ,ISNULL(SP.Name,'NOT GIVEN') [Sales Person], CASE SP.Floor When '0' THEN 'GROUND' WHEN '1' THEN 'FIRST' WHEN '2' THEN 'SECOND' WHEN '3' THEN 'THIRD' WHEN 'U' THEN 'UNSPECIFIED' END AS [Floor] FROM BillSalePersons BSP " _
+            & "INNER JOIN SalesPersons SP ON SP.SPCode = BSP.SPID AND BSP.ShopId = " & ShopID & " AND SP.ShopId = " & ShopID & ") B ON A.BillId = B.BillId AND A.PluId = B.PluId"
 
         ElseIf CmbRptStyle.SelectedIndex = 2 Then
 
@@ -38,14 +38,14 @@
                 Exit Sub
             End If
 
-            SQL = "SELECT A.[Term ID],A.[Bill No],A.[Bill Date],A.Code,A.Qty,A.Amount,B.SPID,B.[Sales Person],B.Floor FROM " _
+            SQL = "SELECT A.[Term ID],A.[Bill No],A.[Bill Date],A.Code,A.Qty,A.Amount,B.SPCode,B.[Sales Person],B.Floor FROM " _
             & "(SELECT DISTINCT BD.BIllId,BD.PluID, BM.TermID [Term ID],BM.BillNo [Bill No],BM.BillDt [Bill Date],PM.Plucode [Code],CONVERT(DECIMAL(10,2),BD.Qty) [Qty],CONVERT(DECIMAL(10,2),BD.Amount) Amount " _
             & "FROM BillMaster BM " _
             & "INNER JOIN BillDetails BD ON BD.BillID = BM.BillID AND BM.BillDt BETWEEN '" & Format(mebFrom.Value, "yyyy-MM-dd") & "' AND '" & Format(mebTo.Value, "yyyy-MM-dd") & "' AND BM.ShopId = " & ShopID & " AND BD.ShopId = " & ShopID & " " _
             & "INNER JOIN ProductMaster PM ON PM.PluID = BD.PluID ) A " _
             & "LEFT JOIN " _
-            & "(SELECT BSP.BillId,BSP.PluId,SP.SPID ,ISNULL(SP.Name,'NOT GIVEN') [Sales Person], CASE SP.Floor When '0' THEN 'GROUND' WHEN '1' THEN 'FIRST' WHEN '2' THEN 'SECOND' WHEN '3' THEN 'THIRD' WHEN 'U' THEN 'UNSPECIFIED' END AS [Floor] FROM BillSalePersons BSP " _
-            & "INNER JOIN SalesPersons SP ON SP.SPID = BSP.SPID AND BSP.ShopId = " & ShopID & " AND SP.ShopId = " & ShopID & ") B ON A.BillId = B.BillId AND A.PluId = B.PluId WHERE B.Floor ='" & CmbUnknown.Text.Trim & "'"
+            & "(SELECT BSP.BillId,BSP.PluId,SP.SPCode ,ISNULL(SP.Name,'NOT GIVEN') [Sales Person], CASE SP.Floor When '0' THEN 'GROUND' WHEN '1' THEN 'FIRST' WHEN '2' THEN 'SECOND' WHEN '3' THEN 'THIRD' WHEN 'U' THEN 'UNSPECIFIED' END AS [Floor] FROM BillSalePersons BSP " _
+            & "INNER JOIN SalesPersons SP ON SP.SPCode = BSP.SPID AND BSP.ShopId = " & ShopID & " AND SP.ShopId = " & ShopID & ") B ON A.BillId = B.BillId AND A.PluId = B.PluId WHERE B.Floor ='" & CmbUnknown.Text.Trim & "'"
 
         ElseIf CmbRptStyle.SelectedIndex = 3 Then
 
@@ -54,14 +54,14 @@
                 Exit Sub
             End If
 
-            SQL = "SELECT A.[Term ID],A.[Bill No],A.[Bill Date],A.Code,A.Qty,A.Amount,B.SPID,B.[Sales Person],B.Floor FROM " _
+            SQL = "SELECT A.[Term ID],A.[Bill No],A.[Bill Date],A.Code,A.Qty,A.Amount,B.SPCode,B.[Sales Person],B.Floor FROM " _
             & "(SELECT DISTINCT BD.BIllId,BD.PluID, BM.TermID [Term ID],BM.BillNo [Bill No],BM.BillDt [Bill Date],PM.Plucode [Code],CONVERT(DECIMAL(10,2),BD.Qty) [Qty],CONVERT(DECIMAL(10,2),BD.Amount) Amount " _
             & "FROM BillMaster BM " _
             & "INNER JOIN BillDetails BD ON BD.BillID = BM.BillID AND BM.BillDt BETWEEN '" & Format(mebFrom.Value, "yyyy-MM-dd") & "' AND '" & Format(mebTo.Value, "yyyy-MM-dd") & "' AND BM.ShopId = " & ShopID & " AND BD.ShopId = " & ShopID & " " _
             & "INNER JOIN ProductMaster PM ON PM.PluID = BD.PluID ) A " _
             & "LEFT JOIN " _
-            & "(SELECT BSP.BillId,BSP.PluId,SP.SPID ,ISNULL(SP.Name,'NOT GIVEN') [Sales Person], CASE SP.Floor When '0' THEN 'GROUND' WHEN '1' THEN 'FIRST' WHEN '2' THEN 'SECOND' WHEN '3' THEN 'THIRD' WHEN 'U' THEN 'UNSPECIFIED' END AS [Floor] FROM BillSalePersons BSP " _
-            & "INNER JOIN SalesPersons SP ON SP.SPID = BSP.SPID AND BSP.ShopId = " & ShopID & " AND SP.ShopId = " & ShopID & ") B ON A.BillId = B.BillId AND A.PluId = B.PluId WHERE B.[Sales Person] ='" & CmbUnknown.Text.Trim & "'"
+            & "(SELECT BSP.BillId,BSP.PluId,SP.SPCode ,ISNULL(SP.Name,'NOT GIVEN') [Sales Person], CASE SP.Floor When '0' THEN 'GROUND' WHEN '1' THEN 'FIRST' WHEN '2' THEN 'SECOND' WHEN '3' THEN 'THIRD' WHEN 'U' THEN 'UNSPECIFIED' END AS [Floor] FROM BillSalePersons BSP " _
+            & "INNER JOIN SalesPersons SP ON SP.SPCode = BSP.SPID AND BSP.ShopId = " & ShopID & " AND SP.ShopId = " & ShopID & ") B ON A.BillId = B.BillId AND A.PluId = B.PluId WHERE B.[Sales Person] ='" & CmbUnknown.Text.Trim & "'"
 
         End If
 
