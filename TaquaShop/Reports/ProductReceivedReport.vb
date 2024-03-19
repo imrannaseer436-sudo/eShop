@@ -91,7 +91,8 @@ Public Class ProductReceivedReport
     Private Sub ShowDetailsReport()
 
         SQL = "select p.plucode 'CODE',p.pluname 'PRODUCT DESCRIPTION',p.units 'UOM',d.QUANTITY from receiveddetails d, receivedmaster m,productmaster p where " _
-            & "p.pluid=d.pluid and m.id = d.id and m.deliveryto = " & ShopID & ""
+            & "p.pluid=d.pluid and m.id = d.id and m.deliveryto = " & ShopID & " and convert(date,m.deliverydate) between '" & Format(mebFrom.Value, "yyyy-MM-dd") & "' and '" _
+            & Format(mebTo.Value, "yyyy-MM-dd") & "'"
 
         If cmbSource.SelectedIndex > 0 Then
             SQL &= " and m.deliveryfrom=" & cmbSource.SelectedValue
@@ -101,7 +102,7 @@ Public Class ProductReceivedReport
             SQL &= " and m.deliverycode='" & cmbDCode.Text & "'"
         End If
 
-        SQL &= " order by d.sno"
+        SQL &= " order by d.id,d.sno"
 
         ESSA.LoadDataGrid(TG, SQL)
         Dim TQty As Double = 0
