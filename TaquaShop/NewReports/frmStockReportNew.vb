@@ -95,7 +95,7 @@ Public Class frmStockReportNew
 
         SQL = "SELECT DISTINCT " _
             & "P.PluId, P.Plucode, P.Pluname, P.Units, S.Stock," _
-            & "P.Id, M.CostPrice, M.RetailPrice, P.Discount, V.VendorName," _
+            & "P.Id [Size], M.CostPrice, M.RetailPrice, P.Discount, V.VendorName," _
             & "A.Department, A.Category, A.Style, A.Pattern, A.Material, A.Color," _
             & "A.Sleeve, A.Brand, A.Catalog " _
             & "FROM V_StockPos S, ProductMaster P, ProductAttributes A, Vendors V,PriceMaster M " _
