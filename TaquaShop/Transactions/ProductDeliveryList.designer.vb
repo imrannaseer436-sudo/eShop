@@ -72,17 +72,18 @@ Partial Class ProductDeliveryList
         Me.cmbFilter = New System.Windows.Forms.ComboBox()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.DGV = New System.Windows.Forms.DataGridView()
+        Me.Panel4 = New System.Windows.Forms.Panel()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.btnHide = New System.Windows.Forms.Button()
+        Me.btnReprint = New System.Windows.Forms.Button()
         Me.Column9 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Column10 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Column11 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Column12 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Column13 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Column14 = New System.Windows.Forms.DataGridViewButtonColumn()
+        Me.Column16 = New System.Windows.Forms.DataGridViewButtonColumn()
         Me.Column15 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Panel4 = New System.Windows.Forms.Panel()
-        Me.Label4 = New System.Windows.Forms.Label()
-        Me.btnHide = New System.Windows.Forms.Button()
-        Me.btnReprint = New System.Windows.Forms.Button()
         Me.Panel1.SuspendLayout()
         Me.TableLayoutPanel1.SuspendLayout()
         CType(Me.TG, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -534,7 +535,7 @@ Partial Class ProductDeliveryList
         Me.pnlList.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.pnlList.Location = New System.Drawing.Point(25, 55)
         Me.pnlList.Name = "pnlList"
-        Me.pnlList.Size = New System.Drawing.Size(575, 514)
+        Me.pnlList.Size = New System.Drawing.Size(692, 514)
         Me.pnlList.TabIndex = 27
         Me.pnlList.Visible = False
         '
@@ -545,7 +546,7 @@ Partial Class ProductDeliveryList
         Me.btnFilter.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnFilter.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnFilter.ForeColor = System.Drawing.Color.White
-        Me.btnFilter.Location = New System.Drawing.Point(395, 68)
+        Me.btnFilter.Location = New System.Drawing.Point(454, 68)
         Me.btnFilter.Name = "btnFilter"
         Me.btnFilter.Size = New System.Drawing.Size(75, 22)
         Me.btnFilter.TabIndex = 1
@@ -558,7 +559,7 @@ Partial Class ProductDeliveryList
         Me.cmbFilter.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmbFilter.ForeColor = System.Drawing.Color.Black
         Me.cmbFilter.FormattingEnabled = True
-        Me.cmbFilter.Location = New System.Drawing.Point(105, 69)
+        Me.cmbFilter.Location = New System.Drawing.Point(164, 69)
         Me.cmbFilter.Name = "cmbFilter"
         Me.cmbFilter.Size = New System.Drawing.Size(284, 21)
         Me.cmbFilter.TabIndex = 0
@@ -568,7 +569,7 @@ Partial Class ProductDeliveryList
         Me.Label5.AutoSize = True
         Me.Label5.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label5.ForeColor = System.Drawing.Color.Black
-        Me.Label5.Location = New System.Drawing.Point(102, 49)
+        Me.Label5.Location = New System.Drawing.Point(161, 49)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(161, 13)
         Me.Label5.TabIndex = 7
@@ -593,7 +594,7 @@ Partial Class ProductDeliveryList
         Me.DGV.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle7
         Me.DGV.ColumnHeadersHeight = 30
         Me.DGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
-        Me.DGV.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Column9, Me.Column10, Me.Column11, Me.Column12, Me.Column13, Me.Column14, Me.Column15})
+        Me.DGV.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Column9, Me.Column10, Me.Column11, Me.Column12, Me.Column13, Me.Column14, Me.Column16, Me.Column15})
         DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window
         DataGridViewCellStyle8.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -612,9 +613,59 @@ Partial Class ProductDeliveryList
         Me.DGV.RowTemplate.Height = 30
         Me.DGV.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
         Me.DGV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect
-        Me.DGV.Size = New System.Drawing.Size(565, 399)
+        Me.DGV.Size = New System.Drawing.Size(683, 399)
         Me.DGV.TabIndex = 2
         Me.DGV.Tag = "1"
+        '
+        'Panel4
+        '
+        Me.Panel4.BackColor = System.Drawing.Color.Gainsboro
+        Me.Panel4.Controls.Add(Me.Label4)
+        Me.Panel4.Controls.Add(Me.btnHide)
+        Me.Panel4.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Panel4.Location = New System.Drawing.Point(0, 0)
+        Me.Panel4.Name = "Panel4"
+        Me.Panel4.Size = New System.Drawing.Size(690, 30)
+        Me.Panel4.TabIndex = 3
+        '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.Font = New System.Drawing.Font("Tahoma", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label4.Location = New System.Drawing.Point(7, 7)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(114, 16)
+        Me.Label4.TabIndex = 1
+        Me.Label4.Text = "List of Deliveries"
+        '
+        'btnHide
+        '
+        Me.btnHide.BackColor = System.Drawing.Color.Gray
+        Me.btnHide.Dock = System.Windows.Forms.DockStyle.Right
+        Me.btnHide.FlatAppearance.BorderSize = 0
+        Me.btnHide.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnHide.Font = New System.Drawing.Font("Webdings", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(2, Byte))
+        Me.btnHide.ForeColor = System.Drawing.Color.White
+        Me.btnHide.Location = New System.Drawing.Point(650, 0)
+        Me.btnHide.Name = "btnHide"
+        Me.btnHide.Size = New System.Drawing.Size(40, 30)
+        Me.btnHide.TabIndex = 0
+        Me.btnHide.Text = "r"
+        Me.btnHide.UseVisualStyleBackColor = False
+        '
+        'btnReprint
+        '
+        Me.btnReprint.BackColor = System.Drawing.Color.Goldenrod
+        Me.btnReprint.FlatAppearance.BorderSize = 0
+        Me.btnReprint.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnReprint.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Bold)
+        Me.btnReprint.ForeColor = System.Drawing.Color.White
+        Me.btnReprint.Location = New System.Drawing.Point(364, 527)
+        Me.btnReprint.Name = "btnReprint"
+        Me.btnReprint.Size = New System.Drawing.Size(107, 42)
+        Me.btnReprint.TabIndex = 28
+        Me.btnReprint.Text = "&REPRINT"
+        Me.btnReprint.UseVisualStyleBackColor = False
         '
         'Column9
         '
@@ -660,62 +711,20 @@ Partial Class ProductDeliveryList
         Me.Column14.UseColumnTextForButtonValue = True
         Me.Column14.Width = 50
         '
+        'Column16
+        '
+        Me.Column16.HeaderText = "INVOICE"
+        Me.Column16.Name = "Column16"
+        Me.Column16.ReadOnly = True
+        Me.Column16.Text = "INVOICE"
+        Me.Column16.UseColumnTextForButtonValue = True
+        '
         'Column15
         '
         Me.Column15.HeaderText = ""
         Me.Column15.Name = "Column15"
         Me.Column15.ReadOnly = True
         Me.Column15.Width = 23
-        '
-        'Panel4
-        '
-        Me.Panel4.BackColor = System.Drawing.Color.Gainsboro
-        Me.Panel4.Controls.Add(Me.Label4)
-        Me.Panel4.Controls.Add(Me.btnHide)
-        Me.Panel4.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Panel4.Location = New System.Drawing.Point(0, 0)
-        Me.Panel4.Name = "Panel4"
-        Me.Panel4.Size = New System.Drawing.Size(573, 30)
-        Me.Panel4.TabIndex = 3
-        '
-        'Label4
-        '
-        Me.Label4.AutoSize = True
-        Me.Label4.Font = New System.Drawing.Font("Tahoma", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label4.Location = New System.Drawing.Point(7, 7)
-        Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(114, 16)
-        Me.Label4.TabIndex = 1
-        Me.Label4.Text = "List of Deliveries"
-        '
-        'btnHide
-        '
-        Me.btnHide.BackColor = System.Drawing.Color.Gray
-        Me.btnHide.Dock = System.Windows.Forms.DockStyle.Right
-        Me.btnHide.FlatAppearance.BorderSize = 0
-        Me.btnHide.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnHide.Font = New System.Drawing.Font("Webdings", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(2, Byte))
-        Me.btnHide.ForeColor = System.Drawing.Color.White
-        Me.btnHide.Location = New System.Drawing.Point(533, 0)
-        Me.btnHide.Name = "btnHide"
-        Me.btnHide.Size = New System.Drawing.Size(40, 30)
-        Me.btnHide.TabIndex = 0
-        Me.btnHide.Text = "r"
-        Me.btnHide.UseVisualStyleBackColor = False
-        '
-        'btnReprint
-        '
-        Me.btnReprint.BackColor = System.Drawing.Color.Goldenrod
-        Me.btnReprint.FlatAppearance.BorderSize = 0
-        Me.btnReprint.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnReprint.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Bold)
-        Me.btnReprint.ForeColor = System.Drawing.Color.White
-        Me.btnReprint.Location = New System.Drawing.Point(364, 527)
-        Me.btnReprint.Name = "btnReprint"
-        Me.btnReprint.Size = New System.Drawing.Size(107, 42)
-        Me.btnReprint.TabIndex = 28
-        Me.btnReprint.Text = "&REPRINT"
-        Me.btnReprint.UseVisualStyleBackColor = False
         '
         'ProductDeliveryList
         '
@@ -808,12 +817,13 @@ Partial Class ProductDeliveryList
     Friend WithEvents cmbFilter As System.Windows.Forms.ComboBox
     Friend WithEvents Label5 As System.Windows.Forms.Label
     Friend WithEvents DGV As System.Windows.Forms.DataGridView
-    Friend WithEvents Column9 As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents Column10 As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents Column11 As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents Column12 As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents Column13 As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents Column14 As System.Windows.Forms.DataGridViewButtonColumn
-    Friend WithEvents Column15 As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents btnReprint As System.Windows.Forms.Button
+    Friend WithEvents Column9 As DataGridViewTextBoxColumn
+    Friend WithEvents Column10 As DataGridViewTextBoxColumn
+    Friend WithEvents Column11 As DataGridViewTextBoxColumn
+    Friend WithEvents Column12 As DataGridViewTextBoxColumn
+    Friend WithEvents Column13 As DataGridViewTextBoxColumn
+    Friend WithEvents Column14 As DataGridViewButtonColumn
+    Friend WithEvents Column16 As DataGridViewButtonColumn
+    Friend WithEvents Column15 As DataGridViewTextBoxColumn
 End Class

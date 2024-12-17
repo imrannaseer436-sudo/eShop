@@ -431,14 +431,17 @@ Public Class FrmStockAuditNew
 
             transaction = conn.BeginTransaction()
             cmd.Transaction = transaction
+            Dim Dept As String = IIf(CmbDept2.Text.Trim = "", "All", CmbDept2.Text.Trim)
+            Dim Cat As String = IIf(CmbCat2.Text.Trim = "", "All", CmbCat2.Text.Trim)
+
 
             SQL = $"INSERT INTO 
             StockAuditMaster 
             VALUES (
             {EntryNo},
             '{Format(Date.Now, "yyyy-MM-dd")}',
-            '{CmbDept.Text}',
-            '{CmbCat.Text}',
+            '{Dept}',
+            '{Cat}',
             '{TxtRemarks.Text.Trim}',
             {Val(LblStock.Text)},
             {Val(LblUpload.Text)},

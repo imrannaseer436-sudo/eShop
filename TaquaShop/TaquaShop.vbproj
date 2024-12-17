@@ -195,6 +195,12 @@
       <DependentUpon>Denomination1.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Crystal\Invoice.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Invoice.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="DayEndReport.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -204,6 +210,9 @@
     <Compile Include="dsReports.Designer.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
+      <DependentUpon>dsReports.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="dsReports.vb">
       <DependentUpon>dsReports.xsd</DependentUpon>
     </Compile>
     <Compile Include="frmGSTPrinter.Designer.vb">
@@ -663,6 +672,10 @@
     <EmbeddedResource Include="Crystal\Denomination1.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>Denomination1.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Crystal\Invoice.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Invoice.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="DayEndReport.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>

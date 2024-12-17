@@ -1,5 +1,8 @@
 ﻿'************************************ Bismillah ***********************************************
 Imports System.Data.SqlClient
+Imports System.Threading.Tasks
+Imports CrystalDecisions.CrystalReports.Engine
+
 Public Class ProductDeliveryList
 
     Private DeliveryID As UShort
@@ -310,13 +313,19 @@ Public Class ProductDeliveryList
 
     End Sub
 
-    Private Sub DGV_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles DGV.CellClick
+    Private Async Sub DGV_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles DGV.CellClick
 
         If e.RowIndex = -1 Then Exit Sub
 
         If e.ColumnIndex = 5 Then
 
             PrintDeliveryChallan(Trim(DGV.Item(0, e.RowIndex).Value))
+
+        End If
+
+        If e.ColumnIndex = 6 Then
+
+            Await GenerateInvoice(Trim(DGV.Item(0, e.RowIndex).Value))
 
         End If
 
@@ -377,6 +386,101 @@ Public Class ProductDeliveryList
         End Using
 
     End Sub
+
+    Private Async Function GenerateInvoice(DeliveryCode As String) As Task
+
+        Dim InvoiceRpt As New Invoice
+
+        Using nCon As New SqlConnection(ConStr)
+            Try
+                Await nCon.OpenAsync()
+
+                Dim fromShopName, fromShopAddress, fromShopGst, fromShopMobile As String
+                Dim toShopName, toShopAddress, toShopGst, toShopMobile As String
+                Dim invNo, invDt As String
+
+                ' Fetch header details
+                SQL = "SELECT DM.DeliveryCode, DM.DeliveryDate, 
+                   S1.Alias [FCName], S1.Address1 + ' ' + S1.Address2 + ' ' + S1.City + ', ' + S1.State [FCAddress], S1.Phone [FCPhone], S1.CST [FCGst],
+                   S2.Alias [TCName], S2.Address1 + S2.Address2 + S2.City + ',' + S2.State [TCAddress],S2.Phone [TCPhone], S2.CST [TCGst]
+                   FROM DeliveryMaster DM
+                   INNER JOIN Shops S1 ON DM.DeliveryFrom = S1.ShopID
+                   INNER JOIN Shops S2 ON DM.DeliveryTo = S2.ShopID
+                   WHERE DM.DeliveryCode = @DeliveryCode"
+
+                Using cmd As New SqlCommand(SQL, nCon)
+                    cmd.Parameters.AddWithValue("@DeliveryCode", DeliveryCode)
+                    Using reader As SqlDataReader = Await cmd.ExecuteReaderAsync()
+                        If Await reader.ReadAsync() Then
+                            fromShopName = reader("FCName").ToString()
+                            fromShopAddress = reader("FCAddress").ToString()
+                            fromShopGst = reader("FCGst").ToString()
+                            fromShopMobile = reader("FCPhone").ToString()
+                            toShopName = reader("TCName").ToString()
+                            toShopAddress = reader("TCAddress").ToString()
+                            toShopGst = reader("TCGst").ToString()
+                            toShopMobile = reader("TCPhone").ToString()
+                            invNo = reader("DeliveryCode").ToString()
+                            invDt = Format(reader("DeliveryDate"), "dd-MM-yyyy")
+                        End If
+                    End Using
+                End Using
+
+                ' Fetch tax data for subreport
+                SQL = "SELECT TaxType, Taxable, TaxPerc FROM V_DeliveryInvoiceTax WHERE DeliveryCode = @DeliveryCode"
+                Using cmd As New SqlCommand(SQL, nCon)
+                    cmd.Parameters.AddWithValue("@DeliveryCode", DeliveryCode)
+                    Using Adp As New SqlDataAdapter(cmd)
+                        Dim Tbl As New DataTable()
+                        Adp.Fill(Tbl)
+                        ' Verify if subreports exist
+                        If InvoiceRpt.Subreports.Count > 0 Then
+                            Dim subRpt = InvoiceRpt.Subreports("TaxBreakup")
+                            If subRpt IsNot Nothing Then
+                                subRpt.SetDataSource(Tbl)
+                            Else
+                                MsgBox("Subreport 'TaxBreakup' not found.")
+                            End If
+                        Else
+                            MsgBox("No subreports found in the main report.")
+                        End If
+                    End Using
+                End Using
+
+                ' Fetch main invoice data
+                SQL = "SELECT Description, HSN, Pcs, Rate, [Dis%], [GST%] FROM V_DeliveryInvoice WHERE DeliveryCode = @DeliveryCode"
+                Using cmd As New SqlCommand(SQL, nCon)
+                    cmd.Parameters.AddWithValue("@DeliveryCode", DeliveryCode)
+                    Using Adp As New SqlDataAdapter(cmd)
+                        Dim Tbl As New DataTable()
+                        Adp.Fill(Tbl)
+                        InvoiceRpt.SetDataSource(Tbl)
+                        InvoiceRpt.SetParameterValue("FromCompanyName", fromShopName)
+                        InvoiceRpt.SetParameterValue("FromCompanyAddress", fromShopAddress)
+                        InvoiceRpt.SetParameterValue("FromCompanyGST", "GSTIN : " + fromShopGst)
+                        InvoiceRpt.SetParameterValue("FromCompanyMobile", "Mobile : " + fromShopMobile)
+                        InvoiceRpt.SetParameterValue("ToCompanyName", toShopName)
+                        InvoiceRpt.SetParameterValue("ToCompanyAddress", toShopAddress)
+                        InvoiceRpt.SetParameterValue("ToCompanyGST", "GSTIN : " + toShopGst)
+                        InvoiceRpt.SetParameterValue("ToCompanyMobile", "Mobile : " + toShopMobile)
+                        InvoiceRpt.SetParameterValue("InvNo", invNo)
+                        InvoiceRpt.SetParameterValue("InvDate", invDt)
+                        frmReportViewer.CRViewer.ReportSource = InvoiceRpt
+                        frmReportViewer.Visible = False
+                        frmReportViewer.Show()
+                    End Using
+                End Using
+
+            Catch ex As SqlException
+                MsgBox($"SQL Error: {ex.Message}", MsgBoxStyle.Critical)
+            Catch ex As Exception
+                MsgBox($"Unexpected Error: {ex.Message}", MsgBoxStyle.Critical)
+            Finally
+                If nCon.State = ConnectionState.Open Then nCon.Close()
+            End Try
+        End Using
+    End Function
+
 
     Private Sub cmbDCLocation_KeyDown(sender As Object, e As KeyEventArgs) Handles cmbDCLocation.KeyDown
 
