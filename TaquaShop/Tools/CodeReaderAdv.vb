@@ -101,6 +101,12 @@ Public Class CodeReaderAdv
 
         If e.KeyCode = Keys.Enter Then
             e.SuppressKeyPress = True
+
+            If ChkCodeFilter.Checked Then
+                ApplyFilter(True)
+                Exit Sub
+            End If
+
             count = 1
             If ChkCounter.Checked Then
                 count = Val(InputBox("Please enter no of pcs?"))
@@ -152,8 +158,11 @@ Public Class CodeReaderAdv
         For i As Short = 1 To Count
 
             TG.Rows.Add()
+
+            Dim sNo As Integer = If(TG.Rows.Count = 1, 1, Val(TG.Item(1, Math.Max(TG.Rows.Count - 2, 0)).Value) + 1)
+
             TG.Item(0, TG.Rows.Count - 1).Value = PluID
-            TG.Item(1, TG.Rows.Count - 1).Value = TG.Rows.Count
+            TG.Item(1, TG.Rows.Count - 1).Value = sNo
             TG.Item(2, TG.Rows.Count - 1).Value = iCode
             TG.Item(3, TG.Rows.Count - 1).Value = Format(Rate, "0.00")
             TG.FirstDisplayedScrollingRowIndex = TG.Rows.Count - 1
@@ -162,7 +171,7 @@ Public Class CodeReaderAdv
             Dim IStr = "INSERT INTO CODEREADER VALUES (" _
                  & PluID & ",'" _
                  & iCode & "'," _
-                 & TG.Rows.Count & ",'" _
+                 & sNo & ",'" _
                  & MacID & "'," _
                  & Val(txtRate.Text) & ", GETDATE(), NEWID(), " & ShopID & ")"
 
@@ -200,7 +209,7 @@ Public Class CodeReaderAdv
 
                 TG.Rows.Add()
                 TG.Item(0, TG.Rows.Count - 1).Value = .Item(0)
-                TG.Item(1, TG.Rows.Count - 1).Value = TG.Rows.Count
+                TG.Item(1, TG.Rows.Count - 1).Value = .Item(2)
                 TG.Item(2, TG.Rows.Count - 1).Value = .GetString(1).Trim
                 TG.Item(3, TG.Rows.Count - 1).Value = Format(.Item(4), "0.00")
 
@@ -861,5 +870,28 @@ Public Class CodeReaderAdv
         LblTotalPcs.Text = TG.Rows.Count
 
     End Sub
+    Private Sub ApplyFilter(isFiltered As Boolean)
+        If txtCode.Text.Trim = String.Empty And isFiltered Then
+            Exit Sub
+        End If
+        Dim filterColumnIndex As Integer = 2 ' The column index you want to filter (zero-based index)
+        For Each row As DataGridViewRow In TG.Rows
+            If isFiltered Then
+                Dim cell As DataGridViewCell = row.Cells(filterColumnIndex)
+                If cell.Value.Equals(txtCode.Text.ToUpper) Then
+                    row.Visible = True ' Show the row
+                Else
+                    row.Visible = False ' Hide the row
+                End If
+            Else
+                row.Visible = True
+            End If
+        Next
+    End Sub
 
+    Private Sub ChkCodeFilter_CheckedChanged(sender As Object, e As EventArgs) Handles ChkCodeFilter.CheckedChanged
+
+        ApplyFilter(ChkCodeFilter.Checked)
+
+    End Sub
 End Class

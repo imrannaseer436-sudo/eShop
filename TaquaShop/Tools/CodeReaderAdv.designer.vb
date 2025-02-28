@@ -22,7 +22,7 @@ Partial Class CodeReaderAdv
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.txtCode = New System.Windows.Forms.TextBox()
         Me.TG = New System.Windows.Forms.DataGridView()
@@ -97,6 +97,7 @@ Partial Class CodeReaderAdv
         Me.BtnDownload = New System.Windows.Forms.Button()
         Me.pnlLoading = New System.Windows.Forms.Panel()
         Me.Label17 = New System.Windows.Forms.Label()
+        Me.ChkCodeFilter = New System.Windows.Forms.CheckBox()
         CType(Me.TG, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.pnlList.SuspendLayout()
         CType(Me.TGLst, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -109,9 +110,9 @@ Partial Class CodeReaderAdv
         Me.Label1.AutoSize = True
         Me.Label1.Location = New System.Drawing.Point(9, 16)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(99, 14)
+        Me.Label1.Size = New System.Drawing.Size(69, 14)
         Me.Label1.TabIndex = 0
-        Me.Label1.Text = "Enter Code Here"
+        Me.Label1.Text = "Enter Code"
         '
         'txtCode
         '
@@ -166,9 +167,9 @@ Partial Class CodeReaderAdv
         '
         'Column4
         '
-        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle3.Font = New System.Drawing.Font("Webdings", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(2, Byte))
-        Me.Column4.DefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Webdings", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(2, Byte))
+        Me.Column4.DefaultCellStyle = DataGridViewCellStyle1
         Me.Column4.HeaderText = ""
         Me.Column4.Name = "Column4"
         Me.Column4.ReadOnly = True
@@ -811,11 +812,23 @@ Partial Class CodeReaderAdv
         Me.Label17.TabIndex = 0
         Me.Label17.Text = "Downloading Data, Please Wait"
         '
+        'ChkCodeFilter
+        '
+        Me.ChkCodeFilter.AutoSize = True
+        Me.ChkCodeFilter.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ChkCodeFilter.Location = New System.Drawing.Point(109, 16)
+        Me.ChkCodeFilter.Name = "ChkCodeFilter"
+        Me.ChkCodeFilter.Size = New System.Drawing.Size(50, 17)
+        Me.ChkCodeFilter.TabIndex = 47
+        Me.ChkCodeFilter.Text = "Filter"
+        Me.ChkCodeFilter.UseVisualStyleBackColor = True
+        '
         'CodeReaderAdv
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 14.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1012, 623)
+        Me.Controls.Add(Me.ChkCodeFilter)
         Me.Controls.Add(Me.pnlLoading)
         Me.Controls.Add(Me.BtnDownload)
         Me.Controls.Add(Me.ChkCounter)
@@ -948,4 +961,5 @@ Partial Class CodeReaderAdv
     Friend WithEvents Label18 As Label
     Friend WithEvents pnlLoading As Panel
     Friend WithEvents Label17 As Label
+    Friend WithEvents ChkCodeFilter As CheckBox
 End Class
