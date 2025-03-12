@@ -22,7 +22,7 @@ Partial Class CodeReaderAdv
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.txtCode = New System.Windows.Forms.TextBox()
         Me.TG = New System.Windows.Forms.DataGridView()
@@ -167,9 +167,9 @@ Partial Class CodeReaderAdv
         '
         'Column4
         '
-        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Webdings", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(2, Byte))
-        Me.Column4.DefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle2.Font = New System.Drawing.Font("Webdings", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(2, Byte))
+        Me.Column4.DefaultCellStyle = DataGridViewCellStyle2
         Me.Column4.HeaderText = ""
         Me.Column4.Name = "Column4"
         Me.Column4.ReadOnly = True
@@ -711,9 +711,9 @@ Partial Class CodeReaderAdv
         Me.Label18.AutoSize = True
         Me.Label18.Location = New System.Drawing.Point(8, 70)
         Me.Label18.Name = "Label18"
-        Me.Label18.Size = New System.Drawing.Size(116, 14)
+        Me.Label18.Size = New System.Drawing.Size(65, 14)
         Me.Label18.TabIndex = 10
-        Me.Label18.Text = "Total Pcs Scanned :"
+        Me.Label18.Text = "Total Pcs :"
         '
         'Label22
         '
@@ -806,11 +806,11 @@ Partial Class CodeReaderAdv
         Me.Label17.AutoSize = True
         Me.Label17.Font = New System.Drawing.Font("Garamond", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label17.ForeColor = System.Drawing.Color.Yellow
-        Me.Label17.Location = New System.Drawing.Point(24, 20)
+        Me.Label17.Location = New System.Drawing.Point(61, 20)
         Me.Label17.Name = "Label17"
-        Me.Label17.Size = New System.Drawing.Size(226, 18)
+        Me.Label17.Size = New System.Drawing.Size(153, 18)
         Me.Label17.TabIndex = 0
-        Me.Label17.Text = "Downloading Data, Please Wait"
+        Me.Label17.Text = "Loading, Please Wait"
         '
         'ChkCodeFilter
         '

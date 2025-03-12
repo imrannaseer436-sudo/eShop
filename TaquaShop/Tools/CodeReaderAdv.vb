@@ -1,6 +1,7 @@
 ﻿Imports System.Data.SqlClient
 Imports System.IO
 Imports System.Net.NetworkInformation
+Imports System.Threading.Tasks
 Imports Excel = Microsoft.Office.Interop.Excel
 
 Public Class CodeReaderAdv
@@ -859,39 +860,58 @@ Public Class CodeReaderAdv
 
     End Sub
 
+    ' Function to count only visible rows
+    Private Sub UpdateVisibleRowCount()
+        Dim visibleCount As Integer = TG.Rows.Cast(Of DataGridViewRow)().Count(Function(row) row.Visible)
+        LblTotalPcs.Text = visibleCount.ToString()
+    End Sub
+
+    ' Update visible row count when rows are added
     Private Sub TG_RowsAdded(sender As Object, e As DataGridViewRowsAddedEventArgs) Handles TG.RowsAdded
-
-        LblTotalPcs.Text = TG.Rows.Count
-
+        UpdateVisibleRowCount()
     End Sub
 
+    ' Update visible row count when rows are removed
     Private Sub TG_RowsRemoved(sender As Object, e As DataGridViewRowsRemovedEventArgs) Handles TG.RowsRemoved
-
-        LblTotalPcs.Text = TG.Rows.Count
-
+        UpdateVisibleRowCount()
     End Sub
-    Private Sub ApplyFilter(isFiltered As Boolean)
-        If txtCode.Text.Trim = String.Empty And isFiltered Then
-            Exit Sub
+
+
+    Private Async Function ApplyFilter(isFiltered As Boolean) As Task
+        If txtCode.Text.Trim = String.Empty AndAlso isFiltered Then
+            Return
         End If
+
         Dim filterColumnIndex As Integer = 2 ' The column index you want to filter (zero-based index)
-        For Each row As DataGridViewRow In TG.Rows
-            If isFiltered Then
-                Dim cell As DataGridViewCell = row.Cells(filterColumnIndex)
-                If cell.Value.Equals(txtCode.Text.ToUpper) Then
-                    row.Visible = True ' Show the row
-                Else
-                    row.Visible = False ' Hide the row
-                End If
-            Else
-                row.Visible = True
-            End If
-        Next
-    End Sub
+        pnlLoading.Visible = True
+        Dim filterText As String = txtCode.Text.ToUpper()
 
-    Private Sub ChkCodeFilter_CheckedChanged(sender As Object, e As EventArgs) Handles ChkCodeFilter.CheckedChanged
+        ' Run filtering on a background thread
+        Await Task.Run(Sub()
+                           For Each row As DataGridViewRow In TG.Rows
+                               Dim visible As Boolean = True ' Default: Show row
 
-        ApplyFilter(ChkCodeFilter.Checked)
+                               If isFiltered Then
+                                   Dim cell As DataGridViewCell = row.Cells(filterColumnIndex)
+                                   If cell.Value Is Nothing OrElse cell.Value.ToString().ToUpper() <> filterText Then
+                                       visible = False ' Hide row
+                                   End If
+                               End If
+
+                               ' Update row visibility on UI thread
+                               Me.Invoke(Sub()
+                                             row.Visible = visible
+                                         End Sub)
+                           Next
+                       End Sub)
+        UpdateVisibleRowCount()
+        pnlLoading.Visible = False
+    End Function
+
+
+    Private Async Sub ChkCodeFilter_CheckedChanged(sender As Object, e As EventArgs) Handles ChkCodeFilter.CheckedChanged
+
+        Await ApplyFilter(ChkCodeFilter.Checked)
 
     End Sub
 End Class
