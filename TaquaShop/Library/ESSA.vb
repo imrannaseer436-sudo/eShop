@@ -254,6 +254,28 @@ Public Class ESSA
 
     End Function
 
+    Public Shared Async Function ExecuteScalarAsync(ByVal Qry As String) As Task(Of Object)
+        Try
+            Using nCon As New SqlConnection(ConStr)
+                nCon.Open()
+                Using Cmd As New SqlCommand(Qry, nCon)
+                    Dim result As Object = Await Cmd.ExecuteScalarAsync()
+
+                    ' 🔥 Handle NULL case explicitly
+                    If result Is DBNull.Value OrElse result Is Nothing Then
+                        Return Nothing ' Return explicit Nothing instead of vbEmpty
+                    End If
+
+                    Return result ' ✅ Return the actual value
+                End Using
+            End Using
+        Catch ex As SqlException
+            MsgBox("Database Error: " & ex.Message, MsgBoxStyle.Critical)
+            Return Nothing ' Return Nothing on error
+        End Try
+    End Function
+
+
     Public Shared Function GetData(ByVal Qry As String) As Double
 
         GetData = 0

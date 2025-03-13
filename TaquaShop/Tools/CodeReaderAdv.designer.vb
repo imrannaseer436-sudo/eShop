@@ -22,16 +22,10 @@ Partial Class CodeReaderAdv
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.txtCode = New System.Windows.Forms.TextBox()
         Me.TG = New System.Windows.Forms.DataGridView()
-        Me.Column1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column22 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column4 = New System.Windows.Forms.DataGridViewButtonColumn()
-        Me.Column5 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.btnCA = New System.Windows.Forms.Button()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.lblMacID = New System.Windows.Forms.Label()
@@ -98,6 +92,13 @@ Partial Class CodeReaderAdv
         Me.pnlLoading = New System.Windows.Forms.Panel()
         Me.Label17 = New System.Windows.Forms.Label()
         Me.ChkCodeFilter = New System.Windows.Forms.CheckBox()
+        Me.Column1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column22 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column23 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column4 = New System.Windows.Forms.DataGridViewButtonColumn()
+        Me.Column5 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         CType(Me.TG, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.pnlList.SuspendLayout()
         CType(Me.TGLst, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -129,7 +130,7 @@ Partial Class CodeReaderAdv
         Me.TG.AllowUserToResizeColumns = False
         Me.TG.AllowUserToResizeRows = False
         Me.TG.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.TG.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Column1, Me.Column2, Me.Column3, Me.Column22, Me.Column4, Me.Column5})
+        Me.TG.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Column1, Me.Column2, Me.Column3, Me.Column22, Me.Column23, Me.Column4, Me.Column5})
         Me.TG.Location = New System.Drawing.Point(12, 64)
         Me.TG.Name = "TG"
         Me.TG.ReadOnly = True
@@ -137,52 +138,6 @@ Partial Class CodeReaderAdv
         Me.TG.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
         Me.TG.Size = New System.Drawing.Size(368, 385)
         Me.TG.TabIndex = 2
-        '
-        'Column1
-        '
-        Me.Column1.HeaderText = "PluID"
-        Me.Column1.Name = "Column1"
-        Me.Column1.ReadOnly = True
-        Me.Column1.Visible = False
-        '
-        'Column2
-        '
-        Me.Column2.HeaderText = "Sno"
-        Me.Column2.Name = "Column2"
-        Me.Column2.ReadOnly = True
-        Me.Column2.Width = 70
-        '
-        'Column3
-        '
-        Me.Column3.HeaderText = "Code"
-        Me.Column3.Name = "Column3"
-        Me.Column3.ReadOnly = True
-        Me.Column3.Width = 150
-        '
-        'Column22
-        '
-        Me.Column22.HeaderText = "Rate"
-        Me.Column22.Name = "Column22"
-        Me.Column22.ReadOnly = True
-        '
-        'Column4
-        '
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle2.Font = New System.Drawing.Font("Webdings", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(2, Byte))
-        Me.Column4.DefaultCellStyle = DataGridViewCellStyle2
-        Me.Column4.HeaderText = ""
-        Me.Column4.Name = "Column4"
-        Me.Column4.ReadOnly = True
-        Me.Column4.Text = "r"
-        Me.Column4.UseColumnTextForButtonValue = True
-        Me.Column4.Width = 30
-        '
-        'Column5
-        '
-        Me.Column5.HeaderText = ""
-        Me.Column5.Name = "Column5"
-        Me.Column5.ReadOnly = True
-        Me.Column5.Width = 25
         '
         'btnCA
         '
@@ -823,6 +778,59 @@ Partial Class CodeReaderAdv
         Me.ChkCodeFilter.Text = "Filter"
         Me.ChkCodeFilter.UseVisualStyleBackColor = True
         '
+        'Column1
+        '
+        Me.Column1.HeaderText = "PluID"
+        Me.Column1.Name = "Column1"
+        Me.Column1.ReadOnly = True
+        Me.Column1.Visible = False
+        '
+        'Column2
+        '
+        Me.Column2.HeaderText = "Sno"
+        Me.Column2.Name = "Column2"
+        Me.Column2.ReadOnly = True
+        Me.Column2.Width = 70
+        '
+        'Column3
+        '
+        Me.Column3.HeaderText = "Code"
+        Me.Column3.Name = "Column3"
+        Me.Column3.ReadOnly = True
+        Me.Column3.Width = 150
+        '
+        'Column22
+        '
+        Me.Column22.HeaderText = "Rate"
+        Me.Column22.Name = "Column22"
+        Me.Column22.ReadOnly = True
+        '
+        'Column23
+        '
+        Me.Column23.HeaderText = "Id"
+        Me.Column23.Name = "Column23"
+        Me.Column23.ReadOnly = True
+        Me.Column23.Visible = False
+        '
+        'Column4
+        '
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Webdings", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(2, Byte))
+        Me.Column4.DefaultCellStyle = DataGridViewCellStyle1
+        Me.Column4.HeaderText = ""
+        Me.Column4.Name = "Column4"
+        Me.Column4.ReadOnly = True
+        Me.Column4.Text = "r"
+        Me.Column4.UseColumnTextForButtonValue = True
+        Me.Column4.Width = 30
+        '
+        'Column5
+        '
+        Me.Column5.HeaderText = ""
+        Me.Column5.Name = "Column5"
+        Me.Column5.ReadOnly = True
+        Me.Column5.Width = 25
+        '
         'CodeReaderAdv
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 14.0!)
@@ -941,12 +949,6 @@ Partial Class CodeReaderAdv
     Friend WithEvents cmbIsStich As ComboBox
     Friend WithEvents btnEntryViewer As Button
     Friend WithEvents btnSyncAttrib As Label
-    Friend WithEvents Column1 As DataGridViewTextBoxColumn
-    Friend WithEvents Column2 As DataGridViewTextBoxColumn
-    Friend WithEvents Column3 As DataGridViewTextBoxColumn
-    Friend WithEvents Column22 As DataGridViewTextBoxColumn
-    Friend WithEvents Column4 As DataGridViewButtonColumn
-    Friend WithEvents Column5 As DataGridViewTextBoxColumn
     Friend WithEvents txtRate As TextBox
     Friend WithEvents Label16 As Label
     Friend WithEvents Panel3 As Panel
@@ -962,4 +964,11 @@ Partial Class CodeReaderAdv
     Friend WithEvents pnlLoading As Panel
     Friend WithEvents Label17 As Label
     Friend WithEvents ChkCodeFilter As CheckBox
+    Friend WithEvents Column1 As DataGridViewTextBoxColumn
+    Friend WithEvents Column2 As DataGridViewTextBoxColumn
+    Friend WithEvents Column3 As DataGridViewTextBoxColumn
+    Friend WithEvents Column22 As DataGridViewTextBoxColumn
+    Friend WithEvents Column23 As DataGridViewTextBoxColumn
+    Friend WithEvents Column4 As DataGridViewButtonColumn
+    Friend WithEvents Column5 As DataGridViewTextBoxColumn
 End Class

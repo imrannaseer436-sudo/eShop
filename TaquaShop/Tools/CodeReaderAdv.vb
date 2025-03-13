@@ -8,6 +8,9 @@ Public Class CodeReaderAdv
 
     Private Sub CodeReaderAdv_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
+        pnlLoading.Visible = True
+        pnlLoading.Refresh()
+
         MacID = getMacAddress()
         lblMacID.Text = MacID
 
@@ -22,6 +25,7 @@ Public Class CodeReaderAdv
         LoadAllDetails()
 
         txtCode.Select()
+        pnlLoading.Visible = False
 
     End Sub
 
@@ -98,13 +102,13 @@ Public Class CodeReaderAdv
     'Private AlterMode As Boolean = False
 
     Private count As Short = 0
-    Private Sub txtCode_KeyDown(sender As Object, e As KeyEventArgs) Handles txtCode.KeyDown
+    Private Async Sub txtCode_KeyDown(sender As Object, e As KeyEventArgs) Handles txtCode.KeyDown
 
         If e.KeyCode = Keys.Enter Then
             e.SuppressKeyPress = True
 
             If ChkCodeFilter.Checked Then
-                ApplyFilter(True)
+                Await ApplyFilter(True)
                 Exit Sub
             End If
 
@@ -115,7 +119,7 @@ Public Class CodeReaderAdv
             If count = 0 Then count = 1
 
             If ChkSkipRate.Checked Then
-                AddItems(count)
+                Await AddItems(count)
                 generateCatLink(TG.Item(0, TG.Rows.Count - 1).Value)
             Else
                 Me.ProcessTabKey(True)
@@ -154,35 +158,98 @@ Public Class CodeReaderAdv
 
     End Sub
 
-    Private Function InsertCode(PluID As Integer, iCode As String, Rate As Double, Count As Short) As Integer
+    'Private Function InsertCode(PluID As Integer, iCode As String, Rate As Double, Count As Short) As Integer
 
+    '    For i As Short = 1 To Count
+
+    '        TG.Rows.Add()
+
+    '        Dim sNo As Integer = If(TG.Rows.Count = 1, 1, Val(TG.Item(1, Math.Max(TG.Rows.Count - 2, 0)).Value) + 1)
+
+    '        TG.Item(0, TG.Rows.Count - 1).Value = PluID
+    '        TG.Item(1, TG.Rows.Count - 1).Value = sNo
+    '        TG.Item(2, TG.Rows.Count - 1).Value = iCode
+    '        TG.Item(3, TG.Rows.Count - 1).Value = Format(Rate, "0.00")
+    '        TG.FirstDisplayedScrollingRowIndex = TG.Rows.Count - 1
+    '        TG.CurrentCell = TG(2, TG.Rows.Count - 1)
+
+    '        Dim IStr = "INSERT INTO CODEREADER VALUES (" _
+    '             & PluID & ",'" _
+    '             & iCode & "'," _
+    '             & sNo & ",'" _
+    '             & MacID & "'," _
+    '             & Val(txtRate.Text) & ", GETDATE(), NEWID(), " & ShopID & ")"
+
+    '        ESSA.Execute(IStr)
+
+    '    Next
+
+    '    Return Count
+
+    'End Function
+
+    Private Async Function InsertCode(PluID As Integer, iCode As String, Rate As Double, Count As Short) As Task(Of Integer)
+        pnlLoading.Visible = True
+        pnlLoading.Refresh()
+        Dim lastSNo As Integer = If(MyFullDataList.Count = 0, 1, Val(MyFullDataList.Last()(1)) + 1)
         For i As Short = 1 To Count
 
-            TG.Rows.Add()
+            ' Insert into the database asynchronously
+            'Dim insertQuery As String = "INSERT INTO CODEREADER VALUES (" _
+            '& PluID & ", '" _
+            '& iCode & "', " _
+            '& lastSNo & ", '" _
+            '& MacID & "', " _
+            '& Rate & ", GETDATE(), NEWID(), " & ShopID & ")"
 
-            Dim sNo As Integer = If(TG.Rows.Count = 1, 1, Val(TG.Item(1, Math.Max(TG.Rows.Count - 2, 0)).Value) + 1)
+            'Await Task.Run(Sub() ESSA.Execute(insertQuery))
 
-            TG.Item(0, TG.Rows.Count - 1).Value = PluID
-            TG.Item(1, TG.Rows.Count - 1).Value = sNo
-            TG.Item(2, TG.Rows.Count - 1).Value = iCode
-            TG.Item(3, TG.Rows.Count - 1).Value = Format(Rate, "0.00")
-            TG.FirstDisplayedScrollingRowIndex = TG.Rows.Count - 1
-            TG.CurrentCell = TG(2, TG.Rows.Count - 1)
+            Dim Query As String = $"INSERT INTO CODEREADER 
+                                (PluID, PluCode, Sno, MacID, Rate, UpdatedAt, GUID, ShopId)
+                                OUTPUT inserted.GUID
+                                VALUES ({PluID}, '{iCode}', {lastSNo}, '{MacID}', {Rate}, GETDATE(), NEWID(), {ShopID})"
 
-            Dim IStr = "INSERT INTO CODEREADER VALUES (" _
-                 & PluID & ",'" _
-                 & iCode & "'," _
-                 & sNo & ",'" _
-                 & MacID & "'," _
-                 & Val(txtRate.Text) & ", GETDATE(), NEWID(), " & ShopID & ")"
+            Dim GUID As Object = Await ESSA.ExecuteScalarAsync(Query)
 
-            ESSA.Execute(IStr)
+            ' Create a new row
+            Dim newRow As New List(Of String) From {
+            PluID.ToString(),
+            lastSNo.ToString(),
+            iCode,
+            Format(Rate, "0.00"),
+            GUID.ToString()
+        }
+
+            ' 🔥 Add to MyFullDataList (so filtering works correctly)
+            MyFullDataList.Add(New List(Of String)(newRow))
+
+            ' 🔥 Add to MyDataList only if it matches the current filter
+            'If Not txtCode.Text.Trim = String.Empty AndAlso iCode.ToUpper() = txtCode.Text.ToUpper() Then
+            '    MyDataList.Add(New List(Of String)(newRow))
+            'End If
+
+            'try copy the full list
+            MyDataList = MyFullDataList
+
+            lastSNo += 1
 
         Next
 
-        Return Count
+        ' 🔥 Update row count **only once** after all updates
+        TG.RowCount = MyDataList.Count
 
+        ' 🔥 Refresh UI once
+        TG.Refresh()
+
+        ' Scroll to the newly added row
+        If TG.RowCount > 0 Then
+            TG.FirstDisplayedScrollingRowIndex = TG.RowCount - 1
+            TG.CurrentCell = TG(2, TG.RowCount - 1)
+        End If
+        pnlLoading.Visible = False
+        Return Count
     End Function
+
 
     Private Sub btnCA_Click(sender As Object, e As EventArgs) Handles btnCA.Click
 
@@ -191,8 +258,12 @@ Public Class CodeReaderAdv
         Dim Rl = Val(InputBox("Answer the following Question to proceed delete..?" & vbCrLf + "17 X 8 + 5 = ?"))
 
         If Rl = 141 Then
+            pnlLoading.Visible = True
+            pnlLoading.Refresh()
             ESSA.Execute("DELETE FROM CODEREADER WHERE SHOPID = " & ShopID & " AND MACID='" & MacID & "'")
-            TG.Rows.Clear()
+            MyFullDataList.Clear()
+            MyDataList = MyFullDataList
+            pnlLoading.Visible = False
             MsgBox("Entry deleted successfully..!", MsgBoxStyle.Information)
         Else
             MsgBox("Incorrect Answer..!", vbInformation)
@@ -200,45 +271,128 @@ Public Class CodeReaderAdv
 
     End Sub
 
-    Private Sub LoadAllDetails()
+    ' Define global lists to store data
+    Private MyFullDataList As New List(Of List(Of String))() ' All data
+    Private MyDataList As New List(Of List(Of String))() ' Filtered data
 
-        TG.Rows.Clear()
+    'Private Sub LoadAllDetails()
 
-        With ESSA.OpenReader("SELECT * FROM CODEREADER WHERE MACID='" & MacID & "' AND ShopId = " & ShopID & " ORDER BY SNO")
+    '    TG.Rows.Clear()
 
-            While .Read
+    '    With ESSA.OpenReader("SELECT * FROM CODEREADER WHERE MACID='" & MacID & "' AND ShopId = " & ShopID & " ORDER BY SNO")
 
-                TG.Rows.Add()
-                TG.Item(0, TG.Rows.Count - 1).Value = .Item(0)
-                TG.Item(1, TG.Rows.Count - 1).Value = .Item(2)
-                TG.Item(2, TG.Rows.Count - 1).Value = .GetString(1).Trim
-                TG.Item(3, TG.Rows.Count - 1).Value = Format(.Item(4), "0.00")
+    '        While .Read
 
-            End While
+    '            TG.Rows.Add()
+    '            TG.Item(0, TG.Rows.Count - 1).Value = .Item(0)
+    '            TG.Item(1, TG.Rows.Count - 1).Value = .Item(2)
+    '            TG.Item(2, TG.Rows.Count - 1).Value = .GetString(1).Trim
+    '            TG.Item(3, TG.Rows.Count - 1).Value = Format(.Item(4), "0.00")
 
-            .Close()
+    '        End While
 
-        End With
+    '        .Close()
 
-        If TG.Rows.Count > 0 Then
-            TG.FirstDisplayedScrollingRowIndex = TG.Rows.Count - 1
-        End If
+    '    End With
 
+    '    If TG.Rows.Count > 0 Then
+    '        TG.FirstDisplayedScrollingRowIndex = TG.Rows.Count - 1
+    '    End If
+
+    'End Sub
+
+    ' Load Data from SQL efficiently
+    Private Async Sub LoadAllDetails()
+        TG.VirtualMode = True ' Enable virtualization
+        TG.Rows.Clear() ' No need to add rows manually
+
+        Dim query As String = "SELECT PluId, Sno, Plucode, Rate, GUID FROM CODEREADER WHERE MACID='" & MacID & "' AND ShopId = " & ShopID & " ORDER BY SNO"
+
+        ' Fetch data asynchronously to avoid UI freeze
+        Dim data = Await Task.Run(Function()
+                                      Dim tempList As New List(Of List(Of String))()
+                                      Using reader = ESSA.OpenReader(query)
+                                          While reader.Read()
+                                              tempList.Add(New List(Of String) From {
+                                            reader(0).ToString(),  ' Column 1
+                                            reader(1).ToString(),  ' Column 2
+                                            reader(2).ToString().Trim(),  ' Column 3
+                                            Format(reader(3), "0.00"),  ' Column 4
+                                            reader(4).ToString() 'Column 5
+                                            })
+                                          End While
+                                      End Using
+                                      Return tempList
+                                  End Function)
+
+        ' Store data globally
+        MyFullDataList = data
+        MyDataList = MyFullDataList ' Initially, show all
+
+        ' Set virtual row count and refresh grid
+        TG.RowCount = MyDataList.Count
+        TG.Refresh()
+        UpdateVisibleRowCount()
     End Sub
+
+    ' Handle virtualized data fetching
+    Private Sub TG_CellValueNeeded(sender As Object, e As DataGridViewCellValueEventArgs) Handles TG.CellValueNeeded
+        Dim rowIndex As Integer = e.RowIndex
+        Dim columnIndex As Integer = e.ColumnIndex
+
+        ' Ensure indexes are within valid range
+        If rowIndex >= 0 AndAlso rowIndex < MyDataList.Count AndAlso columnIndex >= 0 AndAlso columnIndex < MyDataList(rowIndex).Count Then
+            e.Value = MyDataList(rowIndex)(columnIndex)
+        Else
+            e.Value = String.Empty ' Prevents errors by setting default value
+        End If
+    End Sub
+
 
     Private Sub TG_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles TG.CellClick
 
         If e.RowIndex = -1 Then Exit Sub
 
-        If e.ColumnIndex = 4 Then
+        If e.ColumnIndex = 5 Then
 
-            If MsgBox("Do you want to remove current row.!", MsgBoxStyle.Critical + MsgBoxStyle.YesNo) = MsgBoxResult.No Then Exit Sub
+            'Before involving list
+            'If MsgBox("Do you want to remove current row.!", MsgBoxStyle.Critical + MsgBoxStyle.YesNo) = MsgBoxResult.No Then Exit Sub
 
-            ESSA.Execute("DELETE FROM CODEREADER WHERE ShopId = " & ShopID & " AND MACID='" & MacID & "' AND SNO=" & Val(TG.Item(1, e.RowIndex).Value) & " AND PluId=" & Val(TG.Item(0, e.RowIndex).Value))
+            'ESSA.Execute("DELETE FROM CODEREADER WHERE ShopId = " & ShopID & " AND MACID='" & MacID & "' AND SNO=" & Val(TG.Item(1, e.RowIndex).Value) & " AND PluId=" & Val(TG.Item(0, e.RowIndex).Value))
 
-            MsgBox("Entry deleted successfully..!", MsgBoxStyle.Information)
+            'MsgBox("Entry deleted successfully..!", MsgBoxStyle.Information)
 
-            TG.Rows.RemoveAt(e.RowIndex)
+            'TG.Rows.RemoveAt(e.RowIndex)
+            'txtCode.Focus()
+
+            'After invloving list
+            ' Confirm deletion
+            If MsgBox("Do you want to remove the current row?", MsgBoxStyle.Critical + MsgBoxStyle.YesNo) = MsgBoxResult.No Then Exit Sub
+            pnlLoading.Visible = True
+            pnlLoading.Refresh()
+
+            ' Get values for deletion
+            Dim guid As String = TG.Item(4, e.RowIndex).Value.ToString().ToUpper()
+            Dim pluId As Integer = Val(TG.Item(0, e.RowIndex).Value)
+
+            ' Delete from Database
+            Dim deleteQuery As String = "DELETE FROM CODEREADER WHERE ShopId = " & ShopID & " AND MACID='" & MacID & "' AND GUID='" & guid & "' AND PluId=" & pluId
+            ESSA.Execute(deleteQuery)
+
+            ' Remove from MyFullDataList
+            Dim fullIndex As Integer = MyFullDataList.FindIndex(Function(row) row(4).ToUpper() = guid AndAlso Val(row(0)) = pluId)
+            If fullIndex >= 0 Then MyFullDataList.RemoveAt(fullIndex)
+
+            ' Remove from MyDataList (only if currently unfiltered)
+            Dim filteredIndex As Integer = MyDataList.FindIndex(Function(row) row(4).ToUpper() = guid AndAlso Val(row(0)) = pluId)
+            If filteredIndex >= 0 Then MyDataList.RemoveAt(filteredIndex)
+
+            ' Update UI
+            TG.RowCount = MyDataList.Count
+            TG.Refresh()
+            pnlLoading.Visible = False
+            ' Show success message
+            MsgBox("Entry deleted successfully!", MsgBoxStyle.Information)
             txtCode.Focus()
 
         End If
@@ -442,7 +596,7 @@ Public Class CodeReaderAdv
 
     End Sub
 
-    Private Sub txtRate_KeyDown(sender As Object, e As KeyEventArgs) Handles txtRate.KeyDown
+    Private Async Sub txtRate_KeyDown(sender As Object, e As KeyEventArgs) Handles txtRate.KeyDown
 
         If e.KeyCode = Keys.Enter Then
 
@@ -464,7 +618,7 @@ Public Class CodeReaderAdv
 
             e.SuppressKeyPress = True
 
-            If InsertCode(iPluID, txtCode.Text.Trim.ToUpper, Val(txtRate.Text), count) > 0 Then
+            If Await InsertCode(iPluID, txtCode.Text.Trim.ToUpper, Val(txtRate.Text), count) > 0 Then
 
                 txtCode.Clear()
                 txtRate.Clear()
@@ -725,7 +879,7 @@ Public Class CodeReaderAdv
 
     End Function
 
-    Private Sub AddItems(count As Short)
+    Private Async Function AddItems(count As Short) As Task
 
         iPluID = 0
 
@@ -740,7 +894,7 @@ Public Class CodeReaderAdv
         If iPluID = 0 Then
             MsgBox("Sorry, Product Code Not Found..!", vbCritical)
             txtCode.Focus()
-            Exit Sub
+            Return
         End If
 
         'Dim Count As Short = 1
@@ -754,7 +908,7 @@ Public Class CodeReaderAdv
         '    Code = txtCode.Text.Trim
         'End If
 
-        If InsertCode(iPluID, txtCode.Text.Trim.ToUpper, Val(txtRate.Text), count) > 0 Then
+        If Await InsertCode(iPluID, txtCode.Text.Trim.ToUpper, Val(txtRate.Text), count) > 0 Then
 
             txtCode.Clear()
             txtRate.Clear()
@@ -762,7 +916,7 @@ Public Class CodeReaderAdv
 
         End If
 
-    End Sub
+    End Function
 
     Private Sub txtRate_TextChanged(sender As Object, e As EventArgs) Handles txtRate.TextChanged
 
@@ -862,8 +1016,7 @@ Public Class CodeReaderAdv
 
     ' Function to count only visible rows
     Private Sub UpdateVisibleRowCount()
-        Dim visibleCount As Integer = TG.Rows.Cast(Of DataGridViewRow)().Count(Function(row) row.Visible)
-        LblTotalPcs.Text = visibleCount.ToString()
+        LblTotalPcs.Text = MyDataList.Count.ToString()
     End Sub
 
     ' Update visible row count when rows are added
@@ -878,36 +1031,29 @@ Public Class CodeReaderAdv
 
 
     Private Async Function ApplyFilter(isFiltered As Boolean) As Task
-        If txtCode.Text.Trim = String.Empty AndAlso isFiltered Then
-            Return
-        End If
+        If txtCode.Text.Trim = String.Empty AndAlso isFiltered Then Return
 
-        Dim filterColumnIndex As Integer = 2 ' The column index you want to filter (zero-based index)
-        pnlLoading.Visible = True
         Dim filterText As String = txtCode.Text.ToUpper()
 
-        ' Run filtering on a background thread
-        Await Task.Run(Sub()
-                           For Each row As DataGridViewRow In TG.Rows
-                               Dim visible As Boolean = True ' Default: Show row
+        ' Perform filtering asynchronously
+        pnlLoading.Visible = True
+        pnlLoading.Refresh()
+        Dim filteredData As List(Of List(Of String)) = Await Task.Run(Function()
+                                                                          Return MyFullDataList.Where(Function(row)
+                                                                                                          Return (Not isFiltered) OrElse (row(2).ToUpper() = filterText)
+                                                                                                      End Function).ToList()
+                                                                      End Function)
 
-                               If isFiltered Then
-                                   Dim cell As DataGridViewCell = row.Cells(filterColumnIndex)
-                                   If cell.Value Is Nothing OrElse cell.Value.ToString().ToUpper() <> filterText Then
-                                       visible = False ' Hide row
-                                   End If
-                               End If
-
-                               ' Update row visibility on UI thread
-                               Me.Invoke(Sub()
-                                             row.Visible = visible
-                                         End Sub)
-                           Next
-                       End Sub)
-        UpdateVisibleRowCount()
+        ' Update data source and refresh grid
+        ' Ensure MyDataList is updated before setting RowCount
+        If filteredData IsNot Nothing Then
+            MyDataList = filteredData
+            TG.RowCount = MyDataList.Count
+            TG.Refresh()
+            UpdateVisibleRowCount()
+        End If
         pnlLoading.Visible = False
     End Function
-
 
     Private Async Sub ChkCodeFilter_CheckedChanged(sender As Object, e As EventArgs) Handles ChkCodeFilter.CheckedChanged
 
