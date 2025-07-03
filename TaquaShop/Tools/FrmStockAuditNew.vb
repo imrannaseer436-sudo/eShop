@@ -613,4 +613,9 @@ Public Class FrmStockAuditNew
 
     End Function
 
+    Private Sub BtnSave_VisibleChanged(sender As Object, e As EventArgs) Handles BtnSave.VisibleChanged
+
+        BtnSave.Visible = IsAdmin
+
+    End Sub
 End Class

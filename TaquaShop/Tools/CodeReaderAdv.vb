@@ -932,23 +932,48 @@ Public Class CodeReaderAdv
             Exit Sub
         End If
 
+        If MsgBox("Do you want to subtract sales ?", MsgBoxStyle.Question + MsgBoxStyle.YesNo) = MsgBoxResult.No Then
+            SQL = $"SELECT P.PLUCODE [BARCODE], P.PLUNAME [DESC], P.ID [SIZE], COALESCE(PM.COSTPRICE, P.COSTPRICE) AS COSTPRICE,
+            COUNT(C.PLUID) QTY, COUNT(C.PLUID) * COALESCE(PM.COSTPRICE, P.COSTPRICE) AS [VALUE]
+            FROM PRODUCTMASTER P
+            LEFT JOIN PRICEMASTER PM ON PM.PLUID = P.PLUID AND PM.ShopId = {ShopID}
+            LEFT JOIN CODEREADER C ON C.PLUID = COALESCE(PM.PLUID, P.PLUID) AND C.SHOPID = {ShopID}
+            GROUP BY P.PLUCODE, P.PLUNAME, P.ID, P.COSTPRICE, PM.COSTPRICE
+            HAVING 
+            COUNT(C.PLUID) <> 0"
+        Else
+            SQL = $"WITH 
+                    Scanned AS (
+	                    SELECT PluID, COUNT(*) AS Scanned
+	                    FROM CodeReader 
+	                    WHERE ShopId = {ShopID}
+	                    GROUP BY PluID
+                    ),
+                    Sales AS (
+                        SELECT PluID, SUM(Qty) AS Qty
+                        FROM BillDetails
+                        WHERE ShopID = {ShopID} 
+                          AND BillDt >= (
+                              SELECT CAST(MIN(UpdatedAt) AS DATE)
+                              FROM CodeReader
+                              WHERE ShopID = {ShopID}
+                          )
+                        GROUP BY PluID
+                    )
+                    SELECT 
+                        P.Plucode AS [Barcode],
+                        P.PLUNAME [Desc], 
+                        P.ID [Size],
+                        COALESCE(Scanned.Scanned, 0) AS [Scanned],
+                        COALESCE(Sales.Qty, 0) AS [Sold],
+                        COALESCE(Scanned.Scanned, 0) - COALESCE(Sales.Qty, 0) AS [Current]
+                    FROM Scanned
+                    FULL OUTER JOIN Sales ON Sales.PluID = Scanned.PluID
+                    LEFT JOIN ProductMaster P ON P.PluID = COALESCE(Scanned.PluID, Sales.PluID)"
+        End If
+
         pnlLoading.Visible = True
 
-        ' Specify your SQL query
-        'Dim sqlQuery As String = $"SELECT P.PLUCODE [BARCODE],P.PLUNAME [DESC],P.ID [SIZE],P.COSTPRICE,COUNT(C.PLUID) QTY,
-        'COUNT(C.PLUID) * P.COSTPRICE [VALUE]
-        'FROM PRODUCTMASTER P
-        'INNER JOIN CODEREADER C ON C.PLUID = P.PLUID AND C.SHOPID = { ShopID }
-        'GROUP BY P.PLUCODE, P.PLUNAME, P.ID, P.COSTPRICE"
-
-        Dim sqlQuery As String = $"SELECT P.PLUCODE [BARCODE], P.PLUNAME [DESC], P.ID [SIZE], COALESCE(PM.COSTPRICE, P.COSTPRICE) AS COSTPRICE,
-        COUNT(C.PLUID) QTY, COUNT(C.PLUID) * COALESCE(PM.COSTPRICE, P.COSTPRICE) AS [VALUE]
-        FROM PRODUCTMASTER P
-        LEFT JOIN PRICEMASTER PM ON PM.PLUID = P.PLUID AND PM.ShopId = {ShopID}
-        LEFT JOIN CODEREADER C ON C.PLUID = COALESCE(PM.PLUID, P.PLUID) AND C.SHOPID = {ShopID}
-        GROUP BY P.PLUCODE, P.PLUNAME, P.ID, P.COSTPRICE, PM.COSTPRICE
-        HAVING 
-        COUNT(C.PLUID) <> 0"
 
         Try
             ' Create a SqlConnection
@@ -957,7 +982,7 @@ Public Class CodeReaderAdv
                 Await connection.OpenAsync()
 
                 ' Create a SqlCommand
-                Using command As New SqlCommand(sqlQuery, connection)
+                Using command As New SqlCommand(SQL, connection)
                     ' Execute the query and get the data using SqlDataReader
                     Using reader As SqlDataReader = Await command.ExecuteReaderAsync()
                         ' Create a new Excel application

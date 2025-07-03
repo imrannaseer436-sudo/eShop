@@ -32,6 +32,9 @@ Public Class StoreSettings
             nCon.Open()
             If nCon.State = ConnectionState.Open Then
                 nCon.Close()
+                ConStr = ConnectionString
+                ShopCode = txtShopCode.Text.Trim
+                POSPrinterName = txtPOSPrinter.Text.Trim
             End If
             nCon.Dispose()
         Catch ex As SqlException
