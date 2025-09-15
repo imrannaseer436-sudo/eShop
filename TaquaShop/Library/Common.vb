@@ -19,6 +19,7 @@ Module Common
     Public BarcodeFileLocation As String = ""
     Public BarcodeBatchLocation As String = ""
     Public TempFilePath As String = ""
+    Public TaxVersion As Short = 0
 
     Dim One(19) As String
     Dim Ten(9) As String

@@ -16,12 +16,18 @@ Public Class Login
         End If
 
         SQL = "select userid,username,isadmin from users where username='" & txtUsername.Text.Trim & "' " _
-            & "and password='" & ClsEncodeDecode.Encode(txtPassword.Text) & "'"
+            & "and password='" & ClsEncodeDecode.Encode(txtPassword.Text) & "'; select param_value from settings where param_name='TaxVersion';"
         With ESSA.OpenReader(SQL)
             If .Read Then
                 UserID = .Item(0)
                 UserName = .GetString(1)
                 IsAdmin = IIf(.Item(2), True, False)
+
+                If .NextResult Then
+                    If .Read Then
+                        TaxVersion = CShort(.Item(0))
+                    End If
+                End If
                 .Close()
                 MainWindow.Show()
                 Me.Close()
