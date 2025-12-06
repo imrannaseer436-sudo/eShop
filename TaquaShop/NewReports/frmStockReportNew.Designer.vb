@@ -24,6 +24,8 @@ Partial Class frmStockReportNew
     Private Sub InitializeComponent()
         Me.TG = New Zuby.ADGV.AdvancedDataGridView()
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.LblValue = New System.Windows.Forms.Label()
+        Me.Label9 = New System.Windows.Forms.Label()
         Me.btnExport = New System.Windows.Forms.Button()
         Me.lblStock = New System.Windows.Forms.Label()
         Me.Label19 = New System.Windows.Forms.Label()
@@ -60,8 +62,8 @@ Partial Class frmStockReportNew
         Me.Label11 = New System.Windows.Forms.Label()
         Me.pnlLoading = New System.Windows.Forms.Panel()
         Me.Label18 = New System.Windows.Forms.Label()
-        Me.LblValue = New System.Windows.Forms.Label()
-        Me.Label9 = New System.Windows.Forms.Label()
+        Me.cmbType = New System.Windows.Forms.ComboBox()
+        Me.Label8 = New System.Windows.Forms.Label()
         CType(Me.TG, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel1.SuspendLayout()
         Me.Panel2.SuspendLayout()
@@ -96,6 +98,27 @@ Partial Class frmStockReportNew
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(952, 52)
         Me.Panel1.TabIndex = 1
+        '
+        'LblValue
+        '
+        Me.LblValue.AutoSize = True
+        Me.LblValue.Font = New System.Drawing.Font("Garamond", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LblValue.ForeColor = System.Drawing.Color.Maroon
+        Me.LblValue.Location = New System.Drawing.Point(289, 18)
+        Me.LblValue.Name = "LblValue"
+        Me.LblValue.Size = New System.Drawing.Size(16, 18)
+        Me.LblValue.TabIndex = 7
+        Me.LblValue.Text = "0"
+        '
+        'Label9
+        '
+        Me.Label9.AutoSize = True
+        Me.Label9.Font = New System.Drawing.Font("Garamond", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label9.Location = New System.Drawing.Point(181, 17)
+        Me.Label9.Name = "Label9"
+        Me.Label9.Size = New System.Drawing.Size(102, 18)
+        Me.Label9.TabIndex = 6
+        Me.Label9.Text = "Stock  Value :"
         '
         'btnExport
         '
@@ -159,6 +182,8 @@ Partial Class frmStockReportNew
         '
         Me.pnlFilter.BackColor = System.Drawing.Color.WhiteSmoke
         Me.pnlFilter.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.pnlFilter.Controls.Add(Me.cmbType)
+        Me.pnlFilter.Controls.Add(Me.Label8)
         Me.pnlFilter.Controls.Add(Me.chkEZS)
         Me.pnlFilter.Controls.Add(Me.btnResetAttribute)
         Me.pnlFilter.Controls.Add(Me.btnHide)
@@ -190,7 +215,7 @@ Partial Class frmStockReportNew
         Me.pnlFilter.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.pnlFilter.Location = New System.Drawing.Point(131, 101)
         Me.pnlFilter.Name = "pnlFilter"
-        Me.pnlFilter.Size = New System.Drawing.Size(691, 403)
+        Me.pnlFilter.Size = New System.Drawing.Size(691, 447)
         Me.pnlFilter.TabIndex = 3
         '
         'chkEZS
@@ -200,7 +225,7 @@ Partial Class frmStockReportNew
         Me.chkEZS.CheckState = System.Windows.Forms.CheckState.Checked
         Me.chkEZS.Font = New System.Drawing.Font("Tahoma", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.chkEZS.ForeColor = System.Drawing.Color.Maroon
-        Me.chkEZS.Location = New System.Drawing.Point(17, 360)
+        Me.chkEZS.Location = New System.Drawing.Point(17, 405)
         Me.chkEZS.Name = "chkEZS"
         Me.chkEZS.Size = New System.Drawing.Size(147, 20)
         Me.chkEZS.TabIndex = 62
@@ -236,7 +261,7 @@ Partial Class frmStockReportNew
         'btnApplyFilter
         '
         Me.btnApplyFilter.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnApplyFilter.Location = New System.Drawing.Point(257, 353)
+        Me.btnApplyFilter.Location = New System.Drawing.Point(257, 398)
         Me.btnApplyFilter.Name = "btnApplyFilter"
         Me.btnApplyFilter.Size = New System.Drawing.Size(175, 32)
         Me.btnApplyFilter.TabIndex = 15
@@ -252,7 +277,7 @@ Partial Class frmStockReportNew
         Me.SimpleLine3.GradientAngle = simpleline.assemblies.GradientDirection.Horizontal
         Me.SimpleLine3.LineColor = System.Drawing.Color.LightGray
         Me.SimpleLine3.LineWidth = 1
-        Me.SimpleLine3.Location = New System.Drawing.Point(17, 340)
+        Me.SimpleLine3.Location = New System.Drawing.Point(17, 385)
         Me.SimpleLine3.Name = "SimpleLine3"
         Me.SimpleLine3.Size = New System.Drawing.Size(653, 1)
         Me.SimpleLine3.Style = simpleline.assemblies.LineStyle.Horizontal
@@ -511,26 +536,24 @@ Partial Class frmStockReportNew
         Me.Label18.TabIndex = 0
         Me.Label18.Text = "Loading Data, Please Wait"
         '
-        'LblValue
+        'cmbType
         '
-        Me.LblValue.AutoSize = True
-        Me.LblValue.Font = New System.Drawing.Font("Garamond", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LblValue.ForeColor = System.Drawing.Color.Maroon
-        Me.LblValue.Location = New System.Drawing.Point(289, 18)
-        Me.LblValue.Name = "LblValue"
-        Me.LblValue.Size = New System.Drawing.Size(16, 18)
-        Me.LblValue.TabIndex = 7
-        Me.LblValue.Text = "0"
+        Me.cmbType.BackColor = System.Drawing.Color.Thistle
+        Me.cmbType.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cmbType.FormattingEnabled = True
+        Me.cmbType.Location = New System.Drawing.Point(17, 351)
+        Me.cmbType.Name = "cmbType"
+        Me.cmbType.Size = New System.Drawing.Size(317, 22)
+        Me.cmbType.TabIndex = 63
         '
-        'Label9
+        'Label8
         '
-        Me.Label9.AutoSize = True
-        Me.Label9.Font = New System.Drawing.Font("Garamond", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label9.Location = New System.Drawing.Point(181, 17)
-        Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(102, 18)
-        Me.Label9.TabIndex = 6
-        Me.Label9.Text = "Stock  Value :"
+        Me.Label8.AutoSize = True
+        Me.Label8.Location = New System.Drawing.Point(14, 334)
+        Me.Label8.Name = "Label8"
+        Me.Label8.Size = New System.Drawing.Size(31, 13)
+        Me.Label8.TabIndex = 64
+        Me.Label8.Text = "Type"
         '
         'frmStockReportNew
         '
@@ -598,4 +621,6 @@ Partial Class frmStockReportNew
     Friend WithEvents btnExport As Button
     Friend WithEvents LblValue As Label
     Friend WithEvents Label9 As Label
+    Friend WithEvents cmbType As ComboBox
+    Friend WithEvents Label8 As Label
 End Class

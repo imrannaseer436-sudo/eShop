@@ -39,6 +39,9 @@ Public Class frmSalesReport2
         SQL = "SELECT VendorId, VendorName FROM Vendors ORDER BY VendorName"
         ESSA.LoadCombo(cmbVendor, SQL, "VendorName", "VendorId", "All Vendors")
 
+        SQL = "SELECT  TypeId,Type FROM TSType ORDER BY Type"
+        ESSA.LoadCombo(cmbType, SQL, "Type", "TypeId", "All Types")
+
     End Sub
     Private Sub ResetAttributes()
 
@@ -52,6 +55,7 @@ Public Class frmSalesReport2
         cmbSleeve.SelectedIndex = 0
         cmbStyle.SelectedIndex = 0
         cmbVendor.SelectedIndex = 0
+        cmbType.SelectedIndex = 0
 
     End Sub
 
@@ -100,7 +104,7 @@ Public Class frmSalesReport2
             & "P.PluId, P.Plucode, P.Pluname, P.Units, S.Qty [Quantity]," _
             & "P.Id [Size], M.CostPrice, S.Rate, S.DisAmt [Discount], S.Amount, V.VendorName," _
             & "A.Department, A.Category, A.Style, A.Pattern, A.Material, A.Color," _
-            & "A.Sleeve, A.Brand, A.Catalog " _
+            & "A.Sleeve, A.Brand, A.Catalog, A.Type " _
             & "FROM BillDetails S, ProductMaster P, ProductAttributes A, Vendors V,PriceMaster M " _
             & "WHERE S.PluID = P.PluId AND P.PluId = A.PluId AND P.VendorId = V.VendorId AND M.Pluid = S.Pluid AND M.ShopId = " & ShopID & " AND S.ShopId = " & ShopID & " "
 
@@ -118,6 +122,7 @@ Public Class frmSalesReport2
         If cmbSleeve.SelectedIndex > 0 Then SQL &= " AND A.SleeveId=" & cmbSleeve.SelectedValue
         If cmbBrand.SelectedIndex > 0 Then SQL &= " AND A.BrandId=" & cmbBrand.SelectedValue
         If cmbCatalog.SelectedIndex > 0 Then SQL &= " AND A.CatalogId=" & cmbCatalog.SelectedValue
+        If cmbType.SelectedIndex > 0 Then SQL &= " AND A.TypeId=" & cmbType.SelectedValue
         If cmbVendor.SelectedIndex > 0 Then SQL &= " AND V.VendorId=" & cmbVendor.SelectedValue
 
         LoadData(SQL)

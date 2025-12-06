@@ -427,9 +427,69 @@ Public Class ProductDeliveryList
                 End Using
 
                 ' Fetch tax data for subreport
-                SQL = "SELECT TaxType, Taxable, TaxPerc FROM V_DeliveryInvoiceTax WHERE DeliveryCode = @DeliveryCode"
+                SQL = "SELECT 
+                    TaxType,
+                    SUM(Taxable) AS Taxable,
+                    TaxPerc
+                FROM
+                (
+                    -- Intra-state: CGST
+                    SELECT 
+                        'CGST' AS TaxType,
+                        SUM(DD.Quantity * DD.CostPrice) AS Taxable,
+                        (CASE WHEN DD.CostPrice > PT.Val THEN PT.Mx ELSE PT.Mn END) / 2 AS TaxPerc
+                    FROM DeliveryMaster DM
+                    JOIN DeliveryDetails DD ON DM.Id = DD.Id 
+                        AND DM.DeliveryCode = @DeliveryCode
+                    JOIN ProductAttributes PA ON PA.PluId = DD.PluID
+                    JOIN ProductTax PT ON PT.DeptId = PA.DeptId AND PT.CatId = PA.CatId AND PT.MatId = PA.MaterialId
+                    AND PT.IsUpdated = @TaxVersion
+                    JOIN Shops S1 ON S1.ShopID = DM.DeliveryFrom
+                    JOIN Shops S2 ON S2.ShopID = DM.DeliveryTo
+                    WHERE S1.State = S2.State
+                    GROUP BY S1.State, S2.State, DD.CostPrice, PT.Val, PT.Mx, PT.Mn
+
+                    UNION ALL
+
+                    -- Intra-state: SGST
+                    SELECT 
+                        'SGST' AS TaxType,
+                        SUM(DD.Quantity * DD.CostPrice) AS Taxable,
+                        (CASE WHEN DD.CostPrice > PT.Val THEN PT.Mx ELSE PT.Mn END) / 2 AS TaxPerc
+                    FROM DeliveryMaster DM
+                    JOIN DeliveryDetails DD ON DM.Id = DD.Id 
+                        AND DM.DeliveryCode = @DeliveryCode
+                    JOIN ProductAttributes PA ON PA.PluId = DD.PluID
+                    JOIN ProductTax PT ON PT.DeptId = PA.DeptId AND PT.CatId = PA.CatId AND PT.MatId = PA.MaterialId
+                    AND PT.IsUpdated = @TaxVersion
+                    JOIN Shops S1 ON S1.ShopID = DM.DeliveryFrom
+                    JOIN Shops S2 ON S2.ShopID = DM.DeliveryTo
+                    WHERE S1.State = S2.State
+                    GROUP BY S1.State, S2.State, DD.CostPrice, PT.Val, PT.Mx, PT.Mn
+
+                    UNION ALL
+
+                    -- Inter-state: IGST
+                    SELECT 
+                        'IGST' AS TaxType,
+                        SUM(DD.Quantity * DD.CostPrice) AS Taxable,
+                        (CASE WHEN DD.CostPrice > PT.Val THEN PT.Mx ELSE PT.Mn END) AS TaxPerc
+                    FROM DeliveryMaster DM
+                    JOIN DeliveryDetails DD ON DM.Id = DD.Id 
+                        AND DM.DeliveryCode = @DeliveryCode
+                    JOIN ProductAttributes PA ON PA.PluId = DD.PluID
+                    JOIN ProductTax PT ON PT.DeptId = PA.DeptId AND PT.CatId = PA.CatId AND PT.MatId = PA.MaterialId
+                    AND PT.IsUpdated = @TaxVersion
+                    JOIN Shops S1 ON S1.ShopID = DM.DeliveryFrom
+                    JOIN Shops S2 ON S2.ShopID = DM.DeliveryTo
+                    WHERE S1.State <> S2.State
+                    GROUP BY S1.State, S2.State, DD.CostPrice, PT.Val, PT.Mx, PT.Mn
+                ) AS SUB
+                GROUP BY TaxType, TaxPerc"
                 Using cmd As New SqlCommand(SQL, nCon)
                     cmd.Parameters.AddWithValue("@DeliveryCode", DeliveryCode)
+                    cmd.Parameters.AddWithValue("@TaxVersion", TaxVersion)
+
                     Using Adp As New SqlDataAdapter(cmd)
                         Dim Tbl As New DataTable()
                         Adp.Fill(Tbl)
@@ -448,9 +508,22 @@ Public Class ProductDeliveryList
                 End Using
 
                 ' Fetch main invoice data
-                SQL = "SELECT Description, HSN, Pcs, Rate, [Dis%], [GST%] FROM V_DeliveryInvoice WHERE DeliveryCode = @DeliveryCode"
+                SQL = "SELECT Description, HSN, Pcs, Rate, [Dis%], [GST%] FROM (SELECT DM.DeliveryCode,A.Category [Description],    
+                    T.HSN, SUM(DD.Quantity) Pcs, DD.CostPrice [Rate], 0 [Dis%],        
+                    CASE WHEN DD.CostPrice > T.Val    
+                    THEN T.Mx    
+                    ELSE T.Mn    
+                    END AS [GST%]   
+                    FROM DeliveryMaster DM    
+                    INNER JOIN DeliveryDetails DD ON DM.Id = DD.Id       
+                    INNER JOIN ProductAttributes A ON A.PluId = DD.PluID    
+                    INNER JOIN ProductTax T ON T.DeptId = A.DeptId AND T.CatId = A.CatId AND     
+                    T.MatId = A.MaterialId AND T.IsUpdated = @TaxVersion   
+                    WHERE DM.DeliveryCode = @DeliveryCode
+                    GROUP BY DM.DeliveryCode, A.Category, T.HSN, DD.CostPrice, T.Val, T.Mx, T.Mn) A"
                 Using cmd As New SqlCommand(SQL, nCon)
                     cmd.Parameters.AddWithValue("@DeliveryCode", DeliveryCode)
+                    cmd.Parameters.AddWithValue("@TaxVersion", TaxVersion)
                     Using Adp As New SqlDataAdapter(cmd)
                         Dim Tbl As New DataTable()
                         Adp.Fill(Tbl)

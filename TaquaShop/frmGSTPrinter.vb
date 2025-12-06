@@ -285,11 +285,11 @@ Public Class frmGSTPrinter
             & "(convert(varchar,bm.termid) + '-' + convert(varchar,bm.billno)) billno,bm.billdt," _
             & "p.pluname as plucode,p.hsncode,p.utax,bd.Qty,bd.Amount,bd.rate,bd.pluid,t.mn,t.mx,t.val,bd.sno,c.state cstate " _
             & "from shops s,customers c,billmaster bm,billdetails bd,productmaster p,productattributes a,producttax t " _
-            & "where bm.billid=bd.billid and bd.pluid=p.pluid and p.pluid = a.pluid and a.deptid = t.deptid and a.catid = t.catid and a.materialid= t.matid and t.isupdated = {1} and bm.billid={0} " _
+            & "where bm.billid=bd.billid and bd.pluid=p.pluid and p.pluid = a.pluid and a.deptid = t.deptid and a.catid = t.catid and a.materialid= t.matid and t.isupdated = bm.isupdated and bm.billid={0} " _
             & "and bm.shopid=s.shopid and bm.customerid=c.customerid " _
             & "order by bd.sno"
 
-        SQL = String.Format(SQL, iBillID, TaxVersion)
+        SQL = String.Format(SQL, iBillID)
 
         ESSA.OpenConnection()
         Using Adp As New SqlDataAdapter(SQL, Con)

@@ -70,6 +70,8 @@ Partial Class frmSalesReport2
         Me.Label11 = New System.Windows.Forms.Label()
         Me.pnlLoading = New System.Windows.Forms.Panel()
         Me.Label18 = New System.Windows.Forms.Label()
+        Me.cmbType = New System.Windows.Forms.ComboBox()
+        Me.Label10 = New System.Windows.Forms.Label()
         CType(Me.TG, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel1.SuspendLayout()
         Me.Panel2.SuspendLayout()
@@ -211,6 +213,8 @@ Partial Class frmSalesReport2
         '
         Me.pnlFilter.BackColor = System.Drawing.Color.WhiteSmoke
         Me.pnlFilter.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.pnlFilter.Controls.Add(Me.cmbType)
+        Me.pnlFilter.Controls.Add(Me.Label10)
         Me.pnlFilter.Controls.Add(Me.rdoReturn)
         Me.pnlFilter.Controls.Add(Me.rdoSales)
         Me.pnlFilter.Controls.Add(Me.Label9)
@@ -248,7 +252,7 @@ Partial Class frmSalesReport2
         Me.pnlFilter.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.pnlFilter.Location = New System.Drawing.Point(131, 101)
         Me.pnlFilter.Name = "pnlFilter"
-        Me.pnlFilter.Size = New System.Drawing.Size(691, 403)
+        Me.pnlFilter.Size = New System.Drawing.Size(691, 447)
         Me.pnlFilter.TabIndex = 3
         '
         'rdoReturn
@@ -256,7 +260,7 @@ Partial Class frmSalesReport2
         Me.rdoReturn.AutoSize = True
         Me.rdoReturn.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.rdoReturn.ForeColor = System.Drawing.Color.Red
-        Me.rdoReturn.Location = New System.Drawing.Point(383, 364)
+        Me.rdoReturn.Location = New System.Drawing.Point(383, 412)
         Me.rdoReturn.Name = "rdoReturn"
         Me.rdoReturn.Size = New System.Drawing.Size(68, 18)
         Me.rdoReturn.TabIndex = 13
@@ -268,7 +272,7 @@ Partial Class frmSalesReport2
         Me.rdoSales.AutoSize = True
         Me.rdoSales.Checked = True
         Me.rdoSales.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.rdoSales.Location = New System.Drawing.Point(291, 364)
+        Me.rdoSales.Location = New System.Drawing.Point(291, 412)
         Me.rdoSales.Name = "rdoSales"
         Me.rdoSales.Size = New System.Drawing.Size(56, 18)
         Me.rdoSales.TabIndex = 12
@@ -279,7 +283,7 @@ Partial Class frmSalesReport2
         'Label9
         '
         Me.Label9.AutoSize = True
-        Me.Label9.Location = New System.Drawing.Point(131, 348)
+        Me.Label9.Location = New System.Drawing.Point(131, 396)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(19, 13)
         Me.Label9.TabIndex = 66
@@ -289,7 +293,7 @@ Partial Class frmSalesReport2
         '
         Me.dtpTo.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.dtpTo.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.dtpTo.Location = New System.Drawing.Point(134, 364)
+        Me.dtpTo.Location = New System.Drawing.Point(134, 412)
         Me.dtpTo.Name = "dtpTo"
         Me.dtpTo.Size = New System.Drawing.Size(111, 21)
         Me.dtpTo.TabIndex = 11
@@ -297,7 +301,7 @@ Partial Class frmSalesReport2
         'Label8
         '
         Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(14, 348)
+        Me.Label8.Location = New System.Drawing.Point(14, 396)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(31, 13)
         Me.Label8.TabIndex = 64
@@ -307,7 +311,7 @@ Partial Class frmSalesReport2
         '
         Me.dtpFrom.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.dtpFrom.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.dtpFrom.Location = New System.Drawing.Point(17, 364)
+        Me.dtpFrom.Location = New System.Drawing.Point(17, 412)
         Me.dtpFrom.Name = "dtpFrom"
         Me.dtpFrom.Size = New System.Drawing.Size(111, 21)
         Me.dtpFrom.TabIndex = 10
@@ -356,7 +360,7 @@ Partial Class frmSalesReport2
         'btnApplyFilter
         '
         Me.btnApplyFilter.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnApplyFilter.Location = New System.Drawing.Point(495, 353)
+        Me.btnApplyFilter.Location = New System.Drawing.Point(495, 401)
         Me.btnApplyFilter.Name = "btnApplyFilter"
         Me.btnApplyFilter.Size = New System.Drawing.Size(175, 32)
         Me.btnApplyFilter.TabIndex = 15
@@ -372,7 +376,7 @@ Partial Class frmSalesReport2
         Me.SimpleLine3.GradientAngle = simpleline.assemblies.GradientDirection.Horizontal
         Me.SimpleLine3.LineColor = System.Drawing.Color.LightGray
         Me.SimpleLine3.LineWidth = 1
-        Me.SimpleLine3.Location = New System.Drawing.Point(17, 340)
+        Me.SimpleLine3.Location = New System.Drawing.Point(17, 388)
         Me.SimpleLine3.Name = "SimpleLine3"
         Me.SimpleLine3.Size = New System.Drawing.Size(653, 1)
         Me.SimpleLine3.Style = simpleline.assemblies.LineStyle.Horizontal
@@ -631,6 +635,25 @@ Partial Class frmSalesReport2
         Me.Label18.TabIndex = 0
         Me.Label18.Text = "Loading Data, Please Wait"
         '
+        'cmbType
+        '
+        Me.cmbType.BackColor = System.Drawing.Color.Thistle
+        Me.cmbType.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cmbType.FormattingEnabled = True
+        Me.cmbType.Location = New System.Drawing.Point(17, 351)
+        Me.cmbType.Name = "cmbType"
+        Me.cmbType.Size = New System.Drawing.Size(317, 22)
+        Me.cmbType.TabIndex = 67
+        '
+        'Label10
+        '
+        Me.Label10.AutoSize = True
+        Me.Label10.Location = New System.Drawing.Point(14, 334)
+        Me.Label10.Name = "Label10"
+        Me.Label10.Size = New System.Drawing.Size(31, 13)
+        Me.Label10.TabIndex = 68
+        Me.Label10.Text = "Type"
+        '
         'frmSalesReport2
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -705,4 +728,6 @@ Partial Class frmSalesReport2
     Friend WithEvents Label20 As Label
     Friend WithEvents lblAmount As Label
     Friend WithEvents Label16 As Label
+    Friend WithEvents cmbType As ComboBox
+    Friend WithEvents Label10 As Label
 End Class
