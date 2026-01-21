@@ -22,13 +22,19 @@ Partial Class frmSalesReportSPWise
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle22 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle23 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle24 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle25 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle28 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle26 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle27 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.TG = New System.Windows.Forms.DataGridView()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.chkCommission = New System.Windows.Forms.CheckBox()
+        Me.btnCommission = New System.Windows.Forms.Button()
         Me.LblUnknown = New System.Windows.Forms.Label()
         Me.CmbUnknown = New System.Windows.Forms.ComboBox()
         Me.LblAmt = New System.Windows.Forms.Label()
@@ -47,9 +53,33 @@ Partial Class frmSalesReportSPWise
         Me.mebFrom = New System.Windows.Forms.DateTimePicker()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
+        Me.pnlCommission = New System.Windows.Forms.Panel()
+        Me.dgvCommission = New System.Windows.Forms.DataGridView()
+        Me.Column7 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column6 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column8 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column4 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column1 = New System.Windows.Forms.DataGridViewButtonColumn()
+        Me.Column5 = New System.Windows.Forms.DataGridViewButtonColumn()
+        Me.Panel2 = New System.Windows.Forms.Panel()
+        Me.Label12 = New System.Windows.Forms.Label()
+        Me.btnCommissionClose = New System.Windows.Forms.Button()
+        Me.btnClear = New System.Windows.Forms.Button()
+        Me.btnSave = New System.Windows.Forms.Button()
+        Me.Label9 = New System.Windows.Forms.Label()
+        Me.txtCommissionPerc = New System.Windows.Forms.TextBox()
+        Me.Label8 = New System.Windows.Forms.Label()
+        Me.txtToAmount = New System.Windows.Forms.TextBox()
+        Me.Label7 = New System.Windows.Forms.Label()
+        Me.txtFromAmount = New System.Windows.Forms.TextBox()
         Me.TableLayoutPanel1.SuspendLayout()
         CType(Me.TG, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel1.SuspendLayout()
+        Me.pnlCommission.SuspendLayout()
+        CType(Me.dgvCommission, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.Panel2.SuspendLayout()
         Me.SuspendLayout()
         '
         'TableLayoutPanel1
@@ -77,31 +107,31 @@ Partial Class frmSalesReportSPWise
         Me.TG.AllowUserToDeleteRows = False
         Me.TG.AllowUserToResizeColumns = False
         Me.TG.AllowUserToResizeRows = False
-        DataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.TG.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle22.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.TG.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle22
         Me.TG.BackgroundColor = System.Drawing.Color.White
         Me.TG.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.TG.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None
         Me.TG.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle2.BackColor = System.Drawing.Color.DarkGray
-        DataGridViewCellStyle2.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle2.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.TG.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle23.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle23.BackColor = System.Drawing.Color.DarkGray
+        DataGridViewCellStyle23.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle23.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle23.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle23.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle23.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.TG.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle23
         Me.TG.ColumnHeadersHeight = 30
         Me.TG.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
         Me.TableLayoutPanel1.SetColumnSpan(Me.TG, 2)
-        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle3.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle3.ForeColor = System.Drawing.Color.DimGray
-        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.Navy
-        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.TG.DefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle24.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle24.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle24.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle24.ForeColor = System.Drawing.Color.DimGray
+        DataGridViewCellStyle24.SelectionBackColor = System.Drawing.Color.Navy
+        DataGridViewCellStyle24.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle24.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.TG.DefaultCellStyle = DataGridViewCellStyle24
         Me.TG.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TG.EnableHeadersVisualStyles = False
         Me.TG.Location = New System.Drawing.Point(8, 155)
@@ -120,13 +150,15 @@ Partial Class frmSalesReportSPWise
         Me.Label1.ForeColor = System.Drawing.Color.Navy
         Me.Label1.Location = New System.Drawing.Point(8, 0)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(254, 32)
+        Me.Label1.Size = New System.Drawing.Size(253, 32)
         Me.Label1.TabIndex = 0
         Me.Label1.Text = "Sales Report - SP Wise"
         '
         'Panel1
         '
         Me.TableLayoutPanel1.SetColumnSpan(Me.Panel1, 2)
+        Me.Panel1.Controls.Add(Me.chkCommission)
+        Me.Panel1.Controls.Add(Me.btnCommission)
         Me.Panel1.Controls.Add(Me.LblUnknown)
         Me.Panel1.Controls.Add(Me.CmbUnknown)
         Me.Panel1.Controls.Add(Me.LblAmt)
@@ -150,6 +182,28 @@ Partial Class frmSalesReportSPWise
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(991, 114)
         Me.Panel1.TabIndex = 1
+        '
+        'chkCommission
+        '
+        Me.chkCommission.AutoSize = True
+        Me.chkCommission.Location = New System.Drawing.Point(356, 31)
+        Me.chkCommission.Name = "chkCommission"
+        Me.chkCommission.Size = New System.Drawing.Size(135, 19)
+        Me.chkCommission.TabIndex = 25
+        Me.chkCommission.Text = "LOAD COMMISSION"
+        Me.chkCommission.UseVisualStyleBackColor = True
+        '
+        'btnCommission
+        '
+        Me.btnCommission.BackColor = System.Drawing.Color.ForestGreen
+        Me.btnCommission.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnCommission.ForeColor = System.Drawing.Color.White
+        Me.btnCommission.Location = New System.Drawing.Point(522, 20)
+        Me.btnCommission.Name = "btnCommission"
+        Me.btnCommission.Size = New System.Drawing.Size(158, 29)
+        Me.btnCommission.TabIndex = 24
+        Me.btnCommission.Text = "COMMISSION"
+        Me.btnCommission.UseVisualStyleBackColor = False
         '
         'LblUnknown
         '
@@ -355,12 +409,252 @@ Partial Class frmSalesReportSPWise
         Me.Label2.TabIndex = 0
         Me.Label2.Text = "From"
         '
+        'pnlCommission
+        '
+        Me.pnlCommission.BackColor = System.Drawing.Color.White
+        Me.pnlCommission.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.pnlCommission.Controls.Add(Me.dgvCommission)
+        Me.pnlCommission.Controls.Add(Me.Panel2)
+        Me.pnlCommission.Controls.Add(Me.btnClear)
+        Me.pnlCommission.Controls.Add(Me.btnSave)
+        Me.pnlCommission.Controls.Add(Me.Label9)
+        Me.pnlCommission.Controls.Add(Me.txtCommissionPerc)
+        Me.pnlCommission.Controls.Add(Me.Label8)
+        Me.pnlCommission.Controls.Add(Me.txtToAmount)
+        Me.pnlCommission.Controls.Add(Me.Label7)
+        Me.pnlCommission.Controls.Add(Me.txtFromAmount)
+        Me.pnlCommission.Location = New System.Drawing.Point(146, 89)
+        Me.pnlCommission.Name = "pnlCommission"
+        Me.pnlCommission.Size = New System.Drawing.Size(780, 372)
+        Me.pnlCommission.TabIndex = 25
+        '
+        'dgvCommission
+        '
+        Me.dgvCommission.AllowUserToAddRows = False
+        Me.dgvCommission.AllowUserToDeleteRows = False
+        Me.dgvCommission.AllowUserToResizeColumns = False
+        Me.dgvCommission.AllowUserToResizeRows = False
+        Me.dgvCommission.BackgroundColor = System.Drawing.Color.White
+        DataGridViewCellStyle25.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle25.BackColor = System.Drawing.Color.FromArgb(CType(CType(53, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(71, Byte), Integer))
+        DataGridViewCellStyle25.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle25.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle25.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle25.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle25.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvCommission.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle25
+        Me.dgvCommission.ColumnHeadersHeight = 25
+        Me.dgvCommission.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
+        Me.dgvCommission.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Column7, Me.Column6, Me.Column8, Me.Column2, Me.Column3, Me.Column4, Me.Column1, Me.Column5})
+        DataGridViewCellStyle28.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle28.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle28.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle28.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle28.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
+        DataGridViewCellStyle28.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle28.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvCommission.DefaultCellStyle = DataGridViewCellStyle28
+        Me.dgvCommission.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.dgvCommission.EnableHeadersVisualStyles = False
+        Me.dgvCommission.Location = New System.Drawing.Point(0, 95)
+        Me.dgvCommission.Name = "dgvCommission"
+        Me.dgvCommission.ReadOnly = True
+        Me.dgvCommission.RowHeadersVisible = False
+        Me.dgvCommission.Size = New System.Drawing.Size(778, 275)
+        Me.dgvCommission.TabIndex = 12
+        '
+        'Column7
+        '
+        Me.Column7.HeaderText = "ID"
+        Me.Column7.Name = "Column7"
+        Me.Column7.ReadOnly = True
+        Me.Column7.Visible = False
+        '
+        'Column6
+        '
+        Me.Column6.HeaderText = "SNO"
+        Me.Column6.Name = "Column6"
+        Me.Column6.ReadOnly = True
+        '
+        'Column8
+        '
+        Me.Column8.HeaderText = "CREATED DATE"
+        Me.Column8.Name = "Column8"
+        Me.Column8.ReadOnly = True
+        '
+        'Column2
+        '
+        Me.Column2.HeaderText = "FROM AMOUNT"
+        Me.Column2.Name = "Column2"
+        Me.Column2.ReadOnly = True
+        Me.Column2.Width = 130
+        '
+        'Column3
+        '
+        Me.Column3.HeaderText = "TO AMOUNT"
+        Me.Column3.Name = "Column3"
+        Me.Column3.ReadOnly = True
+        Me.Column3.Width = 115
+        '
+        'Column4
+        '
+        Me.Column4.HeaderText = "COMMISSION %"
+        Me.Column4.Name = "Column4"
+        Me.Column4.ReadOnly = True
+        Me.Column4.Width = 130
+        '
+        'Column1
+        '
+        DataGridViewCellStyle26.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle26.BackColor = System.Drawing.Color.RoyalBlue
+        DataGridViewCellStyle26.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle26.SelectionBackColor = System.Drawing.Color.RoyalBlue
+        DataGridViewCellStyle26.SelectionForeColor = System.Drawing.Color.White
+        Me.Column1.DefaultCellStyle = DataGridViewCellStyle26
+        Me.Column1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Column1.HeaderText = "EDIT"
+        Me.Column1.Name = "Column1"
+        Me.Column1.ReadOnly = True
+        Me.Column1.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.Column1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
+        Me.Column1.Text = "EDIT"
+        Me.Column1.UseColumnTextForButtonValue = True
+        '
+        'Column5
+        '
+        DataGridViewCellStyle27.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle27.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
+        DataGridViewCellStyle27.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle27.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
+        DataGridViewCellStyle27.SelectionForeColor = System.Drawing.Color.White
+        Me.Column5.DefaultCellStyle = DataGridViewCellStyle27
+        Me.Column5.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Column5.HeaderText = "DELETE"
+        Me.Column5.Name = "Column5"
+        Me.Column5.ReadOnly = True
+        Me.Column5.Text = "DELETE"
+        Me.Column5.UseColumnTextForButtonValue = True
+        '
+        'Panel2
+        '
+        Me.Panel2.BackColor = System.Drawing.Color.FromArgb(CType(CType(53, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(71, Byte), Integer))
+        Me.Panel2.Controls.Add(Me.Label12)
+        Me.Panel2.Controls.Add(Me.btnCommissionClose)
+        Me.Panel2.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Panel2.Location = New System.Drawing.Point(0, 0)
+        Me.Panel2.Name = "Panel2"
+        Me.Panel2.Size = New System.Drawing.Size(778, 31)
+        Me.Panel2.TabIndex = 11
+        '
+        'Label12
+        '
+        Me.Label12.AutoSize = True
+        Me.Label12.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label12.ForeColor = System.Drawing.Color.White
+        Me.Label12.Location = New System.Drawing.Point(332, 5)
+        Me.Label12.Name = "Label12"
+        Me.Label12.Size = New System.Drawing.Size(115, 21)
+        Me.Label12.TabIndex = 10
+        Me.Label12.Text = "COMMISSION"
+        '
+        'btnCommissionClose
+        '
+        Me.btnCommissionClose.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnCommissionClose.BackColor = System.Drawing.Color.FromArgb(CType(CType(37, Byte), Integer), CType(CType(121, Byte), Integer), CType(CType(50, Byte), Integer))
+        Me.btnCommissionClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnCommissionClose.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnCommissionClose.ForeColor = System.Drawing.Color.White
+        Me.btnCommissionClose.Location = New System.Drawing.Point(703, 0)
+        Me.btnCommissionClose.Name = "btnCommissionClose"
+        Me.btnCommissionClose.Size = New System.Drawing.Size(75, 31)
+        Me.btnCommissionClose.TabIndex = 9
+        Me.btnCommissionClose.Text = "CLOSE"
+        Me.btnCommissionClose.UseVisualStyleBackColor = False
+        '
+        'btnClear
+        '
+        Me.btnClear.BackColor = System.Drawing.Color.FromArgb(CType(CType(37, Byte), Integer), CType(CType(121, Byte), Integer), CType(CType(50, Byte), Integer))
+        Me.btnClear.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnClear.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnClear.ForeColor = System.Drawing.Color.White
+        Me.btnClear.Location = New System.Drawing.Point(462, 59)
+        Me.btnClear.Name = "btnClear"
+        Me.btnClear.Size = New System.Drawing.Size(75, 30)
+        Me.btnClear.TabIndex = 8
+        Me.btnClear.Text = "CLEAR"
+        Me.btnClear.UseVisualStyleBackColor = False
+        '
+        'btnSave
+        '
+        Me.btnSave.BackColor = System.Drawing.Color.FromArgb(CType(CType(37, Byte), Integer), CType(CType(121, Byte), Integer), CType(CType(50, Byte), Integer))
+        Me.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnSave.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnSave.ForeColor = System.Drawing.Color.White
+        Me.btnSave.Location = New System.Drawing.Point(381, 59)
+        Me.btnSave.Name = "btnSave"
+        Me.btnSave.Size = New System.Drawing.Size(75, 30)
+        Me.btnSave.TabIndex = 7
+        Me.btnSave.Text = "SAVE"
+        Me.btnSave.UseVisualStyleBackColor = False
+        '
+        'Label9
+        '
+        Me.Label9.AutoSize = True
+        Me.Label9.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label9.Location = New System.Drawing.Point(253, 48)
+        Me.Label9.Name = "Label9"
+        Me.Label9.Size = New System.Drawing.Size(98, 15)
+        Me.Label9.TabIndex = 6
+        Me.Label9.Text = "COMMISSION %"
+        '
+        'txtCommissionPerc
+        '
+        Me.txtCommissionPerc.Location = New System.Drawing.Point(256, 66)
+        Me.txtCommissionPerc.Name = "txtCommissionPerc"
+        Me.txtCommissionPerc.Size = New System.Drawing.Size(116, 23)
+        Me.txtCommissionPerc.TabIndex = 5
+        '
+        'Label8
+        '
+        Me.Label8.AutoSize = True
+        Me.Label8.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label8.Location = New System.Drawing.Point(131, 48)
+        Me.Label8.Name = "Label8"
+        Me.Label8.Size = New System.Drawing.Size(79, 15)
+        Me.Label8.TabIndex = 4
+        Me.Label8.Text = "TO AMOUNT"
+        '
+        'txtToAmount
+        '
+        Me.txtToAmount.Location = New System.Drawing.Point(134, 66)
+        Me.txtToAmount.Name = "txtToAmount"
+        Me.txtToAmount.Size = New System.Drawing.Size(116, 23)
+        Me.txtToAmount.TabIndex = 3
+        '
+        'Label7
+        '
+        Me.Label7.AutoSize = True
+        Me.Label7.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label7.Location = New System.Drawing.Point(12, 48)
+        Me.Label7.Name = "Label7"
+        Me.Label7.Size = New System.Drawing.Size(97, 15)
+        Me.Label7.TabIndex = 2
+        Me.Label7.Text = "FROM AMOUNT"
+        '
+        'txtFromAmount
+        '
+        Me.txtFromAmount.Location = New System.Drawing.Point(12, 66)
+        Me.txtFromAmount.Name = "txtFromAmount"
+        Me.txtFromAmount.Size = New System.Drawing.Size(116, 23)
+        Me.txtFromAmount.TabIndex = 1
+        '
         'frmSalesReportSPWise
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.White
         Me.ClientSize = New System.Drawing.Size(1002, 473)
+        Me.Controls.Add(Me.pnlCommission)
         Me.Controls.Add(Me.TableLayoutPanel1)
         Me.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Name = "frmSalesReportSPWise"
@@ -370,6 +664,11 @@ Partial Class frmSalesReportSPWise
         CType(Me.TG, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel1.ResumeLayout(False)
         Me.Panel1.PerformLayout()
+        Me.pnlCommission.ResumeLayout(False)
+        Me.pnlCommission.PerformLayout()
+        CType(Me.dgvCommission, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.Panel2.ResumeLayout(False)
+        Me.Panel2.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -395,4 +694,27 @@ Partial Class frmSalesReportSPWise
     Friend WithEvents Label5 As Label
     Friend WithEvents LblUnknown As Label
     Friend WithEvents CmbUnknown As ComboBox
+    Friend WithEvents btnCommission As Button
+    Friend WithEvents pnlCommission As Panel
+    Friend WithEvents Label7 As Label
+    Friend WithEvents txtFromAmount As TextBox
+    Friend WithEvents Label12 As Label
+    Friend WithEvents btnCommissionClose As Button
+    Friend WithEvents btnClear As Button
+    Friend WithEvents btnSave As Button
+    Friend WithEvents Label9 As Label
+    Friend WithEvents txtCommissionPerc As TextBox
+    Friend WithEvents Label8 As Label
+    Friend WithEvents txtToAmount As TextBox
+    Friend WithEvents chkCommission As CheckBox
+    Friend WithEvents Panel2 As Panel
+    Friend WithEvents dgvCommission As DataGridView
+    Friend WithEvents Column7 As DataGridViewTextBoxColumn
+    Friend WithEvents Column6 As DataGridViewTextBoxColumn
+    Friend WithEvents Column8 As DataGridViewTextBoxColumn
+    Friend WithEvents Column2 As DataGridViewTextBoxColumn
+    Friend WithEvents Column3 As DataGridViewTextBoxColumn
+    Friend WithEvents Column4 As DataGridViewTextBoxColumn
+    Friend WithEvents Column1 As DataGridViewButtonColumn
+    Friend WithEvents Column5 As DataGridViewButtonColumn
 End Class
