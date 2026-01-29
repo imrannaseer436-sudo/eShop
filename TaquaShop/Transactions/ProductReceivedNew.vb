@@ -1,6 +1,9 @@
 ﻿'******************************* in the name of Allah, most merciful, most compassionate ************************
+Imports System.ComponentModel
 Imports System.Data.SqlClient
 Imports System.IO
+Imports System.Runtime.Remoting.Messaging
+Imports Syncfusion.Windows.Forms.Tools.Win32API
 
 Public Class ProductReceivedNew
 
@@ -236,6 +239,19 @@ Public Class ProductReceivedNew
         Cmd.Transaction = Trn
 
         Try
+            'IMRAN
+            Dim cnt As Integer = 0
+            SQL = $"SELECT COUNT(*) FROM ReceivedMaster WHERE DeliveryTo = {ShopID} AND DeliveryCode = '{cmbDCode.Text}'"
+            Dim command As New SqlCommand(SQL, Con, Trn)
+            cnt = command.ExecuteScalar()
+
+            If cnt > 0 Then
+                MsgBox("Delivery Already Imported..!", MsgBoxStyle.Critical)
+                TG.Rows.Clear()
+                PnlLoading.Visible = False
+                Exit Sub
+            End If
+            'IMRAN 
 
             SQL = "insert into receivedmaster values ( " _
                 & id & ",'" _
