@@ -3,6 +3,7 @@ Imports System.ComponentModel
 Imports System.Data.SqlClient
 Imports System.IO
 Imports System.Runtime.Remoting.Messaging
+Imports OfficeOpenXml.FormulaParsing.Excel.Functions.RefAndLookup
 Imports Syncfusion.Windows.Forms.Tools.Win32API
 
 Public Class ProductReceivedNew
@@ -13,6 +14,12 @@ Public Class ProductReceivedNew
     Private UniqueID As String = ""
 
     Private Sub ProductReceivedNew_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+
+        'IMRAN
+        If IsAdmin = True Then
+            btnImportAll.Visible = True
+        End If
+        'IMRAN
 
         LoadDeliveryCode()
 
@@ -578,4 +585,175 @@ Public Class ProductReceivedNew
 
     End Sub
 
+    'IMRAN
+    Private Sub btnImportAll_Click(sender As Object, e As EventArgs) Handles btnImportAll.Click
+
+        pnlImportAll.Visible = True
+
+        SQL = $"SELECT Id,DeliveryCode,DeliveryDate,DeliveryFrom,TotalQty,TotCP,TotRP FROM DeliveryMaster
+                WHERE DeliveryTo = {ShopID} AND Status = 0 ORDER BY DeliveryCode"
+
+        With ESSA.OpenReader(SQL)
+            DgvImportAll.Rows.Clear()
+
+            While .Read
+
+                DgvImportAll.Rows.Add()
+                DgvImportAll.Item(0, DgvImportAll.Rows.Count - 1).Value = .Item(0)
+                DgvImportAll.Item(1, DgvImportAll.Rows.Count - 1).Value = .GetString(1).Trim
+                DgvImportAll.Item(2, DgvImportAll.Rows.Count - 1).Value = .GetDateTime(2).ToString("dd-MM-yyyy")
+                DgvImportAll.Item(3, DgvImportAll.Rows.Count - 1).Value = Format(.Item(4), "0.00")
+                DgvImportAll.Item(4, DgvImportAll.Rows.Count - 1).Value = Format(.Item(6), "0.00")
+                DgvImportAll.Item(5, DgvImportAll.Rows.Count - 1).Value = Format(.Item(5), "0.00")
+                DgvImportAll.Item(6, DgvImportAll.Rows.Count - 1).Value = .Item(3)
+                DgvImportAll.Item(7, DgvImportAll.Rows.Count - 1).Value = True
+
+            End While
+
+            .Close()
+
+        End With
+
+    End Sub
+
+    Private Sub btnImport2_Click(sender As Object, e As EventArgs) Handles btnImport2.Click
+
+        If DgvImportAll.Rows.Count = 0 Then
+            MsgBox("DeliveryCode Not Found", MsgBoxStyle.Exclamation)
+            Exit Sub
+        End If
+
+        ESSA.OpenConnection()
+        Dim Cmd = Con.CreateCommand
+        Dim Trn = Con.BeginTransaction
+        Cmd.Transaction = Trn
+
+        Try
+
+            Dim CheckedCount As Integer = 0
+            Dim ReceivedId As Integer = 0
+            Dim DeliveryCode As String = ""
+
+            For i As Integer = 0 To DgvImportAll.Rows.Count - 1
+
+                If DgvImportAll.Item(7, i).Value IsNot Nothing AndAlso CBool(DgvImportAll.Item(7, i).Value) = True Then
+
+                    CheckedCount += 1
+
+
+                    Dim getMaxId As String = "select isNull(max(Id), 0) + 1 from ReceivedMaster"
+                    Using command As New SqlCommand(getMaxId, Con, Trn)
+                        ReceivedId = command.ExecuteScalar()
+                    End Using
+
+                    DeliveryCode = DgvImportAll.Item(1, i).Value.ToString()
+
+                    SQL = $"insert into receivedmaster values ( 
+                             {ReceivedId},
+                             '{DeliveryCode}',
+                             '{Format(Now, "yyyy-MM-dd hh:mm:ssss")}',
+                             {Val(DgvImportAll.Item(6, i).Value)},
+                             {ShopID},
+                             {Val(DgvImportAll.Item(3, i).Value)},
+                             {Val(DgvImportAll.Item(5, i).Value)},
+                             {Val(DgvImportAll.Item(4, i).Value)},
+                             0,
+                             '',
+                            {UserID})"
+
+                    Cmd.CommandText = SQL
+                    Cmd.ExecuteNonQuery()
+
+
+                    SQL = $"UPDATE DeliveryMaster SET Status = 1 
+                        WHERE DeliveryCode = '{DeliveryCode}' and DeliveryTo = {ShopID}"
+
+                    Cmd.CommandText = SQL
+                    Cmd.ExecuteNonQuery()
+
+                    SQL = $"INSERT INTO ReceivedDetails (Id, PluID, Quantity, CostPrice, RetailPrice, Sno)
+                        SELECT {ReceivedId},DD.PluID,DD.Quantity,DD.CostPrice,DD.RetailPrice,DD.Sno
+                        FROM DeliveryDetails DD
+                        JOIN DeliveryMaster DM ON DM.ID = DD.ID
+                        WHERE DM.DeliveryCode = '{DeliveryCode}' AND DM.DeliveryTo = {ShopID}"
+
+                    Cmd.CommandText = SQL
+                    Cmd.ExecuteNonQuery()
+
+                    SQL = $"INSERT INTO SR_Info VALUES(
+                        '{DeliveryCode}',
+                        '',
+                        '',
+                        GetDate())"
+
+                    Cmd.CommandText = SQL
+                    Cmd.ExecuteNonQuery()
+
+                    SQL = $"DELETE FROM PriceMaster WHERE ShopID = {ShopID} AND PluId IN 
+                       (SELECT PluId FROM DeliveryDetails D,DeliveryMaster M
+                       WHERE D.ID = M.ID AND M.DeliveryCode = '{DeliveryCode}')"
+
+                    Cmd.CommandText = SQL
+                    Cmd.ExecuteNonQuery()
+
+                    SQL = $"INSERT INTO PriceMaster
+                        SELECT {ShopID},D.PluID,D.CostPrice,D.RetailPrice,D.RetailPrice,D.RetailPrice,1,
+                        '{Format(DateTime.Now, "yyyy-MM-dd HH:mm:ss")}','{Format(DateTime.Now, "yyyy-MM-dd HH:mm:ss")}',{UserID},{UserID},P.Discount
+                        from ProductMaster P
+                        INNER JOIN DeliveryDetails D ON P.PluId = D.Pluid
+                        INNER JOIN DeliveryMaster M ON M.ID = D.ID AND 
+                        M.DeliveryCode = '{DeliveryCode}'"
+
+                    Cmd.CommandText = SQL
+                    Cmd.ExecuteNonQuery()
+
+                End If
+            Next
+
+            If CheckedCount = 0 Then
+                Trn.Commit()
+                Con.Close()
+                MsgBox("Please select at least one Delivery.", MsgBoxStyle.Exclamation)
+                Exit Sub
+            End If
+
+            MsgBox(CheckedCount & " Delivery Imported Successfully.", MsgBoxStyle.Information)
+
+            Trn.Commit()
+            Con.Close()
+            DgvImportAll.Rows.Clear()
+
+        Catch ex As Exception
+
+            Trn.Rollback()
+            Con.Close()
+            MsgBox(ex.Message, MsgBoxStyle.Critical)
+            Exit Sub
+
+        End Try
+
+        pnlImportAll.Visible = False
+
+    End Sub
+
+    Private Sub btnClose_Click(sender As Object, e As EventArgs) Handles btnClose.Click
+
+        pnlImportAll.Visible = False
+
+    End Sub
+
+    Private Sub DgvImportAll_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles DgvImportAll.CellClick
+
+        If e.RowIndex >= 0 AndAlso e.ColumnIndex = 7 Then
+
+            If DgvImportAll.CurrentRow.Cells(7).Value Is Nothing Then
+                DgvImportAll.CurrentRow.Cells(7).Value = True
+            Else
+                DgvImportAll.CurrentRow.Cells(7).Value = Not CBool(DgvImportAll.CurrentRow.Cells(7).Value)
+            End If
+
+        End If
+
+    End Sub
+    'IMRAN
 End Class

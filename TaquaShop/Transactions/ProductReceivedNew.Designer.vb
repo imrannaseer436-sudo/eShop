@@ -22,16 +22,17 @@ Partial Class ProductReceivedNew
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle11 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle12 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.cmbDCode = New System.Windows.Forms.ComboBox()
         Me.btnDisplay = New System.Windows.Forms.Button()
         Me.btnImport = New System.Windows.Forms.Button()
         Me.btnReject = New System.Windows.Forms.Button()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.btnImportAll = New System.Windows.Forms.Button()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.GroupBox4 = New System.Windows.Forms.GroupBox()
@@ -68,6 +69,18 @@ Partial Class ProductReceivedNew
         Me.Label3 = New System.Windows.Forms.Label()
         Me.PnlLoading = New System.Windows.Forms.Panel()
         Me.Label5 = New System.Windows.Forms.Label()
+        Me.pnlImportAll = New System.Windows.Forms.Panel()
+        Me.btnClose = New System.Windows.Forms.Button()
+        Me.btnImport2 = New System.Windows.Forms.Button()
+        Me.DgvImportAll = New System.Windows.Forms.DataGridView()
+        Me.Column22 = New System.Windows.Forms.DataGridViewCheckBoxColumn()
+        Me.Column24 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column23 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column21 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column20 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column19 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column18 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column17 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
@@ -77,6 +90,8 @@ Partial Class ProductReceivedNew
         Me.GroupBox5.SuspendLayout()
         Me.GroupBox6.SuspendLayout()
         Me.PnlLoading.SuspendLayout()
+        Me.pnlImportAll.SuspendLayout()
+        CType(Me.DgvImportAll, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Label1
@@ -125,6 +140,7 @@ Partial Class ProductReceivedNew
         '
         'GroupBox1
         '
+        Me.GroupBox1.Controls.Add(Me.btnImportAll)
         Me.GroupBox1.Controls.Add(Me.cmbDCode)
         Me.GroupBox1.Controls.Add(Me.Label1)
         Me.GroupBox1.Controls.Add(Me.btnDisplay)
@@ -134,6 +150,16 @@ Partial Class ProductReceivedNew
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Delivery Info"
+        '
+        'btnImportAll
+        '
+        Me.btnImportAll.Location = New System.Drawing.Point(229, 9)
+        Me.btnImportAll.Name = "btnImportAll"
+        Me.btnImportAll.Size = New System.Drawing.Size(75, 23)
+        Me.btnImportAll.TabIndex = 2
+        Me.btnImportAll.Text = "Import All"
+        Me.btnImportAll.UseVisualStyleBackColor = True
+        Me.btnImportAll.Visible = False
         '
         'GroupBox2
         '
@@ -256,8 +282,8 @@ Partial Class ProductReceivedNew
         '
         'Column6
         '
-        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        Me.Column6.DefaultCellStyle = DataGridViewCellStyle5
+        DataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        Me.Column6.DefaultCellStyle = DataGridViewCellStyle9
         Me.Column6.HeaderText = "Delivered"
         Me.Column6.Name = "Column6"
         Me.Column6.ReadOnly = True
@@ -265,16 +291,16 @@ Partial Class ProductReceivedNew
         '
         'Column7
         '
-        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        Me.Column7.DefaultCellStyle = DataGridViewCellStyle6
+        DataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        Me.Column7.DefaultCellStyle = DataGridViewCellStyle10
         Me.Column7.HeaderText = "Received"
         Me.Column7.Name = "Column7"
         Me.Column7.Width = 60
         '
         'Column10
         '
-        DataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        Me.Column10.DefaultCellStyle = DataGridViewCellStyle7
+        DataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        Me.Column10.DefaultCellStyle = DataGridViewCellStyle11
         Me.Column10.HeaderText = "Variation"
         Me.Column10.Name = "Column10"
         Me.Column10.ReadOnly = True
@@ -294,9 +320,9 @@ Partial Class ProductReceivedNew
         '
         'Column15
         '
-        DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle8.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Column15.DefaultCellStyle = DataGridViewCellStyle8
+        DataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle12.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Column15.DefaultCellStyle = DataGridViewCellStyle12
         Me.Column15.HeaderText = "Floor"
         Me.Column15.Name = "Column15"
         '
@@ -422,7 +448,7 @@ Partial Class ProductReceivedNew
         Me.Label4.AutoSize = True
         Me.Label4.Location = New System.Drawing.Point(232, 22)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(66, 13)
+        Me.Label4.Size = New System.Drawing.Size(67, 13)
         Me.Label4.TabIndex = 3
         Me.Label4.Text = "Received By"
         '
@@ -431,7 +457,7 @@ Partial Class ProductReceivedNew
         Me.Label3.AutoSize = True
         Me.Label3.Location = New System.Drawing.Point(8, 22)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(65, 13)
+        Me.Label3.Size = New System.Drawing.Size(66, 13)
         Me.Label3.TabIndex = 2
         Me.Label3.Text = "Scanned By"
         '
@@ -454,11 +480,107 @@ Partial Class ProductReceivedNew
         Me.Label5.TabIndex = 1
         Me.Label5.Text = "Loading..."
         '
+        'pnlImportAll
+        '
+        Me.pnlImportAll.Controls.Add(Me.btnClose)
+        Me.pnlImportAll.Controls.Add(Me.btnImport2)
+        Me.pnlImportAll.Controls.Add(Me.DgvImportAll)
+        Me.pnlImportAll.Location = New System.Drawing.Point(21, 187)
+        Me.pnlImportAll.Name = "pnlImportAll"
+        Me.pnlImportAll.Size = New System.Drawing.Size(594, 331)
+        Me.pnlImportAll.TabIndex = 2
+        Me.pnlImportAll.Visible = False
+        '
+        'btnClose
+        '
+        Me.btnClose.Location = New System.Drawing.Point(516, 305)
+        Me.btnClose.Name = "btnClose"
+        Me.btnClose.Size = New System.Drawing.Size(75, 23)
+        Me.btnClose.TabIndex = 4
+        Me.btnClose.Text = "Close"
+        Me.btnClose.UseVisualStyleBackColor = True
+        '
+        'btnImport2
+        '
+        Me.btnImport2.Location = New System.Drawing.Point(435, 305)
+        Me.btnImport2.Name = "btnImport2"
+        Me.btnImport2.Size = New System.Drawing.Size(75, 23)
+        Me.btnImport2.TabIndex = 3
+        Me.btnImport2.Text = "Import"
+        Me.btnImport2.UseVisualStyleBackColor = True
+        '
+        'DgvImportAll
+        '
+        Me.DgvImportAll.AllowUserToAddRows = False
+        Me.DgvImportAll.AllowUserToDeleteRows = False
+        Me.DgvImportAll.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
+        Me.DgvImportAll.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Column17, Me.Column18, Me.Column19, Me.Column20, Me.Column21, Me.Column23, Me.Column24, Me.Column22})
+        Me.DgvImportAll.Dock = System.Windows.Forms.DockStyle.Top
+        Me.DgvImportAll.Location = New System.Drawing.Point(0, 0)
+        Me.DgvImportAll.Name = "DgvImportAll"
+        Me.DgvImportAll.ReadOnly = True
+        Me.DgvImportAll.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
+        Me.DgvImportAll.Size = New System.Drawing.Size(594, 299)
+        Me.DgvImportAll.TabIndex = 0
+        '
+        'Column22
+        '
+        Me.Column22.HeaderText = ""
+        Me.Column22.Name = "Column22"
+        Me.Column22.ReadOnly = True
+        '
+        'Column24
+        '
+        Me.Column24.HeaderText = "DeliveryFrom"
+        Me.Column24.Name = "Column24"
+        Me.Column24.ReadOnly = True
+        Me.Column24.Visible = False
+        '
+        'Column23
+        '
+        Me.Column23.HeaderText = "TotCP"
+        Me.Column23.Name = "Column23"
+        Me.Column23.ReadOnly = True
+        Me.Column23.Visible = False
+        '
+        'Column21
+        '
+        Me.Column21.HeaderText = "Amount"
+        Me.Column21.Name = "Column21"
+        Me.Column21.ReadOnly = True
+        '
+        'Column20
+        '
+        Me.Column20.HeaderText = "Qty"
+        Me.Column20.Name = "Column20"
+        Me.Column20.ReadOnly = True
+        '
+        'Column19
+        '
+        Me.Column19.HeaderText = "DeliveryDate"
+        Me.Column19.Name = "Column19"
+        Me.Column19.ReadOnly = True
+        '
+        'Column18
+        '
+        Me.Column18.HeaderText = "DeliveryCode"
+        Me.Column18.Name = "Column18"
+        Me.Column18.ReadOnly = True
+        Me.Column18.Width = 150
+        '
+        'Column17
+        '
+        Me.Column17.HeaderText = "Id"
+        Me.Column17.Name = "Column17"
+        Me.Column17.ReadOnly = True
+        Me.Column17.Visible = False
+        '
         'ProductReceivedNew
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(650, 615)
+        Me.Controls.Add(Me.pnlImportAll)
         Me.Controls.Add(Me.PnlLoading)
         Me.Controls.Add(Me.GroupBox6)
         Me.Controls.Add(Me.GroupBox5)
@@ -489,6 +611,8 @@ Partial Class ProductReceivedNew
         Me.GroupBox6.PerformLayout()
         Me.PnlLoading.ResumeLayout(False)
         Me.PnlLoading.PerformLayout()
+        Me.pnlImportAll.ResumeLayout(False)
+        CType(Me.DgvImportAll, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -535,4 +659,17 @@ Partial Class ProductReceivedNew
     Friend WithEvents Label3 As Label
     Friend WithEvents PnlLoading As Panel
     Friend WithEvents Label5 As Label
+    Friend WithEvents btnImportAll As Button
+    Friend WithEvents pnlImportAll As Panel
+    Friend WithEvents DgvImportAll As DataGridView
+    Friend WithEvents btnClose As Button
+    Friend WithEvents btnImport2 As Button
+    Friend WithEvents Column17 As DataGridViewTextBoxColumn
+    Friend WithEvents Column18 As DataGridViewTextBoxColumn
+    Friend WithEvents Column19 As DataGridViewTextBoxColumn
+    Friend WithEvents Column20 As DataGridViewTextBoxColumn
+    Friend WithEvents Column21 As DataGridViewTextBoxColumn
+    Friend WithEvents Column23 As DataGridViewTextBoxColumn
+    Friend WithEvents Column24 As DataGridViewTextBoxColumn
+    Friend WithEvents Column22 As DataGridViewCheckBoxColumn
 End Class
