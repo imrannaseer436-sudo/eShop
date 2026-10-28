@@ -2,6 +2,7 @@
 Imports System.Data.SqlClient
 Imports System.Threading.Tasks
 Imports CrystalDecisions.CrystalReports.Engine
+Imports Microsoft.Office.Interop
 
 Public Class ProductDeliveryList
 
@@ -50,6 +51,38 @@ Public Class ProductDeliveryList
 
         SQL = "select shopid,(shopname+' - '+shopcode) shopdesc from shops where shopid<>" & ShopID & " order by shopid"
         ESSA.LoadCombo(cmbFilter, SQL, "shopdesc", "shopid", "All Location(S)")
+
+        'Imran
+        Try
+
+            SQL = "SELECT MIN(DeliveryDate) " &
+              "FROM DeliveryMaster " &
+              "WHERE DeliveryFrom = " & ShopID
+
+            Using cmd As New SqlCommand(SQL, Con)
+
+                If Con.State = ConnectionState.Closed Then
+                    Con.Open()
+                End If
+
+                Dim obj As Object = cmd.ExecuteScalar()
+
+                If obj IsNot Nothing AndAlso Not IsDBNull(obj) Then
+                    DtpFromDate.Value = Convert.ToDateTime(obj)
+                Else
+                    DtpFromDate.Value = Now.Date
+                End If
+
+            End Using
+
+        Catch ex As Exception
+
+            DtpFromDate.Value = Now.Date
+
+        End Try
+
+        'LoadDeliveryList()
+        'Imran
 
         cmbDCLocation.Select()
 
@@ -282,28 +315,30 @@ Public Class ProductDeliveryList
 
     Private Sub btnFilter_Click(sender As Object, e As EventArgs) Handles btnFilter.Click
 
-        SQL = "select m.deliverycode,m.deliverydate,s.shopname,m.TotalQty,m.totcp " _
-            & "from DeliveryMaster m,Shops s " _
-            & "where m.DeliveryTo=s.shopid and m.deliveryfrom = " & ShopID & " "
+        LoadDeliveryList()
 
-        If cmbFilter.SelectedIndex > 0 Then
-            SQL &= " and m.deliveryto=" & cmbFilter.SelectedValue
-        End If
+        'SQL = "select m.deliverycode,m.deliverydate,s.shopname,m.TotalQty,m.totcp " _
+        '    & "from DeliveryMaster m,Shops s " _
+        '    & "where m.DeliveryTo=s.shopid and m.deliveryfrom = " & ShopID & " "
 
-        SQL &= " order by deliverydate desc"
+        'If cmbFilter.SelectedIndex > 0 Then
+        '    SQL &= " and m.deliveryto=" & cmbFilter.SelectedValue
+        'End If
 
-        With ESSA.OpenReader(SQL)
-            DGV.Rows.Clear()
-            While .Read
-                DGV.Rows.Add()
-                DGV.Item(0, DGV.Rows.Count - 1).Value = .GetString(0).Trim
-                DGV.Item(1, DGV.Rows.Count - 1).Value = Format(.GetDateTime(1).Date, "dd-MM-yyyy")
-                DGV.Item(2, DGV.Rows.Count - 1).Value = .GetString(2).Trim
-                DGV.Item(3, DGV.Rows.Count - 1).Value = .Item(3)
-                DGV.Item(4, DGV.Rows.Count - 1).Value = Format(.Item(4), "0.00")
-            End While
-            .Close()
-        End With
+        'SQL &= " order by deliverydate desc"
+
+        'With ESSA.OpenReader(SQL)
+        '    DGV.Rows.Clear()
+        '    While .Read
+        '        DGV.Rows.Add()
+        '        DGV.Item(0, DGV.Rows.Count - 1).Value = .GetString(0).Trim
+        '        DGV.Item(1, DGV.Rows.Count - 1).Value = Format(.GetDateTime(1).Date, "dd-MM-yyyy")
+        '        DGV.Item(2, DGV.Rows.Count - 1).Value = .GetString(2).Trim
+        '        DGV.Item(3, DGV.Rows.Count - 1).Value = .Item(3)
+        '        DGV.Item(4, DGV.Rows.Count - 1).Value = Format(.Item(4), "0.00")
+        '    End While
+        '    .Close()
+        'End With
 
     End Sub
 
@@ -568,4 +603,879 @@ Public Class ProductDeliveryList
         End If
 
     End Sub
+
+    Private Sub LoadDeliveryList()
+
+        SQL = "SELECT m.deliverycode,m.deliverydate,s.shopname,m.TotalQty,m.totcp " _
+        & "FROM DeliveryMaster m, Shops s " _
+        & "WHERE m.DeliveryTo = s.shopid " _
+        & "AND m.deliveryfrom = " & ShopID
+
+        If cmbFilter.SelectedIndex > 0 Then
+            SQL &= " AND m.deliveryto = " & cmbFilter.SelectedValue
+        End If
+
+        SQL &= " AND m.deliverydate >= '" & Format(DtpFromDate.Value, "yyyy-MM-dd") & "'" _
+        & " AND m.deliverydate < '" & Format(DtpToDate.Value.AddDays(1), "yyyy-MM-dd") & "'"
+
+        SQL &= " ORDER BY m.deliverydate DESC"
+
+        With ESSA.OpenReader(SQL)
+
+            DGV.Rows.Clear()
+
+            While .Read
+                DGV.Rows.Add()
+
+                DGV.Item(0, DGV.Rows.Count - 1).Value = .GetString(0).Trim
+                DGV.Item(1, DGV.Rows.Count - 1).Value = Format(.GetDateTime(1).Date, "dd-MM-yyyy")
+                DGV.Item(2, DGV.Rows.Count - 1).Value = .GetString(2).Trim
+                DGV.Item(3, DGV.Rows.Count - 1).Value = .Item(3)
+                DGV.Item(4, DGV.Rows.Count - 1).Value = Format(.Item(4), "0.00")
+            End While
+
+            .Close()
+
+        End With
+
+    End Sub
+
+    Private Sub ExportDeliveryToExcel()
+
+        Try
+
+            '----------------------------------------------------------
+            ' 1. Get DeliveryCodes from all rows in DGV
+            '----------------------------------------------------------
+            Dim DeliveryCodes As New List(Of String)
+
+            For i As Integer = 0 To DGV.Rows.Count - 1
+
+                If DGV.Rows(i).IsNewRow Then Continue For
+
+                If DGV.Item(0, i).Value IsNot Nothing AndAlso
+               Not IsDBNull(DGV.Item(0, i).Value) Then
+
+                    Dim DeliveryCode As String =
+                    DGV.Item(0, i).Value.ToString().Trim()
+
+                    If DeliveryCode <> "" AndAlso
+                   Not DeliveryCodes.Contains(DeliveryCode) Then
+
+                        DeliveryCodes.Add(DeliveryCode)
+
+                    End If
+
+                End If
+
+            Next
+
+            '----------------------------------------------------------
+            ' 2. Check DeliveryCodes
+            '----------------------------------------------------------
+            If DeliveryCodes.Count = 0 Then
+                MessageBox.Show("No Delivery Code found in the grid.",
+                            "Export",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Information)
+                Exit Sub
+            End If
+
+            '----------------------------------------------------------
+            ' 3. Create SQL parameter placeholders
+            '----------------------------------------------------------
+            Dim placeholders As New List(Of String)
+
+            For i As Integer = 0 To DeliveryCodes.Count - 1
+                placeholders.Add("@DeliveryCode" & i)
+            Next
+
+            '----------------------------------------------------------
+            ' 4. SQL Query
+            '----------------------------------------------------------
+            Dim SQL As String =
+            "SELECT Description, HSN, SUM(Pcs) AS Pcs, Rate, " &
+            "SUM(Pcs * Rate) AS TAXABLE, " &
+            "[Dis%], [GST%], " &
+            "SUM(Pcs * Rate) * [GST%] / 100 AS GST, " &
+            "SUM(Pcs * Rate) + " &
+            "(SUM(Pcs * Rate) * [GST%] / 100) AS [Total Amount] " &
+            "FROM (" &
+            "SELECT DM.DeliveryCode, " &
+            "A.Category AS Description, " &
+            "T.HSN, " &
+            "SUM(DD.Quantity) AS Pcs, " &
+            "DD.CostPrice AS Rate, " &
+            "0 AS [Dis%], " &
+            "CASE " &
+            "WHEN DD.CostPrice > T.Val THEN T.Mx " &
+            "ELSE T.Mn " &
+            "END AS [GST%] " &
+            "FROM DeliveryMaster DM " &
+            "INNER JOIN DeliveryDetails DD ON DM.Id = DD.Id " &
+            "INNER JOIN ProductAttributes A ON A.PluId = DD.PluID " &
+            "INNER JOIN ProductTax T ON T.DeptId = A.DeptId " &
+            "AND T.CatId = A.CatId " &
+            "AND T.MatId = A.MaterialId " &
+            "AND T.IsUpdated = @TaxVersion " &
+            "WHERE DM.DeliveryCode IN (" &
+            String.Join(",", placeholders) &
+            ") " &
+            "GROUP BY DM.DeliveryCode, A.Category, T.HSN, " &
+            "DD.CostPrice, T.Val, T.Mx, T.Mn" &
+            ") A " &
+            "GROUP BY Description, HSN, Rate, [Dis%], [GST%]"
+
+            '----------------------------------------------------------
+            ' 5. Get Data
+            '----------------------------------------------------------
+            Dim dt As New DataTable
+
+            Using con As New SqlConnection(ConStr)
+
+                Using cmd As New SqlCommand(SQL, con)
+
+                    ' Tax Version
+                    cmd.Parameters.AddWithValue("@TaxVersion", TaxVersion)
+
+                    ' Delivery Codes
+                    For i As Integer = 0 To DeliveryCodes.Count - 1
+
+                        cmd.Parameters.AddWithValue(
+                        "@DeliveryCode" & i,
+                        DeliveryCodes(i)
+                    )
+
+                    Next
+
+                    Using da As New SqlDataAdapter(cmd)
+
+                        ' Display SQL Query
+                        Debug.WriteLine("SQL Query: " & cmd.CommandText)
+
+                        ' Display Parameters
+                        For Each p As SqlParameter In cmd.Parameters
+                            Debug.WriteLine(p.ParameterName & " = " &
+                    If(p.Value Is Nothing OrElse IsDBNull(p.Value),
+                       "NULL",
+                       p.Value.ToString()))
+                        Next
+
+                        da.Fill(dt)
+
+                    End Using
+
+                End Using
+
+            End Using
+
+            '----------------------------------------------------------
+            ' 6. Check Data
+            '----------------------------------------------------------
+            If dt.Rows.Count = 0 Then
+
+                MessageBox.Show("No delivery details found.",
+                            "Export",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Information)
+
+                Exit Sub
+
+            End If
+
+            '----------------------------------------------------------
+            ' 7. Create Excel
+            '----------------------------------------------------------
+            Dim excelApp As New Excel.Application()
+
+            Dim workbook As Excel.Workbook =
+            excelApp.Workbooks.Add()
+
+            Dim worksheet As Excel.Worksheet =
+            DirectCast(workbook.Sheets(1), Excel.Worksheet)
+
+            '----------------------------------------------------------
+            ' 8. Excel Headers
+            '----------------------------------------------------------
+            Dim headers() As String = {
+            "Description",
+            "HSN",
+            "Pcs",
+            "Rate",
+            "TAXABLE",
+            "Dis%",
+            "GST%",
+            "GST",
+            "Total Amount"
+        }
+
+            For c As Integer = 0 To headers.Length - 1
+
+                worksheet.Cells(1, c + 1) = headers(c)
+
+            Next
+
+            '----------------------------------------------------------
+            ' 9. Excel Data
+            '----------------------------------------------------------
+            For r As Integer = 0 To dt.Rows.Count - 1
+
+                For c As Integer = 0 To dt.Columns.Count - 1
+
+                    worksheet.Cells(r + 2, c + 1) =
+                    dt.Rows(r)(c).ToString()
+
+                Next
+
+            Next
+
+            '----------------------------------------------------------
+            ' 10. Format Header
+            '----------------------------------------------------------
+            Dim headerRange As Excel.Range =
+            worksheet.Range(
+                worksheet.Cells(1, 1),
+                worksheet.Cells(1, headers.Length)
+            )
+
+            headerRange.Font.Bold = True
+
+            '----------------------------------------------------------
+            ' 11. Format Numbers
+            '----------------------------------------------------------
+            worksheet.Columns("C").NumberFormat = "0"
+            worksheet.Columns("D").NumberFormat = "0.00"
+            worksheet.Columns("E").NumberFormat = "0.00"
+            worksheet.Columns("F").NumberFormat = "0.00"
+            worksheet.Columns("G").NumberFormat = "0.00"
+            worksheet.Columns("H").NumberFormat = "0.00"
+            worksheet.Columns("I").NumberFormat = "0.00"
+
+            '----------------------------------------------------------
+            ' 12. Auto Fit Columns
+            '----------------------------------------------------------
+            worksheet.Columns.AutoFit()
+
+            '----------------------------------------------------------
+            ' 13. Save Excel to Desktop
+            '----------------------------------------------------------
+            Dim filePath As String =
+            IO.Path.Combine(
+                Environment.GetFolderPath(
+                    Environment.SpecialFolder.Desktop
+                ),
+                "Delivery Summary.xlsx"
+            )
+
+            ' If file already exists, create another filename
+            Dim counter As Integer = 1
+
+            While IO.File.Exists(filePath)
+
+                filePath =
+                IO.Path.Combine(
+                    Environment.GetFolderPath(
+                        Environment.SpecialFolder.Desktop
+                    ),
+                    "Delivery Summary (" & counter & ").xlsx"
+                )
+
+                counter += 1
+
+            End While
+
+            workbook.SaveAs(filePath)
+
+            '----------------------------------------------------------
+            ' 14. Close Excel
+            '----------------------------------------------------------
+            workbook.Close()
+            excelApp.Quit()
+
+            '----------------------------------------------------------
+            ' 15. Release COM Objects
+            '----------------------------------------------------------
+            Runtime.InteropServices.Marshal.ReleaseComObject(worksheet)
+            Runtime.InteropServices.Marshal.ReleaseComObject(workbook)
+            Runtime.InteropServices.Marshal.ReleaseComObject(excelApp)
+
+            '----------------------------------------------------------
+            ' 16. Success Message
+            '----------------------------------------------------------
+            MessageBox.Show(
+            "Delivery details exported successfully." &
+            vbCrLf & vbCrLf &
+            "Delivery Codes: " & DeliveryCodes.Count &
+            vbCrLf &
+            "Rows Exported: " & dt.Rows.Count &
+            vbCrLf & vbCrLf &
+            "File: " & filePath,
+            "Export Completed",
+            MessageBoxButtons.OK,
+            MessageBoxIcon.Information
+        )
+
+        Catch ex As Exception
+
+            MessageBox.Show(
+            "Error while exporting to Excel:" &
+            vbCrLf & vbCrLf &
+            ex.Message,
+            "Export Error",
+            MessageBoxButtons.OK,
+            MessageBoxIcon.Error
+        )
+
+        End Try
+
+    End Sub
+    Private Sub BtnDownloadAsExcel_Click(sender As Object, e As EventArgs) Handles BtnDownloadAsExcel.Click
+
+        ExportDeliveryToExcel()
+
+    End Sub
+
+    'Private Sub BtnGrouped_Click(sender As Object, e As EventArgs) Handles BtnGrouped.Click
+
+    '    '=======================================================
+    '    ' 1. Validate destination
+    '    '=======================================================
+    '    If cmbFilter.SelectedIndex <= 0 OrElse
+    '       cmbFilter.SelectedValue Is Nothing OrElse
+    '       IsDBNull(cmbFilter.SelectedValue) Then
+
+    '        MessageBox.Show("Please select a destination location.", "Grouped Delivery",
+    '                        MessageBoxButtons.OK, MessageBoxIcon.Warning)
+    '        cmbFilter.Focus()
+    '        Exit Sub
+    '    End If
+
+    '    'For Each row As DataGridViewRow In DGV.Rows
+
+    '    '    If row.IsNewRow Then Continue For
+
+    '    '    If cmbFilter.SelectedValue.ToString() <> row.Cells(2).Value.ToString() Then
+    '    '        MessageBox.Show("cmbFilter location and Rows are not same", "Grouped Delivery",
+    '    '                        MessageBoxButtons.OK, MessageBoxIcon.Warning)
+    '    '        Exit Sub
+    '    '    End If
+
+    '    'Next
+
+    '    Dim ToShopId As Integer
+
+    '    If Not Integer.TryParse(cmbFilter.SelectedValue.ToString(), ToShopId) Then
+
+    '        MessageBox.Show("Invalid destination location.", "Grouped Delivery",
+    '                        MessageBoxButtons.OK, MessageBoxIcon.Warning)
+    '        cmbFilter.Focus()
+    '        Exit Sub
+
+    '    End If
+
+    '    '=======================================================
+    '    ' 2. Validate dates
+    '    '=======================================================
+    '    If DtpFromDate.Value.Date > DtpToDate.Value.Date Then
+
+    '        MessageBox.Show("From Date cannot be greater than To Date.", "Grouped Delivery",
+    '                        MessageBoxButtons.OK, MessageBoxIcon.Warning)
+    '        DtpFromDate.Focus()
+    '        Exit Sub
+
+    '    End If
+
+    '    '=======================================================
+    '    ' 3. Confirmation
+    '    '=======================================================
+    '    If MessageBox.Show("Are you sure, do you want to generate transfer receipt..?", "Grouped Delivery",
+    '                       MessageBoxButtons.YesNo, MessageBoxIcon.Question) <> DialogResult.Yes Then
+    '        Exit Sub
+
+    '    End If
+
+    '    BtnGrouped.Enabled = False
+
+    '    Dim Trn As SqlTransaction = Nothing
+
+    '    Try
+
+    '        If Con.State = ConnectionState.Closed Then
+    '            Con.Open()
+    '        End If
+
+    '        Trn = Con.BeginTransaction()
+
+    '        '=======================================================
+    '        ' 4. Check delivery records
+    '        '=======================================================
+    '        SQL = "SELECT COUNT(*) " &
+    '              "FROM DeliveryMaster " &
+    '              "WHERE DeliveryFrom = @FromShop " &
+    '              "AND DeliveryTo = @ToShop " &
+    '              "AND DeliveryDate >= @FromDate " &
+    '              "AND DeliveryDate < DATEADD(DAY, 1, @ToDate)"
+
+    '        Dim DeliveryCount As Integer
+
+    '        Using Cmd As New SqlCommand(SQL, Con, Trn)
+
+    '            Cmd.Parameters.AddWithValue("@FromShop", ShopID)
+    '            Cmd.Parameters.AddWithValue("@ToShop", ToShopId)
+    '            Cmd.Parameters.AddWithValue("@FromDate", DtpFromDate.Value.Date)
+    '            Cmd.Parameters.AddWithValue("@ToDate", DtpToDate.Value.Date)
+
+    '            DeliveryCount = Convert.ToInt32(Cmd.ExecuteScalar())
+
+    '        End Using
+
+    '        If DeliveryCount = 0 Then
+
+    '            Trn.Rollback()
+    '            Trn = Nothing
+
+    '            MessageBox.Show("No delivery found for the selected location and date range.", "Grouped Delivery",
+    '                            MessageBoxButtons.OK, MessageBoxIcon.Information)
+    '            Exit Sub
+
+    '        End If
+
+    '        '=======================================================
+    '        ' 5. Insert GroupedDeliveryMaster
+    '        '=======================================================
+    '        Dim GroupedDeliveryMasterId As Integer
+
+    '        SQL = "INSERT INTO GroupedDeliveryMaster " &
+    '              "(FromShopId, ToShopId, FromDate, ToDate, CreatedBy, CreatedAt) " &
+    '              "OUTPUT INSERTED.Id " &
+    '              "VALUES " &
+    '              "(@FromShopId, @ToShopId, @FromDate, @ToDate, @CreatedBy, @CreatedAt)"
+
+    '        Using Cmd As New SqlCommand(SQL, Con, Trn)
+
+    '            Cmd.Parameters.AddWithValue("@FromShopId", ShopID)
+    '            Cmd.Parameters.AddWithValue("@ToShopId", ToShopId)
+    '            Cmd.Parameters.AddWithValue("@FromDate", DtpFromDate.Value.Date)
+    '            Cmd.Parameters.AddWithValue("@ToDate", DtpToDate.Value.Date)
+    '            Cmd.Parameters.AddWithValue("@CreatedBy", UserID)
+    '            Cmd.Parameters.AddWithValue("@CreatedAt", DateTime.Now)
+
+    '            GroupedDeliveryMasterId = Convert.ToInt32(Cmd.ExecuteScalar())
+
+    '        End Using
+
+    '        '=======================================================
+    '        ' 6. Insert GroupedDeliveryDetails
+    '        '=======================================================
+    '        SQL = "INSERT INTO GroupedDeliveryDetails " &
+    '              "(GroupedDeliveryMasterId, DeliveryCode, Quantity, TotalCost) " &
+    '              "SELECT @MasterId, DeliveryCode, TotalQty, TotCP " &
+    '              "FROM DeliveryMaster " &
+    '              "WHERE DeliveryFrom = @FromShop " &
+    '              "AND DeliveryTo = @ToShop " &
+    '              "AND DeliveryDate >= @FromDate " &
+    '              "AND DeliveryDate < DATEADD(DAY, 1, @ToDate)"
+
+    '        Using Cmd As New SqlCommand(SQL, Con, Trn)
+
+    '            Cmd.Parameters.AddWithValue("@MasterId", GroupedDeliveryMasterId)
+    '            Cmd.Parameters.AddWithValue("@FromShop", ShopID)
+    '            Cmd.Parameters.AddWithValue("@ToShop", ToShopId)
+    '            Cmd.Parameters.AddWithValue("@FromDate", DtpFromDate.Value.Date)
+    '            Cmd.Parameters.AddWithValue("@ToDate", DtpToDate.Value.Date)
+
+    '            Cmd.ExecuteNonQuery()
+
+    '        End Using
+
+    '        '=======================================================
+    '        ' 7. Commit
+    '        '=======================================================
+    '        Trn.Commit()
+    '        Trn = Nothing
+
+    '        '=======================================================
+    '        ' 8. Get From Shop / To Shop details
+    '        '=======================================================
+    '        Dim FromCompanyName As String = ""
+    '        Dim FromCompanyAddress As String = ""
+    '        Dim FromCompanyGST As String = ""
+    '        Dim FromCompanyMobile As String = ""
+
+    '        Dim ToCompanyName As String = ""
+    '        Dim ToCompanyAddress As String = ""
+    '        Dim ToCompanyGST As String = ""
+    '        Dim ToCompanyMobile As String = ""
+
+    '        SQL = "SELECT " &
+    '              "S1.Alias AS FromCompanyName, " &
+    '              "S1.Address1 + ' ' + S1.Address2 + ' ' + S1.City + ', ' + S1.State AS FromCompanyAddress, " &
+    '              "S1.CST AS FromCompanyGST, " &
+    '              "S1.Phone AS FromCompanyMobile, " &
+    '              "S2.Alias AS ToCompanyName, " &
+    '              "S2.Address1 + ' ' + S2.Address2 + ' ' + S2.City + ', ' + S2.State AS ToCompanyAddress, " &
+    '              "S2.CST AS ToCompanyGST, " &
+    '              "S2.Phone AS ToCompanyMobile " &
+    '              "FROM Shops S1 " &
+    '              "CROSS JOIN Shops S2 " &
+    '              "WHERE S1.ShopID = @FromShop " &
+    '              "AND S2.ShopID = @ToShop"
+
+    '        Using Cmd As New SqlCommand(SQL, Con)
+
+    '            Cmd.Parameters.AddWithValue("@FromShop", ShopID)
+    '            Cmd.Parameters.AddWithValue("@ToShop", ToShopId)
+
+    '            Using Reader As SqlDataReader = Cmd.ExecuteReader()
+
+    '                If Reader.Read() Then
+
+    '                    FromCompanyName =
+    '                        If(IsDBNull(Reader("FromCompanyName")),
+    '                           "",
+    '                           Reader("FromCompanyName").ToString())
+
+    '                    FromCompanyAddress =
+    '                        If(IsDBNull(Reader("FromCompanyAddress")),
+    '                           "",
+    '                           Reader("FromCompanyAddress").ToString())
+
+    '                    FromCompanyGST =
+    '                        If(IsDBNull(Reader("FromCompanyGST")),
+    '                           "",
+    '                           Reader("FromCompanyGST").ToString())
+
+    '                    FromCompanyMobile =
+    '                        If(IsDBNull(Reader("FromCompanyMobile")),
+    '                           "",
+    '                           Reader("FromCompanyMobile").ToString())
+
+
+    '                    ToCompanyName =
+    '                        If(IsDBNull(Reader("ToCompanyName")),
+    '                           "",
+    '                           Reader("ToCompanyName").ToString())
+
+    '                    ToCompanyAddress =
+    '                        If(IsDBNull(Reader("ToCompanyAddress")),
+    '                           "",
+    '                           Reader("ToCompanyAddress").ToString())
+
+    '                    ToCompanyGST =
+    '                        If(IsDBNull(Reader("ToCompanyGST")),
+    '                           "",
+    '                           Reader("ToCompanyGST").ToString())
+
+    '                    ToCompanyMobile =
+    '                        If(IsDBNull(Reader("ToCompanyMobile")),
+    '                           "",
+    '                           Reader("ToCompanyMobile").ToString())
+
+    '                End If
+
+    '            End Using
+
+    '        End Using
+
+
+    '        '=======================================================
+    '        ' 9. Main Report Data
+    '        '=======================================================
+    '        Dim Dataset As New DataSet
+    '        Dim MainTbl As New DataTable("DeliveryValueReport")
+
+    '        SQL = "SELECT " &
+    '              "GD.DeliveryCode, " &
+    '              "DM.DeliveryDate, " &
+    '              "S.ShopName, " &
+    '              "GD.Quantity AS TotalQty, " &
+    '              "GD.TotalCost AS TotalCP, " &
+    '              "DM.TotRP AS TotalRP, " &
+    '              "'' AS UserName " &
+    '              "FROM GroupedDeliveryDetails GD " &
+    '              "INNER JOIN DeliveryMaster DM " &
+    '              "ON DM.DeliveryCode = GD.DeliveryCode " &
+    '              "INNER JOIN Shops S " &
+    '              "ON S.ShopID = DM.DeliveryTo " &
+    '              "WHERE GD.GroupedDeliveryMasterId = @MasterId " &
+    '              "ORDER BY DM.DeliveryDate, GD.DeliveryCode"
+
+
+    '        Using Cmd As New SqlCommand(SQL, Con)
+
+    '            Cmd.Parameters.AddWithValue("@MasterId",
+    '                                        GroupedDeliveryMasterId)
+
+    '            Using Adp As New SqlDataAdapter(Cmd)
+
+    '                Adp.Fill(MainTbl)
+
+    '            End Using
+
+    '        End Using
+
+    '        Dataset.Tables.Add(MainTbl)
+
+    '        If MainTbl.Rows.Count = 0 Then
+
+    '            MessageBox.Show("No delivery details found for the grouped receipt.",
+    '                            "Grouped Delivery",
+    '                            MessageBoxButtons.OK,
+    '                            MessageBoxIcon.Information)
+
+    '            Exit Sub
+
+    '        End If
+
+
+    '        '=======================================================
+    '        ' 10. TaxBreakup Subreport Data
+    '        '=======================================================
+    '        '=======================================================
+    '        ' 10. TaxBreakup Subreport Data
+    '        '=======================================================
+    '        Dim TaxTbl As New DataTable("TaxBreakup")
+
+    '        SQL = "SELECT
+    '                        X.TaxType,
+    '                        SUM(X.Taxable) AS Taxable,
+    '                        X.TaxPerc
+    '                    FROM
+    '                    (
+    '                        SELECT
+    '                            'CGST' AS TaxType,
+    '                            SUM(DD.Quantity * DD.CostPrice) AS Taxable,
+    '                            (CASE
+    '                                WHEN DD.CostPrice > PT.Val
+    '                                THEN PT.Mx
+    '                                ELSE PT.Mn
+    '                             END) / 2 AS TaxPerc
+    '                        FROM GroupedDeliveryDetails GD
+    '                        INNER JOIN DeliveryMaster DM
+    '                            ON DM.DeliveryCode = GD.DeliveryCode
+    '                        INNER JOIN DeliveryDetails DD
+    '                            ON DM.Id = DD.Id
+    '                        INNER JOIN ProductAttributes PA
+    '                            ON PA.PluId = DD.PluID
+    '                        INNER JOIN ProductTax PT
+    '                            ON PT.DeptId = PA.DeptId
+    '                            AND PT.CatId = PA.CatId
+    '                            AND PT.MatId = PA.MaterialId
+    '                            AND PT.IsUpdated = @TaxVersion
+    '                        INNER JOIN Shops S1
+    '                            ON S1.ShopID = DM.DeliveryFrom
+    '                        INNER JOIN Shops S2
+    '                            ON S2.ShopID = DM.DeliveryTo
+    '                        WHERE GD.GroupedDeliveryMasterId = @MasterId
+    '                            AND S1.State = S2.State
+    '                        GROUP BY
+    '                            DD.CostPrice,
+    '                            PT.Val,
+    '                            PT.Mx,
+    '                            PT.Mn
+
+    '                        UNION ALL
+
+    '                        SELECT
+    '                            'SGST' AS TaxType,
+    '                            SUM(DD.Quantity * DD.CostPrice) AS Taxable,
+    '                            (CASE
+    '                                WHEN DD.CostPrice > PT.Val
+    '                                THEN PT.Mx
+    '                                ELSE PT.Mn
+    '                             END) / 2 AS TaxPerc
+    '                        FROM GroupedDeliveryDetails GD
+    '                        INNER JOIN DeliveryMaster DM
+    '                            ON DM.DeliveryCode = GD.DeliveryCode
+    '                        INNER JOIN DeliveryDetails DD
+    '                            ON DM.Id = DD.Id
+    '                        INNER JOIN ProductAttributes PA
+    '                            ON PA.PluId = DD.PluID
+    '                        INNER JOIN ProductTax PT
+    '                            ON PT.DeptId = PA.DeptId
+    '                            AND PT.CatId = PA.CatId
+    '                            AND PT.MatId = PA.MaterialId
+    '                            AND PT.IsUpdated = @TaxVersion
+    '                        INNER JOIN Shops S1
+    '                            ON S1.ShopID = DM.DeliveryFrom
+    '                        INNER JOIN Shops S2
+    '                            ON S2.ShopID = DM.DeliveryTo
+    '                        WHERE GD.GroupedDeliveryMasterId = @MasterId
+    '                            AND S1.State = S2.State
+    '                        GROUP BY
+    '                            DD.CostPrice,
+    '                            PT.Val,
+    '                            PT.Mx,
+    '                            PT.Mn
+
+    '                        UNION ALL
+
+    '                        SELECT
+    '                            'IGST' AS TaxType,
+    '                            SUM(DD.Quantity * DD.CostPrice) AS Taxable,
+    '                            CASE
+    '                                WHEN DD.CostPrice > PT.Val
+    '                                THEN PT.Mx
+    '                                ELSE PT.Mn
+    '                            END AS TaxPerc
+    '                        FROM GroupedDeliveryDetails GD
+    '                        INNER JOIN DeliveryMaster DM
+    '                            ON DM.DeliveryCode = GD.DeliveryCode
+    '                        INNER JOIN DeliveryDetails DD
+    '                            ON DM.Id = DD.Id
+    '                        INNER JOIN ProductAttributes PA
+    '                            ON PA.PluId = DD.PluID
+    '                        INNER JOIN ProductTax PT
+    '                            ON PT.DeptId = PA.DeptId
+    '                            AND PT.CatId = PA.CatId
+    '                            AND PT.MatId = PA.MaterialId
+    '                            AND PT.IsUpdated = @TaxVersion
+    '                        INNER JOIN Shops S1
+    '                            ON S1.ShopID = DM.DeliveryFrom
+    '                        INNER JOIN Shops S2
+    '                            ON S2.ShopID = DM.DeliveryTo
+    '                        WHERE GD.GroupedDeliveryMasterId = @MasterId
+    '                            AND S1.State <> S2.State
+    '                        GROUP BY
+    '                            DD.CostPrice,
+    '                            PT.Val,
+    '                            PT.Mx,
+    '                            PT.Mn
+    '                    ) AS X
+    '                    GROUP BY
+    '                        X.TaxType,
+    '                        X.TaxPerc;"
+
+
+    '        Using CmdTax As New SqlCommand(SQL, Con)
+
+    '            CmdTax.Parameters.AddWithValue("@MasterId",
+    '                                GroupedDeliveryMasterId)
+
+    '            CmdTax.Parameters.AddWithValue("@TaxVersion",
+    '                               TaxVersion)
+
+    '            Using AdpTax As New SqlDataAdapter(CmdTax)
+
+    '                AdpTax.Fill(TaxTbl)
+
+    '            End Using
+
+    '        End Using
+
+    '        Dataset.Tables.Add(TaxTbl)
+    '        '=======================================================
+    '        ' 11. Create Crystal Report
+    '        '=======================================================
+    '        Dim RptGrouped As New DeliveryValueReport
+
+
+    '        'Main report
+    '        RptGrouped.SetDataSource(Dataset)
+    '        RptGrouped.Subreports("TaxBreakup").SetDataSource(Dataset.Tables(1))
+
+    '        'TaxBreakup subreport
+    '        If RptGrouped.Subreports.Count > 0 Then
+
+    '            Dim TaxBreakupRpt As ReportDocument =
+    '                RptGrouped.Subreports("TaxBreakup")
+
+    '            TaxBreakupRpt.SetDataSource(TaxTbl)
+
+    '        End If
+
+
+    '        '=======================================================
+    '        ' 12. Report Parameters
+    '        '=======================================================
+    '        RptGrouped.SetParameterValue(
+    '            "TNo",
+    '            GroupedDeliveryMasterId.ToString()
+    '        )
+
+    '        RptGrouped.SetParameterValue(
+    '            "TDate",
+    '            DateTime.Now
+    '        )
+
+    '        RptGrouped.SetParameterValue(
+    '            "FromCompanyName",
+    '            FromCompanyName
+    '        )
+
+    '        RptGrouped.SetParameterValue(
+    '            "FromCompanyAddress",
+    '            FromCompanyAddress
+    '        )
+
+    '        RptGrouped.SetParameterValue(
+    '            "FromCompanyGST",
+    '            "GSTIN : " & FromCompanyGST
+    '        )
+
+    '        RptGrouped.SetParameterValue(
+    '            "FromCompanyMobile",
+    '            "Mobile : " & FromCompanyMobile
+    '        )
+
+    '        RptGrouped.SetParameterValue(
+    '            "ToCompanyName",
+    '            ToCompanyName
+    '        )
+
+    '        RptGrouped.SetParameterValue(
+    '            "ToCompanyAddress",
+    '            ToCompanyAddress
+    '        )
+
+    '        RptGrouped.SetParameterValue(
+    '            "ToCompanyGST",
+    '            "GSTIN : " & ToCompanyGST
+    '        )
+
+    '        RptGrouped.SetParameterValue(
+    '            "ToCompanyMobile",
+    '            "Mobile : " & ToCompanyMobile
+    '        )
+
+
+    '        '=======================================================
+    '        ' 13. Show Report
+    '        '=======================================================
+    '        frmReportViewer.CRViewer.ReportSource = RptGrouped
+
+    '        frmReportViewer.Visible = False
+
+    '        frmReportViewer.Show()
+
+
+    '    Catch ex As Exception
+
+    '        If Trn IsNot Nothing Then
+
+    '            Try
+    '                Trn.Rollback()
+    '            Catch
+    '            End Try
+
+    '        End If
+
+
+    '        MessageBox.Show(
+    '            "Error generating grouped delivery receipt: " &
+    '            ex.Message,
+    '            "Error",
+    '            MessageBoxButtons.OK,
+    '            MessageBoxIcon.Error
+    '        )
+
+
+    '    Finally
+
+    '        BtnGrouped.Enabled = True
+
+    '    End Try
+
+    'End Sub
+
 End Class

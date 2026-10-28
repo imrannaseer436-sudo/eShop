@@ -68,14 +68,16 @@ Partial Class ProductDeliveryList
         Me.TTip = New System.Windows.Forms.ToolTip(Me.components)
         Me.SimpleLine1 = New simpleline.assemblies.simpleLine()
         Me.pnlList = New System.Windows.Forms.Panel()
+        Me.BtnDownloadAsExcel = New System.Windows.Forms.Button()
+        Me.BtnGrouped = New System.Windows.Forms.Button()
+        Me.Label9 = New System.Windows.Forms.Label()
+        Me.Label7 = New System.Windows.Forms.Label()
+        Me.DtpToDate = New System.Windows.Forms.DateTimePicker()
+        Me.DtpFromDate = New System.Windows.Forms.DateTimePicker()
         Me.btnFilter = New System.Windows.Forms.Button()
         Me.cmbFilter = New System.Windows.Forms.ComboBox()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.DGV = New System.Windows.Forms.DataGridView()
-        Me.Panel4 = New System.Windows.Forms.Panel()
-        Me.Label4 = New System.Windows.Forms.Label()
-        Me.btnHide = New System.Windows.Forms.Button()
-        Me.btnReprint = New System.Windows.Forms.Button()
         Me.Column9 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Column10 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Column11 = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -84,6 +86,10 @@ Partial Class ProductDeliveryList
         Me.Column14 = New System.Windows.Forms.DataGridViewButtonColumn()
         Me.Column16 = New System.Windows.Forms.DataGridViewButtonColumn()
         Me.Column15 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Panel4 = New System.Windows.Forms.Panel()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.btnHide = New System.Windows.Forms.Button()
+        Me.btnReprint = New System.Windows.Forms.Button()
         Me.Panel1.SuspendLayout()
         Me.TableLayoutPanel1.SuspendLayout()
         CType(Me.TG, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -527,6 +533,12 @@ Partial Class ProductDeliveryList
         '
         Me.pnlList.BackColor = System.Drawing.Color.WhiteSmoke
         Me.pnlList.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.pnlList.Controls.Add(Me.BtnDownloadAsExcel)
+        Me.pnlList.Controls.Add(Me.BtnGrouped)
+        Me.pnlList.Controls.Add(Me.Label9)
+        Me.pnlList.Controls.Add(Me.Label7)
+        Me.pnlList.Controls.Add(Me.DtpToDate)
+        Me.pnlList.Controls.Add(Me.DtpFromDate)
         Me.pnlList.Controls.Add(Me.btnFilter)
         Me.pnlList.Controls.Add(Me.cmbFilter)
         Me.pnlList.Controls.Add(Me.Label5)
@@ -539,6 +551,71 @@ Partial Class ProductDeliveryList
         Me.pnlList.TabIndex = 27
         Me.pnlList.Visible = False
         '
+        'BtnDownloadAsExcel
+        '
+        Me.BtnDownloadAsExcel.BackColor = System.Drawing.Color.DarkGreen
+        Me.BtnDownloadAsExcel.FlatAppearance.BorderSize = 0
+        Me.BtnDownloadAsExcel.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.BtnDownloadAsExcel.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BtnDownloadAsExcel.ForeColor = System.Drawing.Color.White
+        Me.BtnDownloadAsExcel.Location = New System.Drawing.Point(546, 68)
+        Me.BtnDownloadAsExcel.Name = "BtnDownloadAsExcel"
+        Me.BtnDownloadAsExcel.Size = New System.Drawing.Size(123, 23)
+        Me.BtnDownloadAsExcel.TabIndex = 13
+        Me.BtnDownloadAsExcel.Text = "DOWNLOAD AS EXCEL"
+        Me.BtnDownloadAsExcel.UseVisualStyleBackColor = False
+        '
+        'BtnGrouped
+        '
+        Me.BtnGrouped.BackColor = System.Drawing.Color.Navy
+        Me.BtnGrouped.FlatAppearance.BorderSize = 0
+        Me.BtnGrouped.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.BtnGrouped.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BtnGrouped.ForeColor = System.Drawing.Color.White
+        Me.BtnGrouped.Location = New System.Drawing.Point(612, 35)
+        Me.BtnGrouped.Name = "BtnGrouped"
+        Me.BtnGrouped.Size = New System.Drawing.Size(75, 22)
+        Me.BtnGrouped.TabIndex = 12
+        Me.BtnGrouped.Text = "GROUP"
+        Me.BtnGrouped.UseVisualStyleBackColor = False
+        Me.BtnGrouped.Visible = False
+        '
+        'Label9
+        '
+        Me.Label9.AutoSize = True
+        Me.Label9.ForeColor = System.Drawing.Color.Black
+        Me.Label9.Location = New System.Drawing.Point(92, 50)
+        Me.Label9.Name = "Label9"
+        Me.Label9.Size = New System.Drawing.Size(21, 13)
+        Me.Label9.TabIndex = 11
+        Me.Label9.Text = "TO"
+        '
+        'Label7
+        '
+        Me.Label7.AutoSize = True
+        Me.Label7.ForeColor = System.Drawing.Color.Black
+        Me.Label7.Location = New System.Drawing.Point(10, 50)
+        Me.Label7.Name = "Label7"
+        Me.Label7.Size = New System.Drawing.Size(36, 13)
+        Me.Label7.TabIndex = 10
+        Me.Label7.Text = "FROM"
+        '
+        'DtpToDate
+        '
+        Me.DtpToDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
+        Me.DtpToDate.Location = New System.Drawing.Point(92, 69)
+        Me.DtpToDate.Name = "DtpToDate"
+        Me.DtpToDate.Size = New System.Drawing.Size(76, 21)
+        Me.DtpToDate.TabIndex = 9
+        '
+        'DtpFromDate
+        '
+        Me.DtpFromDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
+        Me.DtpFromDate.Location = New System.Drawing.Point(10, 69)
+        Me.DtpFromDate.Name = "DtpFromDate"
+        Me.DtpFromDate.Size = New System.Drawing.Size(76, 21)
+        Me.DtpFromDate.TabIndex = 8
+        '
         'btnFilter
         '
         Me.btnFilter.BackColor = System.Drawing.Color.Navy
@@ -546,9 +623,9 @@ Partial Class ProductDeliveryList
         Me.btnFilter.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnFilter.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnFilter.ForeColor = System.Drawing.Color.White
-        Me.btnFilter.Location = New System.Drawing.Point(454, 68)
+        Me.btnFilter.Location = New System.Drawing.Point(465, 68)
         Me.btnFilter.Name = "btnFilter"
-        Me.btnFilter.Size = New System.Drawing.Size(75, 22)
+        Me.btnFilter.Size = New System.Drawing.Size(75, 23)
         Me.btnFilter.TabIndex = 1
         Me.btnFilter.Text = "DISPLAY"
         Me.btnFilter.UseVisualStyleBackColor = False
@@ -559,7 +636,7 @@ Partial Class ProductDeliveryList
         Me.cmbFilter.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmbFilter.ForeColor = System.Drawing.Color.Black
         Me.cmbFilter.FormattingEnabled = True
-        Me.cmbFilter.Location = New System.Drawing.Point(164, 69)
+        Me.cmbFilter.Location = New System.Drawing.Point(175, 69)
         Me.cmbFilter.Name = "cmbFilter"
         Me.cmbFilter.Size = New System.Drawing.Size(284, 21)
         Me.cmbFilter.TabIndex = 0
@@ -569,7 +646,7 @@ Partial Class ProductDeliveryList
         Me.Label5.AutoSize = True
         Me.Label5.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label5.ForeColor = System.Drawing.Color.Black
-        Me.Label5.Location = New System.Drawing.Point(161, 49)
+        Me.Label5.Location = New System.Drawing.Point(172, 50)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(161, 13)
         Me.Label5.TabIndex = 7
@@ -616,56 +693,6 @@ Partial Class ProductDeliveryList
         Me.DGV.Size = New System.Drawing.Size(683, 399)
         Me.DGV.TabIndex = 2
         Me.DGV.Tag = "1"
-        '
-        'Panel4
-        '
-        Me.Panel4.BackColor = System.Drawing.Color.Gainsboro
-        Me.Panel4.Controls.Add(Me.Label4)
-        Me.Panel4.Controls.Add(Me.btnHide)
-        Me.Panel4.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Panel4.Location = New System.Drawing.Point(0, 0)
-        Me.Panel4.Name = "Panel4"
-        Me.Panel4.Size = New System.Drawing.Size(690, 30)
-        Me.Panel4.TabIndex = 3
-        '
-        'Label4
-        '
-        Me.Label4.AutoSize = True
-        Me.Label4.Font = New System.Drawing.Font("Tahoma", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label4.Location = New System.Drawing.Point(7, 7)
-        Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(114, 16)
-        Me.Label4.TabIndex = 1
-        Me.Label4.Text = "List of Deliveries"
-        '
-        'btnHide
-        '
-        Me.btnHide.BackColor = System.Drawing.Color.Gray
-        Me.btnHide.Dock = System.Windows.Forms.DockStyle.Right
-        Me.btnHide.FlatAppearance.BorderSize = 0
-        Me.btnHide.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnHide.Font = New System.Drawing.Font("Webdings", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(2, Byte))
-        Me.btnHide.ForeColor = System.Drawing.Color.White
-        Me.btnHide.Location = New System.Drawing.Point(650, 0)
-        Me.btnHide.Name = "btnHide"
-        Me.btnHide.Size = New System.Drawing.Size(40, 30)
-        Me.btnHide.TabIndex = 0
-        Me.btnHide.Text = "r"
-        Me.btnHide.UseVisualStyleBackColor = False
-        '
-        'btnReprint
-        '
-        Me.btnReprint.BackColor = System.Drawing.Color.Goldenrod
-        Me.btnReprint.FlatAppearance.BorderSize = 0
-        Me.btnReprint.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnReprint.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Bold)
-        Me.btnReprint.ForeColor = System.Drawing.Color.White
-        Me.btnReprint.Location = New System.Drawing.Point(364, 527)
-        Me.btnReprint.Name = "btnReprint"
-        Me.btnReprint.Size = New System.Drawing.Size(107, 42)
-        Me.btnReprint.TabIndex = 28
-        Me.btnReprint.Text = "&REPRINT"
-        Me.btnReprint.UseVisualStyleBackColor = False
         '
         'Column9
         '
@@ -725,6 +752,56 @@ Partial Class ProductDeliveryList
         Me.Column15.Name = "Column15"
         Me.Column15.ReadOnly = True
         Me.Column15.Width = 23
+        '
+        'Panel4
+        '
+        Me.Panel4.BackColor = System.Drawing.Color.Gainsboro
+        Me.Panel4.Controls.Add(Me.Label4)
+        Me.Panel4.Controls.Add(Me.btnHide)
+        Me.Panel4.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Panel4.Location = New System.Drawing.Point(0, 0)
+        Me.Panel4.Name = "Panel4"
+        Me.Panel4.Size = New System.Drawing.Size(690, 30)
+        Me.Panel4.TabIndex = 3
+        '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.Font = New System.Drawing.Font("Tahoma", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label4.Location = New System.Drawing.Point(7, 7)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(114, 16)
+        Me.Label4.TabIndex = 1
+        Me.Label4.Text = "List of Deliveries"
+        '
+        'btnHide
+        '
+        Me.btnHide.BackColor = System.Drawing.Color.Gray
+        Me.btnHide.Dock = System.Windows.Forms.DockStyle.Right
+        Me.btnHide.FlatAppearance.BorderSize = 0
+        Me.btnHide.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnHide.Font = New System.Drawing.Font("Webdings", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(2, Byte))
+        Me.btnHide.ForeColor = System.Drawing.Color.White
+        Me.btnHide.Location = New System.Drawing.Point(650, 0)
+        Me.btnHide.Name = "btnHide"
+        Me.btnHide.Size = New System.Drawing.Size(40, 30)
+        Me.btnHide.TabIndex = 0
+        Me.btnHide.Text = "r"
+        Me.btnHide.UseVisualStyleBackColor = False
+        '
+        'btnReprint
+        '
+        Me.btnReprint.BackColor = System.Drawing.Color.Goldenrod
+        Me.btnReprint.FlatAppearance.BorderSize = 0
+        Me.btnReprint.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnReprint.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Bold)
+        Me.btnReprint.ForeColor = System.Drawing.Color.White
+        Me.btnReprint.Location = New System.Drawing.Point(364, 527)
+        Me.btnReprint.Name = "btnReprint"
+        Me.btnReprint.Size = New System.Drawing.Size(107, 42)
+        Me.btnReprint.TabIndex = 28
+        Me.btnReprint.Text = "&REPRINT"
+        Me.btnReprint.UseVisualStyleBackColor = False
         '
         'ProductDeliveryList
         '
@@ -826,4 +903,10 @@ Partial Class ProductDeliveryList
     Friend WithEvents Column14 As DataGridViewButtonColumn
     Friend WithEvents Column16 As DataGridViewButtonColumn
     Friend WithEvents Column15 As DataGridViewTextBoxColumn
+    Friend WithEvents Label9 As Label
+    Friend WithEvents Label7 As Label
+    Friend WithEvents DtpToDate As DateTimePicker
+    Friend WithEvents DtpFromDate As DateTimePicker
+    Friend WithEvents BtnGrouped As Button
+    Friend WithEvents BtnDownloadAsExcel As Button
 End Class

@@ -183,6 +183,12 @@
     <Compile Include="Config\frmVendorFind.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Crystal\DeliveryValueReport.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DeliveryValueReport.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Crystal\Denomination2.vb">
       <DependentUpon>Denomination2.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -664,6 +670,10 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Config\frmVendorFind.resx">
       <DependentUpon>frmVendorFind.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Crystal\DeliveryValueReport.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>DeliveryValueReport.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Crystal\Denomination2.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
